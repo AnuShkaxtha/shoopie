@@ -96,6 +96,7 @@ const Cart = () => {
       const orderData = {
         products,
         email: currentUser.email,
+        price: totalPrice,
       };
 
       // Make API request to Strapi endpoint
@@ -115,7 +116,7 @@ const Cart = () => {
       if (response.ok) {
         console.log("Order placed successfully!");
         // Clear the cart after placing the order
-        // dispatch(clearCart());
+        dispatch(clearCart());
       } else {
         console.error("Error placing order:", response.statusText);
       }

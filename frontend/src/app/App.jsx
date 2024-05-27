@@ -11,6 +11,7 @@ import Login from "../pages/Auth/Login";
 import { AuthProvider } from "../entities/auth/AuthProvider";
 import Register from "../pages/Auth/Register";
 import Account from "../pages/Account/Account";
+import OrderList from "@/pages/Account/OrderList";
 
 
 // Define App component
@@ -29,6 +30,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/account" element={<Account/>}/>
+        <Route path="/orders" element={<OrderList/>}/>
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -405,6 +405,7 @@ export interface ApiOrderOrder extends Schema.CollectionType {
   attributes: {
     products: Attribute.JSON;
     email: Attribute.Email;
+    price: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

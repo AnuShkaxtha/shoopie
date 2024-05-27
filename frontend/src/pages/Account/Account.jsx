@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth } from "../../entities/auth/AuthProvider";
+import OrderList from "./OrderList";
 
 const Account = () => {
   const { currentUser } = useAuth();
@@ -11,6 +12,7 @@ const Account = () => {
         {currentUser.displayName ? currentUser.displayName : currentUser.email},
         you are now logged in.
       </div>
+      <OrderList/>
     </div>
   );
 };

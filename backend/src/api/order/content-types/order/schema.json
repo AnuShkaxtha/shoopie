@@ -17,6 +17,9 @@
     },
     "email": {
       "type": "email"
+    },
+    "price": {
+      "type": "integer"
     }
   }
 }
