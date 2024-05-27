@@ -18,9 +18,19 @@ const Register = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        if(!isRegistering) {
+        if (!isRegistering) {
             setIsRegistering(true)
-            await doCreateUserWithEmailAndPassword(email, password)
+            if (password !== confirmPassword) {
+                setErrorMessage("Passwords do not match.")
+                setIsRegistering(false)
+                return
+            }
+            try {
+                await doCreateUserWithEmailAndPassword(email, password)
+            } catch (error) {
+                setErrorMessage(error.message)
+                setIsRegistering(false)
+            }
         }
     }
 
@@ -36,6 +46,11 @@ const Register = () => {
                         </div>
 
                     </div>
+                    {errorMessage && (
+                        <span className="block mb-4 font-bold text-center text-red-600">
+                            {errorMessage}
+                        </span>
+                    )}
                     <form
                         onSubmit={onSubmit}
                         className="space-y-4"
@@ -81,9 +96,6 @@ const Register = () => {
                             />
                         </div>
 
-                        {errorMessage && (
-                            <span className='font-bold text-red-600'>{errorMessage}</span>
-                        )}
 
                         <button
                             type="submit"

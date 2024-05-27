@@ -21,7 +21,12 @@ const Login = () => {
     e.preventDefault();
     if (!isSigningIn) {
       setIsSigningIn(true);
-      await doSignInWithEmailAndPassword(email, password);
+      try {
+        await doSignInWithEmailAndPassword(email, password);
+      } catch (error) {
+        setErrorMessage(error.message);
+        setIsSigningIn(false);
+      }
       // doSendEmailVerification()
     }
   };
@@ -31,6 +36,7 @@ const Login = () => {
     if (!isSigningIn) {
       setIsSigningIn(true);
       doSignInWithGoogle().catch((err) => {
+        setErrorMessage(err.message);
         setIsSigningIn(false);
       });
     }
@@ -49,6 +55,11 @@ const Login = () => {
               </h3>
             </div>
           </div>
+          {errorMessage && (
+            <span className="block mb-4 font-bold text-center text-red-600">
+              {errorMessage}
+            </span>
+          )}
           <form onSubmit={onSubmit} className="space-y-5">
             <div>
               <label className="text-sm font-bold ">Email</label>
@@ -78,9 +89,7 @@ const Login = () => {
               />
             </div>
 
-            {errorMessage && (
-              <span className="font-bold text-red-600">{errorMessage}</span>
-            )}
+            
 
             <button
               type="submit"
