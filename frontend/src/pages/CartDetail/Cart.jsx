@@ -3,13 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
   increaseCount,
   decreaseCount,
   clearCart,
@@ -20,7 +13,6 @@ import { Plus, Minus } from "lucide-react";
 import { useAuth } from "@/entities/auth/AuthProvider";
 import { loadCartItemsFromStorage } from "@/app/store/index";
 import { useNavigate } from "react-router-dom";
-import { doSignOut } from "@/entities/firebase/auth";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -139,13 +131,13 @@ const Cart = () => {
             <div>Cart Empty</div>
           ) : (
             <>
+            {/* ITEMS */}
               <div className="space-y-4">
                 {cart.map((item) => {
                   const imageUrl = `http://localhost:1337${item.image.data.attributes.url}`;
                   return (
                     <div key={item.id} className="pb-4 mb-4 border-b">
                       <div className="flex items-center justify-start ml-5">
-                        {/* image */}
                         <div>
                           <img
                             src={imageUrl}
@@ -153,7 +145,6 @@ const Cart = () => {
                             className="w-[150px] mr-4 h-25"
                           />
                         </div>
-
                         <div className="mb-8 ml-4">
                           <p className="mb-3 text-lg font-bold">{item.name}</p>
                           <p className="mb-0.5 text-sm">Price: ${item.price}</p>
@@ -187,6 +178,7 @@ const Cart = () => {
                   );
                 })}
               </div>
+              {/* TOTAL */}
               <div className="flex justify-end mt-4 text-[15px]">
                 <div className="text-right">
                   <p className="mb-2">
@@ -199,6 +191,7 @@ const Cart = () => {
                   </p>
                 </div>
               </div>
+              {/* CHECKOUT */}
               <div className="flex justify-end">
                 <Button onClick={handleCheckout} disabled={loading}>
                   {loading ? "Placing Order..." : "Proceed To Checkout"}
