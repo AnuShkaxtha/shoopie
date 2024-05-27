@@ -89,8 +89,6 @@ const Login = () => {
               />
             </div>
 
-            
-
             <button
               type="submit"
               disabled={isSigningIn}
@@ -125,9 +123,8 @@ const Login = () => {
                 : "hover:bg-gray-100 transition duration-300 active:bg-gray-100"
             }`}
           >
-            
             <FcGoogle size={22} />
-            
+
             {isSigningIn ? "Signing In..." : "Continue with Google"}
           </button>
         </div>
