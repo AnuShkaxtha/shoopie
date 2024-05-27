@@ -29,7 +29,7 @@ const Cart = () => {
   const [loading, setLoading] = useState(false); // Track loading state for API request
   const cart = useSelector((state) => state.cart.cart);
 
-  // authentication
+  // Authentication
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
@@ -62,7 +62,7 @@ const Cart = () => {
     }
   }, [cart, currentUser]);
 
-  //functions to handle items in cart
+  // Functions to handle items in cart
   const handleIncrement = (itemId) => {
     dispatch(increaseCount({ id: itemId }));
   };
@@ -80,18 +80,15 @@ const Cart = () => {
   };
 
   // Function to handle checkout
-  // Function to handle checkout
   const handleCheckout = async () => {
     setLoading(true);
     try {
-      // Extract product details from the cart
+      // Extracting product details from the cart
       const products = cart.map((item) => ({
         productName: item.name,
         productId: item.id,
         quantity: item.qnty,
-        // Add any additional product details required by your Strapi API
       }));
-
       // Prepare the order data
       const orderData = {
         products,
@@ -112,7 +109,6 @@ const Cart = () => {
 
       // Logging response data
       console.log("Response:", responseData);
-      // Check if request was successful
       if (response.ok) {
         console.log("Order placed successfully!");
         // Clear the cart after placing the order
@@ -128,14 +124,7 @@ const Cart = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        marginTop: "70px",
-        padding: "50px 0",
-      }}
-    >
+    <div className="flex justify-center mt-[70px] py-[50px]">
       <Card className="w-[650px]">
         <CardHeader>
           <div className="flex justify-between">
@@ -157,7 +146,7 @@ const Cart = () => {
                     <div key={item.id} className="pb-4 mb-4 border-b">
                       <div className="flex items-center justify-start ml-5">
                         {/* image */}
-                        <div >
+                        <div>
                           <img
                             src={imageUrl}
                             alt={item.name}

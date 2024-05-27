@@ -18,12 +18,14 @@ const Register = () => {
     e.preventDefault();
     if (!isRegistering) {
       setIsRegistering(true);
+      // CHECKING PASSWORD VALIDATION
       if (password !== confirmPassword) {
         setErrorMessage("Passwords do not match.");
         setIsRegistering(false);
         return;
       }
       try {
+        // CREATING USER
         await doCreateUserWithEmailAndPassword(email, password);
       } catch (error) {
         setErrorMessage(error.message);
@@ -45,12 +47,15 @@ const Register = () => {
               </h3>
             </div>
           </div>
+          {/* ERROR */}
           {errorMessage && (
             <span className="block mb-4 font-bold text-center text-red-600">
               {errorMessage}
             </span>
           )}
+          {/* FORM */}
           <form onSubmit={onSubmit} className="space-y-4">
+            {/* EMAIL */}
             <div>
               <label className="text-sm font-bold text-gray-600">Email</label>
               <input
@@ -64,7 +69,7 @@ const Register = () => {
                 className="w-full px-3 py-2 mt-2 text-gray-500 transition duration-300 bg-transparent border rounded-lg shadow-sm outline-none focus:indigo-600"
               />
             </div>
-
+            {/* PASSWORD */}
             <div>
               <label className="text-sm font-bold text-gray-600">
                 Password
@@ -81,7 +86,7 @@ const Register = () => {
                 className="w-full px-3 py-2 mt-2 text-gray-500 transition duration-300 bg-transparent border rounded-lg shadow-sm outline-none focus:border-indigo-600"
               />
             </div>
-
+            {/* CONFIRM PASSWORD */}
             <div>
               <label className="text-sm font-bold text-gray-600">
                 Confirm Password

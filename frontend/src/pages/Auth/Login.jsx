@@ -17,6 +17,7 @@ const Login = () => {
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Email-Password authentication
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!isSigningIn) {
@@ -30,7 +31,7 @@ const Login = () => {
       // doSendEmailVerification()
     }
   };
-
+  // Google authentication
   const onGoogleSignIn = (e) => {
     e.preventDefault();
     if (!isSigningIn) {
@@ -55,12 +56,15 @@ const Login = () => {
               </h3>
             </div>
           </div>
+          {/* DIDPLAYING ERROR */}
           {errorMessage && (
             <span className="block mb-4 font-bold text-center text-red-600">
               {errorMessage}
             </span>
           )}
+          {/*  FORM  */}
           <form onSubmit={onSubmit} className="space-y-5">
+            {/* EMAIL */}
             <div>
               <label className="text-sm font-bold ">Email</label>
               <input
@@ -74,7 +78,7 @@ const Login = () => {
                 className="w-full px-3 py-2 mt-2 transition duration-300 bg-transparent border rounded-lg shadow-sm outline-none focus:border-indigo-600"
               />
             </div>
-
+            {/* PASSWORD */}
             <div>
               <label className="text-sm font-bold ">Password</label>
               <input
@@ -88,7 +92,7 @@ const Login = () => {
                 className="w-full px-3 py-2 mt-2 transition duration-300 bg-transparent border rounded-lg shadow-sm outline-none focus:border-indigo-600"
               />
             </div>
-
+            {/* SUBMIT */}
             <button
               type="submit"
               disabled={isSigningIn}
@@ -101,6 +105,7 @@ const Login = () => {
               {isSigningIn ? "Signing In..." : "Sign In"}
             </button>
           </form>
+          {/* REGISTER */}
           <p className="text-sm text-center">
             Don't have an account?{" "}
             <Link to={"/register"} className="font-bold hover:underline">
@@ -112,6 +117,7 @@ const Login = () => {
             <div className="text-sm font-bold w-fit">OR</div>
             <div className="border-b-2 mb-2.5 ml-2 w-full"></div>
           </div>
+          {/* GOOGLE */}
           <button
             disabled={isSigningIn}
             onClick={(e) => {

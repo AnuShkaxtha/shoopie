@@ -9,6 +9,7 @@ const OrderList = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
+  // Fetching order list from strapi api
   useEffect(() => {
     if (!currentUser) {
       navigate('/login');
