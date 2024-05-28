@@ -862,6 +862,7 @@ export interface ApiUserLoginUserLogin extends Schema.CollectionType {
   };
   attributes: {
     email: Attribute.Email & Attribute.Required;
+    userId: Attribute.UID;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

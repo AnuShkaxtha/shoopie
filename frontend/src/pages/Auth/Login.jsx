@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
 import {
   doSignInWithEmailAndPassword,
@@ -11,13 +11,12 @@ import { FcGoogle } from "react-icons/fc";
 const Login = () => {
   const { userLoggedIn } = useAuth();
   const { theme } = useTheme(); // Access the theme using useTheme hook
- const {currentUser} = useAuth();
+  const { currentUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  
   // Email-Password authentication
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +24,6 @@ const Login = () => {
       setIsSigningIn(true);
       try {
         await doSignInWithEmailAndPassword(email, password);
-        
       } catch (error) {
         setErrorMessage(error.message);
         setIsSigningIn(false);
@@ -40,7 +38,6 @@ const Login = () => {
       setIsSigningIn(true);
       try {
         await doSignInWithGoogle();
-       
       } catch (error) {
         setErrorMessage(error.message);
         setIsSigningIn(false);
@@ -48,34 +45,52 @@ const Login = () => {
     }
   };
 
-  
-  
-   // Function to send user details to Strapi backend
-   const sendUserDetailsToBackend = async (userEmail) => {
+  const checkUserExists = async (userEmail) => {
     try {
-      const loginData={
-        email: userEmail, 
-      }
-      const response = await fetch("http://localhost:1337/api/user-logins", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ data: loginData }), // Send user email to backend
-      });
-      if (!response.ok) {
-        throw new Error("Failed to store user details in backend.");
+      const response = await fetch(
+        `http://localhost:1337/api/user-logins?filters[email][$eq]=${encodeURIComponent(userEmail)}`
+      );
+      const data = await response.json();
+      return data.data.length > 0; // Check if the data array is not empty
+    } catch (error) {
+      console.error("Error checking user existence:", error.message);
+      return false; // Return false in case of error
+    }
+  };
+
+  // Function to send user details to Strapi backend
+  const sendUserDetailsToBackend = async (userEmail,uid) => {
+    try {
+      // Check if the user already exists in the backend
+      const userExists = await checkUserExists(userEmail);
+      if (!userExists) {
+        const loginData = {
+          email: userEmail,
+          userId: uid,
+        };
+        const response = await fetch("http://localhost:1337/api/user-logins", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ data: loginData }), // Send user email to backend
+        });
+        if (!response.ok) {
+          throw new Error("Failed to store user details in backend.");
+        }
       }
     } catch (error) {
       console.error("Error storing user details in backend:", error.message);
     }
   };
+  
 
   useEffect(() => {
     if (currentUser) {
-      sendUserDetailsToBackend(currentUser.email);
+      sendUserDetailsToBackend(currentUser.email,currentUser.uid);
     }
   }, [currentUser]);
+  
   return (
     <div className={`login-container ${theme}`}>
       {userLoggedIn && <Navigate to={"/"} replace={true} />}

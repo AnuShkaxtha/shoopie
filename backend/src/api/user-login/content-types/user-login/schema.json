@@ -14,6 +14,9 @@
     "email": {
       "type": "email",
       "required": true
+    },
+    "userId": {
+      "type": "uid"
     }
   }
 }

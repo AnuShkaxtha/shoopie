@@ -25,6 +25,7 @@ const Cart = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
+  console.log(currentUser)
   // Load cart items from local storage on component mount
   useEffect(() => {
     if (!currentUser) {
