@@ -113,6 +113,23 @@ const ShoppingList = () => {
     );
   };
 
+  const handleClearFilters = () => {
+    setSearchInput(""); // Clear search input
+    setAllItem(true); // Reset all item filter
+    setFilterCategories({
+      newArrivalsItems: false,
+      bestSellersItems: false,
+      topRatedItems: false,
+    }); // Reset category filters
+    setSearchPriceInput(""); // Clear price search input
+    setPriceRanges({
+      range0_300: false,
+      range300_600: false,
+      range600_1000: false,
+      range1000_4000: false,
+    }); // Reset price range filters
+  };
+
   return (
     <div className="grid grid-cols-5 gap-4">
       {/* GUIDE SECTION */}
@@ -209,7 +226,15 @@ const ShoppingList = () => {
             <span>1000-4000</span>
           </label>
         </div>
+        {/* Button to clear all above filter */}
+        <button
+        className="px-4 py-2 mt-4 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none"
+        onClick={handleClearFilters}
+      >
+        Clear Filters
+      </button>
       </div>
+
 
       {/* ITEM SECTION */}
       <div className="col-span-4">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
 import {
   doSignInWithEmailAndPassword,
@@ -11,12 +11,13 @@ import { FcGoogle } from "react-icons/fc";
 const Login = () => {
   const { userLoggedIn } = useAuth();
   const { theme } = useTheme(); // Access the theme using useTheme hook
-
+ const {currentUser} = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  
   // Email-Password authentication
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +25,7 @@ const Login = () => {
       setIsSigningIn(true);
       try {
         await doSignInWithEmailAndPassword(email, password);
+        
       } catch (error) {
         setErrorMessage(error.message);
         setIsSigningIn(false);
@@ -32,17 +34,48 @@ const Login = () => {
     }
   };
   // Google authentication
-  const onGoogleSignIn = (e) => {
+  const onGoogleSignIn = async (e) => {
     e.preventDefault();
     if (!isSigningIn) {
       setIsSigningIn(true);
-      doSignInWithGoogle().catch((err) => {
-        setErrorMessage(err.message);
+      try {
+        await doSignInWithGoogle();
+       
+      } catch (error) {
+        setErrorMessage(error.message);
         setIsSigningIn(false);
-      });
+      }
     }
   };
 
+  
+  
+   // Function to send user details to Strapi backend
+   const sendUserDetailsToBackend = async (userEmail) => {
+    try {
+      const loginData={
+        email: userEmail, 
+      }
+      const response = await fetch("http://localhost:1337/api/user-logins", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data: loginData }), // Send user email to backend
+      });
+      if (!response.ok) {
+        throw new Error("Failed to store user details in backend.");
+      }
+    } catch (error) {
+      console.error("Error storing user details in backend:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      sendUserDetailsToBackend(currentUser.email);
+    }
+  }, [currentUser]);
   return (
     <div className={`login-container ${theme}`}>
       {userLoggedIn && <Navigate to={"/"} replace={true} />}

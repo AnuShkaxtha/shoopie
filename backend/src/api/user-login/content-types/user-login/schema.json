@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_logins",
+  "info": {
+    "singularName": "user-login",
+    "pluralName": "user-logins",
+    "displayName": "UserLogin"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true
+    }
+  }
+}
