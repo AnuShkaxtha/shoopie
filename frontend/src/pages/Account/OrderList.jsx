@@ -54,7 +54,7 @@ const OrderList = () => {
                 <div key={order.id} className="pb-4 mb-4 border-b">
                   <p className="text-lg font-bold ">Order ID: {order.id}</p>
                   <div className='mt-2 ml-8'>
-                  <p className="text-sm">Ordered Date: {order.attributes.createdAt}</p>
+                  <p className="text-sm">Ordered Date: {new Date (order.attributes.createdAt).toLocaleString()}</p>
                   <p className="text-sm">Total Items: {order.attributes.products.length}</p>
                   <div className="space-y-2">
                     {order.attributes.products.map((product, index) => (
