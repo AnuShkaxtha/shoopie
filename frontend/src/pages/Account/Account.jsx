@@ -18,8 +18,7 @@ const Account = () => {
   useEffect(() => {
     if (!currentUser) {
       navigate("/login");
-    }
-    else {
+    } else {
       const userId = currentUser.uid;
 
       const fetchUserDetails = async () => {
@@ -40,7 +39,7 @@ const Account = () => {
 
       fetchUserDetails();
     }
-  }, [currentUser]); // Add currentUser.uid to the dependency array
+  }, [currentUser]); 
 
   useEffect(() => {
     // Log userDetails whenever it changes
@@ -48,13 +47,9 @@ const Account = () => {
   }, [userDetails]);
 
   return (
-    <div className="grid grid-cols-5  gap-4 mt-12 min-h-[630px] h-auto">
-      {/* GUIDE SECTION */}
-      <div
-        className={`col-span-1 mt-5  text-center shadow-xl ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-700"
-          }`}
-      >
-        <div className="p-2 mt-9">
+    <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mt-12 min-h-[630px] h-auto">
+      <div className="shadow-xl md:col-span-1 md:mt-5 md:text-center md:bg-transparent">
+        <div className="p-2 md:mt-9">
           <Button
             variant="ghost"
             onClick={() => setShowAccount(true)}
@@ -71,27 +66,26 @@ const Account = () => {
             Order Detail
           </Button>
           <Separator className="my-2 bg-gray-400" />
-          <Button className="mt-2 w-[100px]" onClick={() => { doSignOut().then(() => { navigate("/login"); }); }}>
+          <Button className="mt-2 w-full md:w-[100px]" onClick={() => { doSignOut().then(() => { navigate("/login"); }); }}>
             Logout
           </Button>
         </div>
       </div>
-      <div className="col-span-4 text-center mb-9">
+      <div className="text-center md:col-span-4 md:text-left mb-9">
 
         {showAccount ? (
-          <div className="text-left pt-14">
-            <Card className="w-[650px]">
+          <div className="pt-14">
+            <Card className="mx-3 md:w-[650px]">
               <CardHeader>
                 <CardTitle>My Account</CardTitle>
               </CardHeader>
               <CardContent>
                 {userDetails ? (
-                  <div className="space-y-[10px]">
-                    <p className="font-bold">Name:  <span className="font-normal"> {currentUser.displayName ? currentUser.displayName : currentUser.email.split('@')[0]}</span> </p>
-                    <p className="font-bold">Email: <span className="font-normal">{userDetails.email}</span> </p>
-                    <p className="font-bold">User ID: <span className="font-normal">{userDetails.userId}</span> </p>
-                    <p className="font-bold">Created At: <span className="font-normal">{new Date(userDetails.createdAt).toLocaleString()}</span> </p>
-
+                  <div className="space-y-4 md:space-y-10">
+                    <p className="font-bold">Name: <span className="font-normal"> {currentUser.displayName ? currentUser.displayName : currentUser.email.split('@')[0]}</span></p>
+                    <p className="font-bold">Email: <span className="font-normal">{userDetails.email}</span></p>
+                    <p className="font-bold">User ID: <span className="font-normal">{userDetails.userId}</span></p>
+                    <p className="font-bold">Created At: <span className="font-normal">{new Date(userDetails.createdAt).toLocaleString()}</span></p>
                   </div>
                 ) : (
                   <p>Loading...</p>

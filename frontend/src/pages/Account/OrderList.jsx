@@ -41,7 +41,7 @@ const OrderList = () => {
 
   return (
     <div className='flex justify-start mt-12 text-left'>
-      <Card className="w-[750px]">
+      <Card className="w-[750px] mx-3">
         <CardHeader>
           <CardTitle>Your Orders</CardTitle>
         </CardHeader>
