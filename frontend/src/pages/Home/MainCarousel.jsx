@@ -46,9 +46,9 @@ const MainCarousel = () => {
   };
 
   return (
-    <div className="relative w-full">
-      <Carousel className="w-full h-96">
-        <CarouselContent className="relative h-96">
+    <div className="relative w-full mt-12 md:mt-16">
+      <Carousel className="w-full h-96 ">
+        <CarouselContent className="relative h-96 ">
           {images.map((src, index) => (
             <CarouselItem
               key={index}
