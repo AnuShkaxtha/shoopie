@@ -9,7 +9,7 @@ import {
   removeSingleItems,
   setCart,
 } from "@/app/store/index";
-import { Plus, Minus } from "lucide-react";
+import { Plus, Minus, ShoppingCart } from "lucide-react";
 import { useAuth } from "@/entities/auth/AuthProvider";
 import { loadCartItemsFromStorage } from "@/app/store/index";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +20,7 @@ const Cart = () => {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [loading, setLoading] = useState(false); // Track loading state for API request
   const cart = useSelector((state) => state.cart.cart);
-
+  const [orderSuccess, setOrderSuccess] = useState(false); // Track order success
   // Authentication
   const { currentUser } = useAuth();
   const navigate = useNavigate();
@@ -74,6 +74,7 @@ const Cart = () => {
   // Function to handle checkout
   const handleCheckout = async () => {
     setLoading(true);
+    setOrderSuccess(false);
     try {
       // Extracting product details from the cart
       const products = cart.map((item) => ({
@@ -103,6 +104,7 @@ const Cart = () => {
       console.log("Response:", responseData);
       if (response.ok) {
         console.log("Order placed successfully!");
+        setOrderSuccess(true);
         // Clear the cart after placing the order
         dispatch(clearCart());
       } else {
@@ -127,11 +129,23 @@ const Cart = () => {
           </div>
         </CardHeader>
         <CardContent>
+          {orderSuccess && (
+            <div className="mb-4 text-green-500">
+              Order placed successfully!
+            </div>
+          )}
           {cart.length <= 0 ? (
-            <div>Cart Empty</div>
+            <div className="flex flex-col items-center justify-center mt-7">
+              <p className="text-lg">Your cart is Empty </p>
+              <div className="my-7">
+                <ShoppingCart size={40} />
+              </div>
+              <Button onClick={() => navigate("/")}>Continue Shooping </Button>
+            </div>
+            
           ) : (
             <>
-            {/* ITEMS */}
+              {/* ITEMS */}
               <div className="space-y-4">
                 {cart.map((item) => {
                   const imageUrl = `http://localhost:1337${item.image.data.attributes.url}`;
