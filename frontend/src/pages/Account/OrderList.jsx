@@ -53,14 +53,14 @@ const OrderList = () => {
               {orders.map((order) => (
                 <div key={order.id} className="pb-4 mb-4 border-b">
                   <p className="text-lg font-bold ">Order ID: {order.id}</p>
-                  <div className='mt-2 ml-8'>
+                  <div className='mt-2 space-y-2 ml-9'>
                   <p className="text-sm">Ordered Date: {new Date (order.attributes.createdAt).toLocaleString()}</p>
                   <p className="text-sm">Total Items: {order.attributes.products.length}</p>
-                  <div className="space-y-2">
+                  <div className="space-y-2 text-right">
                     {order.attributes.products.map((product, index) => (
-                      <div key={index} className="ml-5">
+                      <div key={index} className="flex justify-between ml-8 w-[300px]">
                         <p className="text-sm">Product: {product.productName}</p>
-                        <p className="text-sm">Quantity: {product.quantity}</p>
+                        <p className="text-sm ml-9">Quantity: {product.quantity}</p>
                       </div>
                     ))}
                     <p className="text-sm">Total Price: ${order.attributes.price}</p>

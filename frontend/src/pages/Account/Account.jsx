@@ -47,7 +47,7 @@ const Account = () => {
   }, [userDetails]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mt-12 min-h-[630px] h-auto">
+    <div className="grid grid-cols-1 md:grid-cols-5 sm:mt-20 gap-4 md:mt-12 mt-12 min-h-[630px] h-auto">
       <div className="shadow-xl md:col-span-1 md:mt-5 md:text-center md:bg-transparent">
         <div className="p-2 md:mt-9">
           <Button

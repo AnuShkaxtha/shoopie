@@ -1,6 +1,6 @@
 // Import React and required components
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import ItemDetails from "../pages/itemDetails/ItemDetails";
 import { Navbar } from "../shared/ui/Navbar";
@@ -13,6 +13,15 @@ import Register from "../pages/Auth/Register";
 import Account from "../pages/Account/Account";
 import OrderList from "@/pages/Account/OrderList";
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 // Define App component
 function App() {
@@ -22,6 +31,7 @@ function App() {
     
     <BrowserRouter>
       <Navbar />
+      <ScrollToTop/>
       <Routes>
         <Route path="/" element={<Home />} />
         {/* Pass itemId as a prop to ItemDetails component */}
