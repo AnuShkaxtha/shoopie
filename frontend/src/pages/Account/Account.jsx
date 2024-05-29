@@ -14,18 +14,23 @@ const Account = () => {
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
+    // navigate is user is not logged in 
     if (!currentUser) {
       navigate("/login");
     } 
     else {
+      // assigning user id 
       const userId = currentUser.uid;
-
+      // function to fetch current user detail from strapi backend 
       const fetchUserDetails = async () => {
         try {
+          // fetching data based on user id 
           const response = await fetch(
             `http://localhost:1337/api/user-logins?filters[userId][$eq]=${userId}`
           );
+          // storing json body of response as result
           const result = await response.json();
+          // if result exist 
           if (result.data && result.data.length > 0) {
             setUserDetails(result.data[0].attributes);
           } else {

@@ -1,8 +1,8 @@
-// store/shoppingSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
+  //initial state of filters
   searchInput: "",
   filterCategories: {
     newArrivals: false,
@@ -22,18 +22,23 @@ export const shoppingSlice = createSlice({
   name: "shopping",
   initialState,
   reducers: {
+    // action for managing items state
     setItems: (state, action) => {
       state.items = action.payload;
     },
+    // action to set seach input value 
     setSearchInput: (state, action) => {
       state.searchInput = action.payload;
     },
+    // action to set item based on category 
     toggleCategoryFilter: (state, action) => {
       state.filterCategories[action.payload] = !state.filterCategories[action.payload];
     },
+
     togglePriceFilter: (state, action) => {
       state.priceRanges[action.payload] = !state.priceRanges[action.payload];
     },
+    // action to clear all filter 
     clearFilters: (state) => {
       state.filterCategories = {
         newArrivals: false,

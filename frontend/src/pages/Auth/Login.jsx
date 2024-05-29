@@ -5,12 +5,12 @@ import {
   doSignInWithGoogle,
 } from "../../entities/firebase/auth";
 import { useAuth } from "../../entities/auth/AuthProvider";
-import { useTheme } from "@emotion/react"; // Import useTheme hook
+import { useTheme } from "@emotion/react"; 
 import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   const { userLoggedIn } = useAuth();
-  const { theme } = useTheme(); // Access the theme using useTheme hook
+  const { theme } = useTheme(); 
   const { currentUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +19,9 @@ const Login = () => {
 
   // Email-Password authentication
   const onSubmit = async (e) => {
+    //prevents default submission
     e.preventDefault();
+    // if user is signing in 
     if (!isSigningIn) {
       setIsSigningIn(true);
       try {
@@ -28,9 +30,9 @@ const Login = () => {
         setErrorMessage(error.message);
         setIsSigningIn(false);
       }
-      // doSendEmailVerification()
     }
   };
+  
   // Google authentication
   const onGoogleSignIn = async (e) => {
     e.preventDefault();
@@ -45,10 +47,12 @@ const Login = () => {
     }
   };
 
+  // checking if user already exist in strapi backend based on user email
   const checkUserExists = async (userEmail) => {
     try {
       const response = await fetch(
-        `http://localhost:1337/api/user-logins?filters[email][$eq]=${encodeURIComponent(userEmail)}`
+        //replace to  UTF-8 encoding.
+        `http://localhost:1337/api/user-logins?filters[email][$eq]=${encodeURIComponent(userEmail)}`  
       );
       const data = await response.json();
       return data.data.length > 0; // Check if the data array is not empty
