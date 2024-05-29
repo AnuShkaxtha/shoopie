@@ -5,50 +5,20 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Item from "../itemDetails/Item";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { clearFilters, setSearchInput, toggleCategoryFilter, togglePriceFilter } from "@/app/store/shoppingSlice";
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
+    // State from shopping slice
+    const { items: shoppingItems, searchInput, filterCategories, priceRanges, allItem } = useSelector((state) => state.shopping);
   // manage current tab value 
   const [value, setValue] = useState("all");  //default:all
 
   //getting list of items from redux store
   const items = useSelector((state) => state.cart.items);
 
-  // filtering items 
-  const [allItem, setAllItem] = useState(true);   
-  const [searchPriceInput, setSearchPriceInput] = useState("");
-  const [searchInput, setSearchInput] = useState("");
-
-  // state to filter by category 
-  const [filterCategories, setFilterCategories] = useState({
-    newArrivalsItems: false,
-    bestSellersItems: false,
-    topRatedItems: false,
-  });
-  
-// state to filter by price
-  const [priceRanges, setPriceRanges] = useState({
-    range0_300: false,
-    range300_600: false,
-    range600_1000: false,
-    range1000_4000: false,
-  });
-
-  // function to change tab value 
-  const handleChange = (eve, newValue) => {
-    setValue(newValue);
-  };
-  
-// function to change state of price range
-  const handlePriceRangeChange = (range) => {
-    setPriceRanges((prevState) => ({
-      ...prevState,
-      [range]: !prevState[range],
-    }));
-  };
-
-  // fetching items from strapi api 
-  async function getItems() {
+   // fetching items from strapi api 
+   async function getItems() {
     const items = await fetch(
       "http://localhost:1337/api/items?populate=image",
       {
@@ -62,14 +32,25 @@ const ShoppingList = () => {
   useEffect(() => {
     getItems();
   }, [dispatch]);
+  
+  // function to change tab value 
+  const handleChange = (eve, newValue) => {
+    setValue(newValue);
+  };
+  
+// function to change state of price range
+  const handlePriceRangeChange = (range) => {
+    dispatch(togglePriceFilter(range));
+  };
+
+  // search item 
+  const handleSearchInputChange = (event) => {
+    dispatch(setSearchInput(event.target.value));
+  };
 
   // update search input chnage 
   const handleCheckboxChange = (category) => {
-    setAllItem(false);
-    setFilterCategories((prevState) => ({
-      ...prevState,
-      [category]: !prevState[category],
-    }));
+    dispatch(toggleCategoryFilter(category));
   };
 
   // filtering items based on category, price and search input 
@@ -109,10 +90,9 @@ const ShoppingList = () => {
       item.attributes.name.toLowerCase().includes(searchInput.toLowerCase())
     );
   };
+
   const filteredItems = filterItemsByCategory();
-  const handleSearchInputChange = (event) => {
-    setSearchInput(event.target.value);
-  };
+
   
   // check if filter has been applied
   const hasFiltersApplied = () => {
@@ -122,24 +102,6 @@ const ShoppingList = () => {
       Object.values(filterCategories).some((value) => value) ||
       Object.values(priceRanges).some((value) => value)
     );
-  };
-
-  // reset all filter 
-  const handleClearFilters = () => {
-    setSearchInput(""); // Clear search input
-    setAllItem(true); // Reset all item filter
-    setFilterCategories({
-      newArrivalsItems: false,
-      bestSellersItems: false,
-      topRatedItems: false,
-    }); // Reset category filters
-    setSearchPriceInput(""); // Clear price search input
-    setPriceRanges({
-      range0_300: false,
-      range300_600: false,
-      range600_1000: false,
-      range1000_4000: false,
-    }); // Reset price range filters
   };
 
   return (
@@ -165,7 +127,7 @@ const ShoppingList = () => {
             <input
               type="checkbox"
               className="mr-2 form-checkbox"
-              onChange={() => setAllItem(true)}
+              onChange={() => dispatch(clearFilters())}
             />
             <p>All</p>
           </label>
@@ -241,7 +203,7 @@ const ShoppingList = () => {
         {/* Button to clear all above filter */}
         <button
         className="px-4 py-2 mt-4 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none"
-        onClick={handleClearFilters}
+        onClick={() => dispatch(clearFilters())}
       >
         Clear Filters
       </button>
