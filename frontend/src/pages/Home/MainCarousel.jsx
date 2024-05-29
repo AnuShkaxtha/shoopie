@@ -9,14 +9,16 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useTheme } from "@/processes/theme/theme-provider";
+import { Link} from "react-scroll";
 
-// Fetching images from assets
+// Fetching images from assets and storing them as object 
 const heroTextureImports = import.meta.glob(
   "../../assets/*.{png,jpg,jpeg,svg}",
-  { eager: true }
+  { eager: true } // images are imported immediately 
 );
 
 const MainCarousel = () => {
+  // creating array of image 
   const images = Object.values(heroTextureImports).map(
     (module) => module.default
   );
@@ -85,7 +87,10 @@ const MainCarousel = () => {
       >
         <p className="text-lg">-- NEW ITEMS --</p>
         <h1 className="text-4xl font-bold">Summer Sale</h1>
+        <Link to="shop" className="cursor-pointer">
         <p className="text-xl font-semibold underline">Discover More</p>
+        </Link>
+        
       </div>
     </div>
   );

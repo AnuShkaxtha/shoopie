@@ -36,17 +36,20 @@ import { doSignOut } from "@/entities/firebase/auth";
 import { Input } from "@/components/ui/input";
 import { loadCartItemsFromStorage } from "@/app/store";
 import { setCart } from "@/app/store";
+
+
+
 export function Navbar() {
   const { theme, setTheme } = useTheme();
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart.cart);
-  const { userLoggedIn } = useAuth();
   const navigate = useNavigate();
 
-  const [searchInput, setSearchInput] = useState("");
-
-
+  const { userLoggedIn } = useAuth();
   const { currentUser } = useAuth();
+
+  // taking state of cart 
+  const cart = useSelector((state) => state.cart.cart);
+  
   useEffect(() => {
     if (currentUser) {
       const savedCart = loadCartItemsFromStorage(currentUser.uid);
@@ -55,6 +58,7 @@ export function Navbar() {
       }
     }
   }, [dispatch, currentUser, navigate]);
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${

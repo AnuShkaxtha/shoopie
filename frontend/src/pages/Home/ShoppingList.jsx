@@ -5,23 +5,28 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Item from "../itemDetails/Item";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { useTheme } from "@emotion/react";
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
-  const { theme, setTheme } = useTheme();
-  const [value, setValue] = useState("all");
-  const [searchInput, setSearchInput] = useState("");
+  // manage current tab value 
+  const [value, setValue] = useState("all");  //default:all
+
+  //getting list of items from redux store
   const items = useSelector((state) => state.cart.items);
 
-  const [allItem, setAllItem] = useState(true);
+  // filtering items 
+  const [allItem, setAllItem] = useState(true);   
+  const [searchPriceInput, setSearchPriceInput] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+
+  // state to filter by category 
   const [filterCategories, setFilterCategories] = useState({
     newArrivalsItems: false,
     bestSellersItems: false,
     topRatedItems: false,
   });
-
-  const [searchPriceInput, setSearchPriceInput] = useState("");
+  
+// state to filter by price
   const [priceRanges, setPriceRanges] = useState({
     range0_300: false,
     range300_600: false,
@@ -29,6 +34,12 @@ const ShoppingList = () => {
     range1000_4000: false,
   });
 
+  // function to change tab value 
+  const handleChange = (eve, newValue) => {
+    setValue(newValue);
+  };
+  
+// function to change state of price range
   const handlePriceRangeChange = (range) => {
     setPriceRanges((prevState) => ({
       ...prevState,
@@ -36,10 +47,7 @@ const ShoppingList = () => {
     }));
   };
 
-  const handleChange = (eve, newValue) => {
-    setValue(newValue);
-  };
-
+  // fetching items from strapi api 
   async function getItems() {
     const items = await fetch(
       "http://localhost:1337/api/items?populate=image",
@@ -55,6 +63,7 @@ const ShoppingList = () => {
     getItems();
   }, [dispatch]);
 
+  // update search input chnage 
   const handleCheckboxChange = (category) => {
     setAllItem(false);
     setFilterCategories((prevState) => ({
@@ -63,6 +72,7 @@ const ShoppingList = () => {
     }));
   };
 
+  // filtering items based on category, price and search input 
   const filterItemsByCategory = () => {
     let filteredItems = items;
 
@@ -103,7 +113,8 @@ const ShoppingList = () => {
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
   };
-
+  
+  // check if filter has been applied
   const hasFiltersApplied = () => {
     return (
       !allItem ||
@@ -113,6 +124,7 @@ const ShoppingList = () => {
     );
   };
 
+  // reset all filter 
   const handleClearFilters = () => {
     setSearchInput(""); // Clear search input
     setAllItem(true); // Reset all item filter
@@ -131,7 +143,7 @@ const ShoppingList = () => {
   };
 
   return (
-    <div className="grid grid-cols-5 gap-4">
+    <div className="grid grid-cols-5 gap-4" id="shop">
       {/* GUIDE SECTION */}
       <div className="col-span-1 px-2 mt-10 ml-6">
         {/* SEARCH */}

@@ -14,6 +14,7 @@ import Account from "../pages/Account/Account";
 import OrderList from "@/pages/Account/OrderList";
 
 const ScrollToTop = () => {
+  //  returns current location of object
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -27,25 +28,21 @@ const ScrollToTop = () => {
 function App() {
   return (
     <AuthProvider>
-
-    
-    <BrowserRouter>
-      <Navbar />
-      <ScrollToTop/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* Pass itemId as a prop to ItemDetails component */}
-        <Route path="/item/:itemId" element={<ItemDetails />} />
-        <Route path="/cart" element={<Cart/>} />
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/register" element={<Register/>}/>
-        <Route path="/account" element={<Account/>}/>
-        <Route path="/orders" element={<OrderList/>}/>
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+      <BrowserRouter>
+        <Navbar />
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/item/:itemId" element={<ItemDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/orders" element={<OrderList />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </AuthProvider>
-    
   );
 }
 

@@ -23,6 +23,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    // for managing items state
     setItems: (state, action) => {
       state.items = action.payload;
     },

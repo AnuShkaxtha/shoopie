@@ -3,7 +3,6 @@ import { useAuth } from "../../entities/auth/AuthProvider";
 import OrderList from "./OrderList";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useTheme } from "@/processes/theme/theme-provider";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from "react-router-dom";
 import { doSignOut } from "@/entities/firebase/auth";
@@ -13,12 +12,12 @@ const Account = () => {
   const { currentUser } = useAuth();
   const [showAccount, setShowAccount] = useState(true);
   const [userDetails, setUserDetails] = useState(null);
-  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     if (!currentUser) {
       navigate("/login");
-    } else {
+    } 
+    else {
       const userId = currentUser.uid;
 
       const fetchUserDetails = async () => {
