@@ -39,24 +39,19 @@ const Item = ({ item, width, id }) => {
   };
 
   return (
-    <div style={{ width }}>
+    <div>
       <Card
         onMouseOver={() => setIsHovered(true)}
         onMouseOut={() => setIsHovered(false)}
-        className="relative"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        className="relative flex justify-center align-center"
+        
       >
         {imageUrl && (
           <img
             alt={name}
             src={`http://localhost:1337${imageUrl}`}
-            className="cursor-pointer"
+            className="cursor-pointer w-[300px] h-[400px]"
             onClick={() => navigate(`/item/${id}`)}
-            style={{ width: "300px", height: "400px" }}
           />
         )}
 

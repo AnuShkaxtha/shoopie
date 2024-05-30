@@ -5,20 +5,31 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Item from "../itemDetails/Item";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { clearFilters, setSearchInput, toggleCategoryFilter, togglePriceFilter } from "@/app/store/shoppingSlice";
+import {
+  clearFilters,
+  setSearchInput,
+  toggleCategoryFilter,
+  togglePriceFilter,
+} from "@/app/store/shoppingSlice";
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
-    // State from shopping slice
-    const { items: shoppingItems, searchInput, filterCategories, priceRanges, allItem } = useSelector((state) => state.shopping);
-  // manage current tab value 
-  const [value, setValue] = useState("all");  //default:all
+  // State from shopping slice
+  const {
+    items: shoppingItems,
+    searchInput,
+    filterCategories,
+    priceRanges,
+    allItem,
+  } = useSelector((state) => state.shopping);
+  // manage current tab value
+  const [value, setValue] = useState("all"); //default:all
 
   //getting list of items from redux store
   const items = useSelector((state) => state.cart.items);
 
-   // fetching items from strapi api 
-   async function getItems() {
+  // fetching items from strapi api
+  async function getItems() {
     const items = await fetch(
       "http://localhost:1337/api/items?populate=image",
       {
@@ -32,32 +43,33 @@ const ShoppingList = () => {
   useEffect(() => {
     getItems();
   }, [dispatch]);
-  
-  // function to change tab value 
+
+  // function to change tab value
   const handleChange = (eve, newValue) => {
     setValue(newValue);
   };
-  
-// function to change state of price range
+
+  // function to change state of price range
   const handlePriceRangeChange = (range) => {
     dispatch(togglePriceFilter(range));
   };
 
-  // search item 
+  // search item
   const handleSearchInputChange = (event) => {
     dispatch(setSearchInput(event.target.value));
   };
 
-  // update search input chnage 
+  // update search input chnage
   const handleCheckboxChange = (category) => {
     dispatch(toggleCategoryFilter(category));
   };
 
-  // filtering items based on category, price and search input 
+  // filtering items based on category, price and search input
   const filterItemsByCategory = () => {
     let filteredItems = items;
 
     if (!allItem) {
+      // retrive object of filterCategory and filter 
       const selectedCategories = Object.keys(filterCategories).filter(
         (category) => filterCategories[category]
       );
@@ -94,7 +106,6 @@ const ShoppingList = () => {
   // fitered items
   const filteredItems = filterItemsByCategory();
 
-  
   // check if filter has been applied
   const hasFiltersApplied = () => {
     return (
@@ -203,13 +214,12 @@ const ShoppingList = () => {
         </div>
         {/* Button to clear all above filter */}
         <button
-        className="px-4 py-2 mt-4 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none"
-        onClick={() => dispatch(clearFilters())}
-      >
-        Clear Filters
-      </button>
+          className="px-4 py-2 mt-4 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none"
+          onClick={() => dispatch(clearFilters())}
+        >
+          Clear Filters
+        </button>
       </div>
-
 
       {/* ITEM SECTION */}
       <div className="col-span-4">
@@ -218,21 +228,20 @@ const ShoppingList = () => {
             <div className="my-4">
               <h2 className="text-xl font-bold">Search Results</h2>
               {filteredItems.length === 0 ? (
-            <div className="mt-5 mb-20 text-center">
+                <div className="mt-5 mb-20 text-center">
                   <p className="mt-2 text-gray-500">No items found.</p>
                 </div>
-                
               ) : (
-              <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2 lg:grid-cols-3">
-                {filterItemsByCategory().map((item) => (
-                  <Item
-                    key={`${item.attributes.name}-${item.id}`}
-                    item={item}
-                    id={item.id}
-                  />
-                ))}
-              </div>
-               )}
+                <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {filterItemsByCategory().map((item) => (
+                    <Item
+                      key={`${item.attributes.name}-${item.id}`}
+                      item={item}
+                      id={item.id}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
@@ -262,7 +271,9 @@ const ShoppingList = () => {
               <TabsContent value="newArrivals">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items
-                    .filter((item) => item.attributes.category === "newArrivals")
+                    .filter(
+                      (item) => item.attributes.category === "newArrivals"
+                    )
                     .map((item) => (
                       <Item
                         key={`${item.attributes.name}-${item.id}`}
@@ -275,7 +286,9 @@ const ShoppingList = () => {
               <TabsContent value="bestSellers">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items
-                    .filter((item) => item.attributes.category === "bestSellers")
+                    .filter(
+                      (item) => item.attributes.category === "bestSellers"
+                    )
                     .map((item) => (
                       <Item
                         key={`${item.attributes.name}-${item.id}`}

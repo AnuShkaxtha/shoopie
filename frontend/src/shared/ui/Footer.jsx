@@ -37,7 +37,7 @@ function Footer() {
         <div>
           <p className="mb-4 font-bold">Contact Us</p>
           <p>5Maharajgunj Rd, Kathmandu 44600</p>
-          <p style={{ wordWrap: "break-word" }}>Email: rigo200@gmail.com</p>
+          <p >Email: rigo200@gmail.com</p>
           <p>01-5970221</p>
         </div>
       </div>
