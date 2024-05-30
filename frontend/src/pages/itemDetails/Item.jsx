@@ -7,7 +7,7 @@ import { addToCart, removeSingleItems } from "@/app/store";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/entities/auth/AuthProvider";
 
-const Item = ({ item, width, id }) => {
+const Item = ({ item,  id }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);  //counting cart items
@@ -44,7 +44,6 @@ const Item = ({ item, width, id }) => {
         onMouseOver={() => setIsHovered(true)}
         onMouseOut={() => setIsHovered(false)}
         className="relative flex justify-center align-center"
-        
       >
         {imageUrl && (
           <img
