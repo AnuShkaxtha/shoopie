@@ -81,13 +81,6 @@ const ItemDetails = () => {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   // const selectedItem = items.find((item) => item.attributes.id === itemId);
-  //   if (itemId) {
-  //     const selectedItem=items.filter(item => item.id === itemId);
-  //     setItem(selectedItem);
-  //   }
-  // }, [itemId, items]);
 
   return (
     <div className="w-4/5 mx-auto my-20">
