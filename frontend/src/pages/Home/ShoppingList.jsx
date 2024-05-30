@@ -91,6 +91,7 @@ const ShoppingList = () => {
     );
   };
 
+  // fitered items
   const filteredItems = filterItemsByCategory();
 
   
@@ -99,6 +100,7 @@ const ShoppingList = () => {
     return (
       !allItem ||
       searchInput.length > 0 ||
+      // check is any of the object is true
       Object.values(filterCategories).some((value) => value) ||
       Object.values(priceRanges).some((value) => value)
     );

@@ -101,8 +101,7 @@ const Cart = () => {
       });
       const responseData = await response.json();
 
-      // Logging response data
-      console.log("Response:", responseData);
+  
       if (response.ok) {
         console.log("Order placed successfully!");
         setOrderSuccess(true);

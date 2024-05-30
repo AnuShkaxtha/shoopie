@@ -22,15 +22,15 @@ export const shoppingSlice = createSlice({
   name: "shopping",
   initialState,
   reducers: {
-    // action for managing items state
+    // for managing items state
     setItems: (state, action) => {
       state.items = action.payload;
     },
-    // action to set seach input value 
+    // to set seach input value 
     setSearchInput: (state, action) => {
       state.searchInput = action.payload;
     },
-    // action to set item based on category 
+    // to set item based on category 
     toggleCategoryFilter: (state, action) => {
       state.filterCategories[action.payload] = !state.filterCategories[action.payload];
     },
