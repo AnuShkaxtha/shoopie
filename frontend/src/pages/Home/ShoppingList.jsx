@@ -98,7 +98,6 @@ const ShoppingList = () => {
   // check if filter has been applied
   const hasFiltersApplied = () => {
     return (
-      !allItem ||
       searchInput.length > 0 ||
       // check is any of the object is true
       Object.values(filterCategories).some((value) => value) ||

@@ -5,6 +5,7 @@ export const loadCartItemsFromStorage = (userId) => {
   try {
     const savedCart = localStorage.getItem(`cart_${userId}`);
     if (savedCart) {
+      // coberting json string into java script object 
       return JSON.parse(savedCart);
     }
   } catch (error) {
