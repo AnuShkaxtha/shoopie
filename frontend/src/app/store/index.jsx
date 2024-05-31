@@ -5,7 +5,7 @@ export const loadCartItemsFromStorage = (userId) => {
   try {
     const savedCart = localStorage.getItem(`cart_${userId}`);
     if (savedCart) {
-      // coberting json string into java script object 
+      // coverting json string into java script object 
       return JSON.parse(savedCart);
     }
   } catch (error) {
@@ -38,6 +38,7 @@ export const cartSlice = createSlice({
     addToCart: (state, action) => {
       const { id, count } = action.payload;
       const itemIndex = state.cart.findIndex(item => item.id === id);
+      // item exist in cart 
       if (itemIndex >= 0) {
         state.cart[itemIndex].qnty += count;
       } else {
@@ -50,7 +51,9 @@ export const cartSlice = createSlice({
       const itemIndex = state.cart.findIndex(item => item.id === action.payload.id);
       if (itemIndex >= 0 && state.cart[itemIndex].qnty > 1) {
         state.cart[itemIndex].qnty -= 1;
-      } else {
+      } 
+      // remove item from cart 
+      else {
         state.cart = state.cart.filter(item => item.id !== action.payload.id);
       }
     },

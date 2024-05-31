@@ -1,5 +1,4 @@
-import React , {useState, useEffect
-}from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -37,8 +36,6 @@ import { Input } from "@/components/ui/input";
 import { loadCartItemsFromStorage } from "@/app/store";
 import { setCart } from "@/app/store";
 
-
-
 export function Navbar() {
   const { theme, setTheme } = useTheme();
   const dispatch = useDispatch();
@@ -47,9 +44,9 @@ export function Navbar() {
   const { userLoggedIn } = useAuth();
   const { currentUser } = useAuth();
 
-  // taking state of cart 
+  // taking state of cart
   const cart = useSelector((state) => state.cart.cart);
-  
+
   useEffect(() => {
     if (currentUser) {
       const savedCart = loadCartItemsFromStorage(currentUser.uid);
@@ -61,9 +58,8 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-700"
-      }`}
+      className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-700"
+        }`}
     >
       <div className="container flex items-center justify-between mx-auto">
         <Link to={"/"}>
@@ -71,8 +67,6 @@ export function Navbar() {
         </Link>
 
         <div className="flex items-center space-x-4">
-          
-
           {/* ACCOUNT */}
           <TooltipProvider>
             <Tooltip>
@@ -145,9 +139,8 @@ export function Navbar() {
                   <Link to={"/cart"}>
                     <Button variant="ghost" size="sm">
                       <GiShoppingBag
-                        className={`h-5 w-5 ${
-                          theme === "dark" ? "text-gray-300" : "text-gray-900"
-                        }`}
+                        className={`h-5 w-5 ${theme === "dark" ? "text-gray-300" : "text-gray-900"
+                          }`}
                       />
                       {cart.length > 0 && (
                         <Badge
@@ -166,7 +159,6 @@ export function Navbar() {
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-
 
           {/* COLOR MODE */}
           <DropdownMenu>

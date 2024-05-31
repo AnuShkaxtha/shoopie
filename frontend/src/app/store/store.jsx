@@ -1,4 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit"
+// importing slices
 import cartReducer from "./index"
 import shoppingSlice from "./shoppingSlice"
 

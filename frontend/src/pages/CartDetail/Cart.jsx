@@ -26,6 +26,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   console.log(currentUser)
+  
   // Load cart items from local storage on component mount
   useEffect(() => {
     if (!currentUser) {
@@ -68,6 +69,7 @@ const Cart = () => {
     dispatch(removeSingleItems({ id: itemId }));
   };
 
+  // clearing entire cart 
   const handleClear = () => {
     dispatch(clearCart());
   };
@@ -96,10 +98,10 @@ const Cart = () => {
         headers: {
           "Content-Type": "application/json",
         },
-
+        // converting orderData from js object to json string for backend
         body: JSON.stringify({ data: orderData }),
       });
-      const responseData = await response.json();
+      //const responseData = await response.json();
 
   
       if (response.ok) {
