@@ -14,7 +14,7 @@ const Item = ({ item,  id }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const { currentUser } = useAuth();
-  const { category, price, name, image } = item.attributes;
+  const { trend, price, name, image } = item.attributes;
   const imageUrl = image?.data?.attributes?.formats?.medium?.url;
 
   // function to handle add to cart 

@@ -136,7 +136,7 @@ const ItemDetails = () => {
             <Heart className="mr-2" />
             <p>ADD TO WISHLIST</p>
           </div>
-          <p>CATEGORIES: " {item?.attributes?.category} "</p>
+          <p>TRENDS: " {item?.attributes?.trend} "</p>
         </div>
       </div>
 

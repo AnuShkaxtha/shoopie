@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   clearFilters,
   setSearchInput,
-  toggleCategoryFilter,
+  toggleTrendFilter,
   togglePriceFilter,
 } from "@/app/store/shoppingSlice";
 import { Input } from "@/components/ui/input";
@@ -15,7 +15,7 @@ const Filter = () => {
   const dispatch = useDispatch();
   const {
     searchInput,
-    filterCategories,
+    filterTrends,
     priceRanges,
     allItem,
   } = useSelector((state) => state.shopping);
@@ -24,8 +24,8 @@ const Filter = () => {
     dispatch(setSearchInput(event.target.value));
   };
 
-  const handleCheckboxChange = (category) => {
-    dispatch(toggleCategoryFilter(category));
+  const handleCheckboxChange = (trend) => {
+    dispatch(toggleTrendFilter(trend));
   };
 
   const handlePriceRangeChange = (range) => {
@@ -45,10 +45,10 @@ const Filter = () => {
         />
       </div>
       <Separator className="my-4 bg-gray-400" />
-      {/* CATEGORY */}
+      {/* TREND */}
       <div className="text-[14px] mt-3">
-        <p className="pb-2">Search by Category</p>
-        {/* Assuming 'all' is a default category and cannot be unchecked */}
+        <p className="pb-2">Trends</p>
+        {/* Assuming 'all' is a default trend and cannot be unchecked */}
         <label className="flex items-center pt-1">
           <input
             type="checkbox"
@@ -58,15 +58,15 @@ const Filter = () => {
           />
           <p>All</p>
         </label>
-        {Object.keys(filterCategories).map((category) => (
-          <label className="flex items-center pt-1" key={category}>
+        {Object.keys(filterTrends).map((trend) => (
+          <label className="flex items-center pt-1" key={trend}>
             <input
               type="checkbox"
               className="mr-2 form-checkbox"
-              checked={filterCategories[category]}
-              onChange={() => handleCheckboxChange(category)}
+              checked={filterTrends[trend]}
+              onChange={() => handleCheckboxChange(trend)}
             />
-            <span>{category}</span>
+            <span>{trend}</span>
           </label>
         ))}
       </div>
