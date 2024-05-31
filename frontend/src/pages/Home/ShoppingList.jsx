@@ -114,8 +114,8 @@ const ShoppingList = () => {
       {/* Menu Icon */}
       
 
-      {/* GUIDE SECTION */}
-      <div className={`col-span-1 px-2 ml-2 md:mt-5 lg:mt-10 lg:ml-6 sm:hidden md:block`}>
+       {/* GUIDE SECTION */}
+       <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
         <Filter/>
       </div>
 
@@ -219,3 +219,4 @@ const ShoppingList = () => {
 };
 
 export default ShoppingList;
+

@@ -78,21 +78,23 @@ export function Navbar() {
       }`}
     >
       <div className="container flex items-center justify-between mx-auto">
+        {/* LOGO */}
         <Link to={"/"}>
           <div className="text-lg font-bold">SHOOPIE</div>
         </Link>
-
+        {/* NAV ITEMS */}
         <div className="flex items-center space-x-4">
-          
-
           {/* ACCOUNT */}
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
+                <div className="relative inline-block">
+
+                
                 <Button variant="ghost">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <User className="w-5 h-5" />
+                      <User className="w-5 h-5 "/>
                     </DropdownMenuTrigger>
                     {userLoggedIn ? (
                       <DropdownMenuContent className="w-56">
@@ -142,6 +144,7 @@ export function Navbar() {
                     )}
                   </DropdownMenu>
                 </Button>
+                </div>
               </TooltipTrigger>
               <TooltipContent>
                 <p>Account</p>
@@ -153,9 +156,9 @@ export function Navbar() {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className="relative inline-block">
+                <div className="relative inline-block ">
                   <Link to={"/cart"}>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" >
                       <GiShoppingBag
                         className={`h-5 w-5 ${
                           theme === "dark" ? "text-gray-300" : "text-gray-900"
@@ -210,7 +213,7 @@ export function Navbar() {
                 <SheetTitle>Filters</SheetTitle>
               </SheetHeader>
               <div
-                className={`col-span-1 px-2 ml-2 md:mt-5 lg:mt-10 lg:ml-6  md:block`}
+                className={` px-1 mt-4  `}
               >
                 <Filter />
               </div>
