@@ -11,6 +11,9 @@ import {
   toggleCategoryFilter,
   togglePriceFilter,
 } from "@/app/store/shoppingSlice";
+import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
+import Filter from "./Filters";
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
@@ -24,6 +27,8 @@ const ShoppingList = () => {
   } = useSelector((state) => state.shopping);
   // manage current tab value
   const [value, setValue] = useState("all"); //default:all
+  // manage guide section visibility
+  const [showGuide, setShowGuide] = useState(false);
 
   //getting list of items from redux store
   const items = useSelector((state) => state.cart.items);
@@ -49,20 +54,8 @@ const ShoppingList = () => {
     setValue(newValue);
   };
 
-  // function to change state of price range
-  const handlePriceRangeChange = (range) => {
-    dispatch(togglePriceFilter(range));
-  };
 
-  // search item
-  const handleSearchInputChange = (event) => {
-    dispatch(setSearchInput(event.target.value));
-  };
-
-  // update search input chnage
-  const handleCheckboxChange = (category) => {
-    dispatch(toggleCategoryFilter(category));
-  };
+ 
 
   // filtering items based on category, price and search input
   const filterItemsByCategory = () => {
@@ -117,113 +110,19 @@ const ShoppingList = () => {
   };
 
   return (
-    <div className="grid grid-cols-5 gap-4" id="shop">
-      {/* GUIDE SECTION */}
-      <div className="col-span-1 px-2 mt-10 ml-6">
-        {/* SEARCH */}
-        <div className="mt-4">
-          <Input
-            type="text"
-            placeholder="Search by item name"
-            value={searchInput}
-            onChange={handleSearchInputChange}
-            className="py-1 border border-gray-300 rounded-md "
-          />
-        </div>
-        <Separator className="my-4 bg-gray-400" />
-        {/* CATEGORY */}
-        <div className="text-[14px] mt-3 ">
-          <p className="pb-2">Search by Category </p>
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5" id="shop">
+      {/* Menu Icon */}
+      
 
-          <label className="flex items-center pt-1">
-            <input
-              type="checkbox"
-              className="mr-2 form-checkbox"
-              onChange={() => dispatch(clearFilters())}
-            />
-            <p>All</p>
-          </label>
-          <label className="flex items-center pt-1">
-            <input
-              type="checkbox"
-              className="mr-2 form-checkbox"
-              checked={filterCategories.newArrivals}
-              onChange={() => handleCheckboxChange("newArrivals")}
-            />
-            <span>New Arrivals</span>
-          </label>
-          <label className="flex items-center pt-1">
-            <input
-              type="checkbox"
-              className="mr-2 form-checkbox"
-              checked={filterCategories.bestSellers}
-              onChange={() => handleCheckboxChange("bestSellers")}
-            />
-            <span>Best Sellers</span>
-          </label>
-          <label className="flex items-center pt-1">
-            <input
-              type="checkbox"
-              className="mr-2 form-checkbox"
-              checked={filterCategories.topRated}
-              onChange={() => handleCheckboxChange("topRated")}
-            />
-            <span>Top Rated</span>
-          </label>
-        </div>
-        <Separator className="my-4 bg-gray-400" />
-        {/* PRICE */}
-        <div className="text-[14px] mt-3">
-          <p className="mb-2">Price Range</p>
-          <label className="flex items-center pt-1 mb-1">
-            <input
-              type="checkbox"
-              className="mr-2 form-checkbox"
-              checked={priceRanges.range0_300}
-              onChange={() => handlePriceRangeChange("range0_300")}
-            />
-            <span>0-300</span>
-          </label>
-          <label className="flex items-center pt-1 mb-1">
-            <input
-              type="checkbox"
-              className="mr-2 form-checkbox"
-              checked={priceRanges.range300_600}
-              onChange={() => handlePriceRangeChange("range300_600")}
-            />
-            <span>300-600</span>
-          </label>
-          <label className="flex items-center pt-1 mb-1">
-            <input
-              type="checkbox"
-              className="mr-2 form-checkbox"
-              checked={priceRanges.range600_1000}
-              onChange={() => handlePriceRangeChange("range600_1000")}
-            />
-            <span>600-1000</span>
-          </label>
-          <label className="flex items-center pt-1 mb-1">
-            <input
-              type="checkbox"
-              className="mr-2 form-checkbox"
-              checked={priceRanges.range1000_4000}
-              onChange={() => handlePriceRangeChange("range1000_4000")}
-            />
-            <span>1000-4000</span>
-          </label>
-        </div>
-        {/* Button to clear all above filter */}
-        <button
-          className="px-4 py-2 mt-4 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none"
-          onClick={() => dispatch(clearFilters())}
-        >
-          Clear Filters
-        </button>
+       {/* GUIDE SECTION */}
+       <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
+        <Filter/>
       </div>
 
+
       {/* ITEM SECTION */}
-      <div className="col-span-4">
-        <div className="mx-auto w-[89%] my-8 mt-14">
+      <div className="col-span-1 md:col-span-3 lg:col-span-4">
+        <div className="mx-auto w-[89%] md:my-6 lg:my-9 ">
           {hasFiltersApplied() && (
             <div className="my-4">
               <h2 className="text-xl font-bold">Search Results</h2>
@@ -245,10 +144,10 @@ const ShoppingList = () => {
             </div>
           )}
 
-          <h1 className="text-3xl font-extrabold text-center">
+          <h1 className="mt-8 text-3xl font-extrabold text-center">
             Our Featured Products
           </h1>
-
+          {/* PRODUCTS */}
           <div>
             <Tabs value={value} onValueChange={handleChange} className="my-6">
               <TabsList className="flex justify-center">
@@ -320,3 +219,4 @@ const ShoppingList = () => {
 };
 
 export default ShoppingList;
+

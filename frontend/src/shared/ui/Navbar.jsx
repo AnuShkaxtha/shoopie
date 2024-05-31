@@ -35,6 +35,14 @@ import { doSignOut } from "@/entities/firebase/auth";
 import { Input } from "@/components/ui/input";
 import { loadCartItemsFromStorage } from "@/app/store";
 import { setCart } from "@/app/store";
+import Filter from "@/pages/Home/Filters";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -62,19 +70,23 @@ export function Navbar() {
         }`}
     >
       <div className="container flex items-center justify-between mx-auto">
+        {/* LOGO */}
         <Link to={"/"}>
           <div className="text-lg font-bold">SHOOPIE</div>
         </Link>
-
+        {/* NAV ITEMS */}
         <div className="flex items-center space-x-4">
           {/* ACCOUNT */}
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
+                <div className="relative inline-block">
+
+                
                 <Button variant="ghost">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <User className="w-5 h-5" />
+                      <User className="w-5 h-5 "/>
                     </DropdownMenuTrigger>
                     {userLoggedIn ? (
                       <DropdownMenuContent className="w-56">
@@ -124,6 +136,7 @@ export function Navbar() {
                     )}
                   </DropdownMenu>
                 </Button>
+                </div>
               </TooltipTrigger>
               <TooltipContent>
                 <p>Account</p>
@@ -135,9 +148,9 @@ export function Navbar() {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className="relative inline-block">
+                <div className="relative inline-block ">
                   <Link to={"/cart"}>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" >
                       <GiShoppingBag
                         className={`h-5 w-5 ${theme === "dark" ? "text-gray-300" : "text-gray-900"
                           }`}
@@ -179,6 +192,23 @@ export function Navbar() {
               {/* <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
+          <Sheet className="flex justify-end md:hidden">
+            <SheetTrigger asChild>
+              <Button variant="ghost" className="text-gray-700">
+                <Menu />
+              </Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Filters</SheetTitle>
+              </SheetHeader>
+              <div
+                className={` px-1 mt-4  `}
+              >
+                <Filter />
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </nav>
