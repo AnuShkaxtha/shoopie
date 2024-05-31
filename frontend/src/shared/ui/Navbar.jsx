@@ -36,6 +36,14 @@ import { doSignOut } from "@/entities/firebase/auth";
 import { Input } from "@/components/ui/input";
 import { loadCartItemsFromStorage } from "@/app/store";
 import { setCart } from "@/app/store";
+import Filter from "@/pages/Home/Filters";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 
 
@@ -49,7 +57,11 @@ export function Navbar() {
 
   // taking state of cart 
   const cart = useSelector((state) => state.cart.cart);
-  
+
+
+  // manage guide section visibility
+  const [showGuide, setShowGuide] = useState(false);
+
   useEffect(() => {
     if (currentUser) {
       const savedCart = loadCartItemsFromStorage(currentUser.uid);
@@ -187,6 +199,23 @@ export function Navbar() {
               {/* <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
+          <Sheet className="flex justify-end md:hidden">
+            <SheetTrigger asChild>
+              <Button variant="ghost" className="text-gray-700">
+                <Menu />
+              </Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>Filters</SheetTitle>
+              </SheetHeader>
+              <div
+                className={`col-span-1 px-2 ml-2 md:mt-5 lg:mt-10 lg:ml-6  md:block`}
+              >
+                <Filter />
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </nav>
