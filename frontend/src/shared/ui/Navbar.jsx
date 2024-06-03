@@ -66,10 +66,11 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-700"
-        }`}
+      className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${
+        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-700"
+      }`}
     >
-      <div className="container flex items-center justify-between mx-auto">
+      <div className="container flex items-center justify-between px-1 mx-auto">
         {/* LOGO */}
         <Link to={"/"}>
           <div className="text-lg font-bold">SHOOPIE</div>
@@ -80,62 +81,63 @@ export function Navbar() {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className="relative inline-block">
-
-                
-                <Button variant="ghost">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <User className="w-5 h-5 "/>
-                    </DropdownMenuTrigger>
-                    {userLoggedIn ? (
-                      <DropdownMenuContent className="w-56">
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuGroup>
-                          <DropdownMenuItem>
-                            <Link to={"/account"} className="flex flex-start">
-                              <User className="w-4 h-4 mr-2" />
-                              <span>Profile</span>
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <div
-                              onClick={() => {
-                                doSignOut().then(() => {
-                                  navigate("/");
-                                });
-                              }}
-                              className="flex flex-start"
-                            >
-                              <LogOut className="w-4 h-4 mr-2" />
-                              <p>Log out</p>
-                            </div>
-                          </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                      </DropdownMenuContent>
-                    ) : (
-                      <DropdownMenuContent className="w-56">
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuGroup>
-                          <DropdownMenuItem>
-                            <Link to={"/login"} className="flex flex-start">
-                              <LogIn className="w-4 h-4 mr-2" />
-                              <span>Login</span>
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <Link to={"/register"} className="flex flex-start">
-                              <User className="w-4 h-4 mr-2" />
-                              <span>Register</span>
-                            </Link>
-                          </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                      </DropdownMenuContent>
-                    )}
-                  </DropdownMenu>
-                </Button>
+                <div className="relative inline-block ">
+                  <Button variant="ghost" className="p-0 lg:p-3 md:p-3">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <User className="w-5 h-5 " />
+                      </DropdownMenuTrigger>
+                      {userLoggedIn ? (
+                        <DropdownMenuContent className="w-56">
+                          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuGroup>
+                            <DropdownMenuItem>
+                              <Link to={"/account"} className="flex flex-start">
+                                <User className="w-4 h-4 mr-2" />
+                                <span>Profile</span>
+                              </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <div
+                                onClick={() => {
+                                  doSignOut().then(() => {
+                                    navigate("/");
+                                  });
+                                }}
+                                className="flex flex-start"
+                              >
+                                <LogOut className="w-4 h-4 mr-2" />
+                                <p>Log out</p>
+                              </div>
+                            </DropdownMenuItem>
+                          </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                      ) : (
+                        <DropdownMenuContent className="w-56">
+                          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuGroup>
+                            <DropdownMenuItem>
+                              <Link to={"/login"} className="flex flex-start">
+                                <LogIn className="w-4 h-4 mr-2" />
+                                <span>Login</span>
+                              </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <Link
+                                to={"/register"}
+                                className="flex flex-start"
+                              >
+                                <User className="w-4 h-4 mr-2" />
+                                <span>Register</span>
+                              </Link>
+                            </DropdownMenuItem>
+                          </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                      )}
+                    </DropdownMenu>
+                  </Button>
                 </div>
               </TooltipTrigger>
               <TooltipContent>
@@ -150,10 +152,11 @@ export function Navbar() {
               <TooltipTrigger asChild>
                 <div className="relative inline-block ">
                   <Link to={"/cart"}>
-                    <Button variant="ghost" size="sm" >
+                    <Button variant="ghost" size="sm" className="p-1 lg:p-3 md:p-3">
                       <GiShoppingBag
-                        className={`h-5 w-5 ${theme === "dark" ? "text-gray-300" : "text-gray-900"
-                          }`}
+                        className={`h-5 w-5 ${
+                          theme === "dark" ? "text-gray-300" : "text-gray-900"
+                        }`}
                       />
                       {cart.length > 0 && (
                         <Badge
@@ -176,7 +179,7 @@ export function Navbar() {
           {/* COLOR MODE */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="p-1 lg:p-3 md:p-3">
                 <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                 <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                 <span className="sr-only">Toggle theme</span>
@@ -192,9 +195,10 @@ export function Navbar() {
               {/* <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
+          {/* MENU */}
           <Sheet className="flex justify-end md:hidden">
             <SheetTrigger asChild>
-              <Button variant="ghost" className="text-gray-700">
+              <Button variant="ghost" className="p-0 text-gray-700 lg:p-3 md:p-3">
                 <Menu />
               </Button>
             </SheetTrigger>
@@ -202,9 +206,7 @@ export function Navbar() {
               <SheetHeader>
                 <SheetTitle>Filters</SheetTitle>
               </SheetHeader>
-              <div
-                className={` px-1 mt-4  `}
-              >
+              <div className={` px-1 mt-4  `}>
                 <Filter />
               </div>
             </SheetContent>
