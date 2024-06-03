@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setItems } from "@/app/store";
+import { fetchItems, setItems } from "@/app/store";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Item from "../itemDetails/Item";
 import { Input } from "@/components/ui/input";
@@ -34,19 +34,19 @@ const ShoppingList = () => {
   const items = useSelector((state) => state.cart.items);
 
   // fetching items from strapi api
-  async function getItems() {
-    const items = await fetch(
-      "http://localhost:1337/api/items?populate=image",
-      {
-        method: "GET",
-      }
-    );
-    const itemsJson = await items.json();
-    dispatch(setItems(itemsJson.data));
-  }
+  // async function getItems() {
+  //   const items = await fetch(
+  //     "http://localhost:1337/api/items?populate=image",
+  //     {
+  //       method: "GET",
+  //     }
+  //   );
+  //   const itemsJson = await items.json();
+  //   dispatch(setItems(itemsJson.data));
+  // }
 
   useEffect(() => {
-    getItems();
+   dispatch(fetchItems())
   }, [dispatch]);
 
   // function to change tab value
