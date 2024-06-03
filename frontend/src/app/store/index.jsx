@@ -1,4 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+
+// Thunks for asynchronous operations
+export const fetchItems = createAsyncThunk("cart/fetchItems", async () => {
+  const response = await fetch("http://localhost:1337/api/items?populate=image", { method: "GET" });
+  const itemsJson = await response.json();
+  return itemsJson.data;
+});
+
+export const fetchItemById = createAsyncThunk("cart/fetchItemById", async (itemId) => {
+  const response = await fetch(`http://localhost:1337/api/items/${itemId}?populate=image`, { method: "GET" });
+  const itemJson = await response.json();
+  return itemJson.data;
+});
 
 // storing cart item in local storage 
 export const loadCartItemsFromStorage = (userId) => {
@@ -18,6 +31,9 @@ export const loadCartItemsFromStorage = (userId) => {
 const initialState = {
   cart: [],
   items: [],
+  item: null,
+  status: 'idle',
+  error: null,
 };
 
 export const cartSlice = createSlice({
@@ -76,6 +92,32 @@ export const cartSlice = createSlice({
         state.cart[itemIndex].qnty -= 1;
       }
     },
+    
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchItems.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchItems.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.items = action.payload;
+      })
+      .addCase(fetchItems.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(fetchItemById.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchItemById.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.item = action.payload;
+      })
+      .addCase(fetchItemById.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
   },
 });
 
