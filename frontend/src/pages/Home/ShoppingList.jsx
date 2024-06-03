@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import {
   clearFilters,
   setSearchInput,
-  toggleCategoryFilter,
+  toggleTrendFilter,
   togglePriceFilter,
 } from "@/app/store/shoppingSlice";
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,7 @@ const ShoppingList = () => {
   const {
     items: shoppingItems,
     searchInput,
-    filterCategories,
+    filterTrends,
     priceRanges,
     allItem,
   } = useSelector((state) => state.shopping);
@@ -57,19 +57,19 @@ const ShoppingList = () => {
 
  
 
-  // filtering items based on category, price and search input
-  const filterItemsByCategory = () => {
+  // filtering items based on trends, price and search input
+  const filterItemsByTrends = () => {
     let filteredItems = items;
 
     if (!allItem) {
-      // retrive object of filterCategory and filter 
-      const selectedCategories = Object.keys(filterCategories).filter(
-        (category) => filterCategories[category]
+      // retrive object of filterTrends and filter 
+      const selectedTrends = Object.keys(filterTrends).filter(
+        (trend) => filterTrends[trend]
       );
 
-      if (selectedCategories.length > 0) {
+      if (selectedTrends.length > 0) {
         filteredItems = filteredItems.filter((item) =>
-          selectedCategories.includes(item.attributes.category)
+          selectedTrends.includes(item.attributes.trend)
         );
       }
     }
@@ -97,14 +97,14 @@ const ShoppingList = () => {
   };
 
   // fitered items
-  const filteredItems = filterItemsByCategory();
+  const filteredItems = filterItemsByTrends();
 
   // check if filter has been applied
   const hasFiltersApplied = () => {
     return (
       searchInput.length > 0 ||
       // check is any of the object is true
-      Object.values(filterCategories).some((value) => value) ||
+      Object.values(filterTrends).some((value) => value) ||
       Object.values(priceRanges).some((value) => value)
     );
   };
@@ -132,7 +132,7 @@ const ShoppingList = () => {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {filterItemsByCategory().map((item) => (
+                  {filterItemsByTrends().map((item) => (
                     <Item
                       key={`${item.attributes.name}-${item.id}`}
                       item={item}
@@ -171,7 +171,7 @@ const ShoppingList = () => {
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items
                     .filter(
-                      (item) => item.attributes.category === "newArrivals"
+                      (item) => item.attributes.trend === "newArrivals"
                     )
                     .map((item) => (
                       <Item
@@ -186,7 +186,7 @@ const ShoppingList = () => {
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items
                     .filter(
-                      (item) => item.attributes.category === "bestSellers"
+                      (item) => item.attributes.trend === "bestSellers"
                     )
                     .map((item) => (
                       <Item
@@ -200,7 +200,7 @@ const ShoppingList = () => {
               <TabsContent value="topRated">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items
-                    .filter((item) => item.attributes.category === "topRated")
+                    .filter((item) => item.attributes.trend === "topRated")
                     .map((item) => (
                       <Item
                         key={`${item.attributes.name}-${item.id}`}

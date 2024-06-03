@@ -35,7 +35,7 @@
         "audios"
       ]
     },
-    "category": {
+    "trend": {
       "type": "enumeration",
       "enum": [
         "newArrivals",

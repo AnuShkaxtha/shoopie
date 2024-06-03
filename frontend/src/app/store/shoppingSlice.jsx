@@ -4,7 +4,7 @@ const initialState = {
   items: [],
   //initial state of filters
   searchInput: "",
-  filterCategories: {
+  filterTrends: {
     newArrivals: false,
     bestSellers: false,
     topRated: false,
@@ -30,9 +30,9 @@ export const shoppingSlice = createSlice({
     setSearchInput: (state, action) => {
       state.searchInput = action.payload;
     },
-    // to set item based on category 
-    toggleCategoryFilter: (state, action) => {
-      state.filterCategories[action.payload] = !state.filterCategories[action.payload];
+    // to set item based on trend
+    toggleTrendFilter: (state, action) => {
+      state.filterTrends[action.payload] = !state.filterTrends[action.payload];
     },
 
     togglePriceFilter: (state, action) => {
@@ -40,7 +40,7 @@ export const shoppingSlice = createSlice({
     },
     // action to clear all filter 
     clearFilters: (state) => {
-      state.filterCategories = {
+      state.filterTrends = {
         newArrivals: false,
         bestSellers: false,
         topRated: false,
@@ -63,7 +63,7 @@ export const shoppingSlice = createSlice({
 export const {
   setItems,
   setSearchInput,
-  toggleCategoryFilter,
+  toggleTrendFilter,
   togglePriceFilter,
   clearFilters,
   toggleAllItem,

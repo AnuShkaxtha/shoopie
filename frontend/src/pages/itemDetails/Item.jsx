@@ -14,10 +14,10 @@ const Item = ({ item,  id }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const { currentUser } = useAuth();
-  const { category, price, name, image } = item.attributes;
+  const { trend, price, name, image } = item.attributes;
   const imageUrl = image?.data?.attributes?.formats?.medium?.url;
 
-  // function to handle ass to cart 
+  // function to handle add to cart 
   const handleAddToCart = () => {
     if (!currentUser) {
       navigate("/login");
@@ -59,14 +59,12 @@ const Item = ({ item,  id }) => {
             <div className="flex justify-between">
               <div className="flex items-center bg-gray-100 rounded">
                 <Button
-                  className="focus:outline-none"
                   onClick={handleSingleDecrement}
                 >
                   <Minus />
                 </Button>
                 <span className="px-2 text-black">{count}</span>
                 <Button
-                  className="focus:outline-none"
                   onClick={handleIncrement}
                 >
                   <Plus />
@@ -82,7 +80,7 @@ const Item = ({ item,  id }) => {
 
       <div className="mt-2">
         <p>{name}</p>
-        <p className="">Price: $ {price}</p>
+        <p >Price: $ {price}</p>
       </div>
     </div>
   );

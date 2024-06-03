@@ -805,7 +805,7 @@ export interface ApiItemItem extends Schema.CollectionType {
     longDescription: Attribute.Blocks;
     price: Attribute.Decimal;
     image: Attribute.Media;
-    category: Attribute.Enumeration<['newArrivals', 'bestSellers', 'topRated']>;
+    trend: Attribute.Enumeration<['newArrivals', 'bestSellers', 'topRated']>;
     qnty: Attribute.Integer & Attribute.DefaultTo<0>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

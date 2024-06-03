@@ -1,5 +1,4 @@
-import React , {useState, useEffect
-}from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -45,8 +44,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-
-
 export function Navbar() {
   const { theme, setTheme } = useTheme();
   const dispatch = useDispatch();
@@ -55,12 +52,8 @@ export function Navbar() {
   const { userLoggedIn } = useAuth();
   const { currentUser } = useAuth();
 
-  // taking state of cart 
+  // taking state of cart
   const cart = useSelector((state) => state.cart.cart);
-
-
-  // manage guide section visibility
-  const [showGuide, setShowGuide] = useState(false);
 
   useEffect(() => {
     if (currentUser) {
@@ -73,9 +66,8 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-700"
-      }`}
+      className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-700"
+        }`}
     >
       <div className="container flex items-center justify-between mx-auto">
         {/* LOGO */}
@@ -160,9 +152,8 @@ export function Navbar() {
                   <Link to={"/cart"}>
                     <Button variant="ghost" size="sm" >
                       <GiShoppingBag
-                        className={`h-5 w-5 ${
-                          theme === "dark" ? "text-gray-300" : "text-gray-900"
-                        }`}
+                        className={`h-5 w-5 ${theme === "dark" ? "text-gray-300" : "text-gray-900"
+                          }`}
                       />
                       {cart.length > 0 && (
                         <Badge
@@ -181,7 +172,6 @@ export function Navbar() {
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-
 
           {/* COLOR MODE */}
           <DropdownMenu>
