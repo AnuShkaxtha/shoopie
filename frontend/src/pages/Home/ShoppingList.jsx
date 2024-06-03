@@ -8,12 +8,13 @@ import { Separator } from "@/components/ui/separator";
 import {
   clearFilters,
   setSearchInput,
-  toggleTrendFilter,
+  toggleCategoryFilter,
   togglePriceFilter,
 } from "@/app/store/shoppingSlice";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import Filter from "./Filters";
+import { fetchItems } from "@/app/store";
 
 const ShoppingList = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const ShoppingList = () => {
   const {
     items: shoppingItems,
     searchInput,
-    filterTrends,
+    filterCategories,
     priceRanges,
     allItem,
   } = useSelector((state) => state.shopping);
@@ -34,19 +35,22 @@ const ShoppingList = () => {
   const items = useSelector((state) => state.cart.items);
 
   // fetching items from strapi api
-  async function getItems() {
-    const items = await fetch(
-      "http://localhost:1337/api/items?populate=image",
-      {
-        method: "GET",
-      }
-    );
-    const itemsJson = await items.json();
-    dispatch(setItems(itemsJson.data));
-  }
+  // async function getItems() {
+  //   const items = await fetch(
+  //     "http://localhost:1337/api/items?populate=image",
+  //     {
+  //       method: "GET",
+  //     }
+  //   );
+  //   const itemsJson = await items.json();
+  //   dispatch(setItems(itemsJson.data));
+  // }
 
+  // useEffect(() => {
+  //   getItems();
+  // }, [dispatch]);
   useEffect(() => {
-    getItems();
+    dispatch(fetchItems());
   }, [dispatch]);
 
   // function to change tab value
@@ -57,19 +61,19 @@ const ShoppingList = () => {
 
  
 
-  // filtering items based on trends, price and search input
-  const filterItemsByTrends = () => {
+  // filtering items based on category, price and search input
+  const filterItemsByCategory = () => {
     let filteredItems = items;
 
     if (!allItem) {
-      // retrive object of filterTrends and filter 
-      const selectedTrends = Object.keys(filterTrends).filter(
-        (trend) => filterTrends[trend]
+      // retrive object of filterCategory and filter 
+      const selectedCategories = Object.keys(filterCategories).filter(
+        (category) => filterCategories[category]
       );
 
-      if (selectedTrends.length > 0) {
+      if (selectedCategories.length > 0) {
         filteredItems = filteredItems.filter((item) =>
-          selectedTrends.includes(item.attributes.trend)
+          selectedCategories.includes(item.attributes.category)
         );
       }
     }
@@ -97,14 +101,14 @@ const ShoppingList = () => {
   };
 
   // fitered items
-  const filteredItems = filterItemsByTrends();
+  const filteredItems = filterItemsByCategory();
 
   // check if filter has been applied
   const hasFiltersApplied = () => {
     return (
       searchInput.length > 0 ||
       // check is any of the object is true
-      Object.values(filterTrends).some((value) => value) ||
+      Object.values(filterCategories).some((value) => value) ||
       Object.values(priceRanges).some((value) => value)
     );
   };
@@ -132,7 +136,7 @@ const ShoppingList = () => {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {filterItemsByTrends().map((item) => (
+                  {filterItemsByCategory().map((item) => (
                     <Item
                       key={`${item.attributes.name}-${item.id}`}
                       item={item}
@@ -171,7 +175,7 @@ const ShoppingList = () => {
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items
                     .filter(
-                      (item) => item.attributes.trend === "newArrivals"
+                      (item) => item.attributes.category === "newArrivals"
                     )
                     .map((item) => (
                       <Item
@@ -186,7 +190,7 @@ const ShoppingList = () => {
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items
                     .filter(
-                      (item) => item.attributes.trend === "bestSellers"
+                      (item) => item.attributes.category === "bestSellers"
                     )
                     .map((item) => (
                       <Item
@@ -200,7 +204,7 @@ const ShoppingList = () => {
               <TabsContent value="topRated">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items
-                    .filter((item) => item.attributes.trend === "topRated")
+                    .filter((item) => item.attributes.category === "topRated")
                     .map((item) => (
                       <Item
                         key={`${item.attributes.name}-${item.id}`}
@@ -219,4 +223,3 @@ const ShoppingList = () => {
 };
 
 export default ShoppingList;
-
