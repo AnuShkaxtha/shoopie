@@ -47,9 +47,9 @@ const ItemDetails = () => {
   }, [dispatch, itemId]);
 
   return (
-    <div className="w-4/5 mx-auto my-20 ">
+    <div className="w-[90%] mx-auto my-20 ">
       <div className="grid grid-cols-2 gap-10 ">
-        <div className="col-span-2 mt-4 mb-10 lg:col-span-1 md:col-span-1">
+        <div className="col-span-2 mt-4 lg:mb-10 lg:col-span-1 md:col-span-1">
           {item && (
             <img
               alt={item?.attributes?.name}
@@ -59,7 +59,7 @@ const ItemDetails = () => {
           )}
         </div>
         <div className="col-span-2 mt-4 mb-10 lg:col-span-1 md:col-span-1">
-          <div className="flex justify-between mb-16">
+          <div className="flex justify-between mb-3 lg:mb-16">
             <Link to={"/"}>
               <div>Home / Item</div>
             </Link>
