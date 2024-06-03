@@ -46,6 +46,12 @@
     "qnty": {
       "type": "integer",
       "default": 0
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "items"
     }
   }
 }
