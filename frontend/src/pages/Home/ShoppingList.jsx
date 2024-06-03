@@ -46,7 +46,7 @@ const ShoppingList = () => {
   // }
 
   useEffect(() => {
-   dispatch(fetchItems())
+    dispatch(fetchItems());
   }, [dispatch]);
 
   // function to change tab value
@@ -54,15 +54,12 @@ const ShoppingList = () => {
     setValue(newValue);
   };
 
-
- 
-
   // filtering items based on trends, price and search input
   const filterItemsByTrends = () => {
     let filteredItems = items;
 
     if (!allItem) {
-      // retrive object of filterTrends and filter 
+      // retrive object of filterTrends and filter
       const selectedTrends = Object.keys(filterTrends).filter(
         (trend) => filterTrends[trend]
       );
@@ -110,15 +107,18 @@ const ShoppingList = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5" id="shop">
+    <div
+      className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5"
+      id="shop"
+    >
       {/* Menu Icon */}
-      
 
-       {/* GUIDE SECTION */}
-       <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
-        <Filter/>
+      {/* GUIDE SECTION */}
+      <div
+        className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}
+      >
+        <Filter />
       </div>
-
 
       {/* ITEM SECTION */}
       <div className="col-span-1 md:col-span-3 lg:col-span-4">
@@ -150,12 +150,13 @@ const ShoppingList = () => {
           {/* PRODUCTS */}
           <div>
             <Tabs value={value} onValueChange={handleChange} className="my-6">
-              <TabsList className="flex justify-center">
+              <TabsList className="flex flex-wrap justify-center lg:justify-center h-[5.5rem] lg:h-[2.5rem] md:h-[3.5rem]">
                 <TabsTrigger value="all">ALL</TabsTrigger>
                 <TabsTrigger value="newArrivals">NEW ARRIVALS</TabsTrigger>
                 <TabsTrigger value="bestSellers">BEST SELLERS</TabsTrigger>
                 <TabsTrigger value="topRated">TOP RATED</TabsTrigger>
               </TabsList>
+
               <TabsContent value="all">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items.map((item) => (
@@ -170,9 +171,7 @@ const ShoppingList = () => {
               <TabsContent value="newArrivals">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items
-                    .filter(
-                      (item) => item.attributes.trend === "newArrivals"
-                    )
+                    .filter((item) => item.attributes.trend === "newArrivals")
                     .map((item) => (
                       <Item
                         key={`${item.attributes.name}-${item.id}`}
@@ -185,9 +184,7 @@ const ShoppingList = () => {
               <TabsContent value="bestSellers">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items
-                    .filter(
-                      (item) => item.attributes.trend === "bestSellers"
-                    )
+                    .filter((item) => item.attributes.trend === "bestSellers")
                     .map((item) => (
                       <Item
                         key={`${item.attributes.name}-${item.id}`}
@@ -219,4 +216,3 @@ const ShoppingList = () => {
 };
 
 export default ShoppingList;
-
