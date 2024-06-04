@@ -9,7 +9,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
-  const [isRegistering, setIsRegistering] = useState<boolean>(false);
+  const [isRegistering, setIsRegistering] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const { userLoggedIn } = useAuth();
