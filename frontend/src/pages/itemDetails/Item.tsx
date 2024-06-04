@@ -3,18 +3,40 @@ import { useDispatch } from "react-redux";
 import { Button } from "../../components/ui/button";
 import { Card } from "../../components/ui/card";
 import { Plus, Minus } from "lucide-react";
-import { addToCart, removeSingleItems } from "@/app/store";
+import { addToCart} from "@/app/store";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/entities/auth/AuthProvider";
 
-const Item = ({ item,  id }) => {
+interface ItemProps {
+  item: {
+    id: number;
+    attributes: {
+      category: string;
+      price: number;
+      name: string;
+      image?: {
+        data: {
+          attributes: {
+            formats: {
+              medium: {
+                url: string;
+              };
+            };
+          };
+        };
+      };
+    };
+  };
+}
+
+const Item: React.FC<ItemProps> = ({ item }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [count, setCount] = useState(1);  //counting cart items
-  const [isHovered, setIsHovered] = useState(false);
+  const [count, setCount] = useState<number>(1);  //counting cart items
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const { currentUser } = useAuth();
-  const { category, price, name, image } = item.attributes;
+  const { price, name, image } = item.attributes;
   const imageUrl = image?.data?.attributes?.formats?.medium?.url;
 
   // function to handle add to cart 
@@ -50,7 +72,7 @@ const Item = ({ item,  id }) => {
             alt={name}
             src={`http://localhost:1337${imageUrl}`}
             className="cursor-pointer w-[300px] h-[400px]"
-            onClick={() => navigate(`/item/${id}`)}
+            onClick={() => navigate(`/item/${item.id}`)}
           />
         )}
 
