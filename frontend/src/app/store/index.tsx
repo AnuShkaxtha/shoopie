@@ -1,7 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice,PayloadAction } from "@reduxjs/toolkit";
+
+// Interface for cart item
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  qnty: number;
+}
+
+// Interface for initial state
+interface CartState {
+  cart: CartItem[];
+  items: any[];
+}
 
 // storing cart item in local storage 
-export const loadCartItemsFromStorage = (userId) => {
+export const loadCartItemsFromStorage = (userId: string):CartItem[]=> {
   try {
     const savedCart = localStorage.getItem(`cart_${userId}`);
     if (savedCart) {
@@ -15,7 +29,7 @@ export const loadCartItemsFromStorage = (userId) => {
 };
 
 // Initial state with empty cart and items arrays
-const initialState = {
+const initialState : CartState= {
   cart: [],
   items: [],
 };
@@ -25,29 +39,38 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     // for managing items state
-    setItems: (state, action) => {
+    setItems: (state, action: PayloadAction<any[]>) => {
       state.items = action.payload;
     },
 
     // for managing cart state
-    setCart: (state, action) => {
+    setCart: (state, action: PayloadAction<CartItem[]>) => {
       state.cart = action.payload;
     },
 
     // adding items to cart 
-    addToCart: (state, action) => {
+    addToCart: (state,action: PayloadAction<{ id: number; count: number }>) => {
       const { id, count } = action.payload;
-      const itemIndex = state.cart.findIndex(item => item.id === id);
-      // item exist in cart 
+      const itemIndex = state.cart.findIndex((item) => item.id === id);
+      const itemToAdd = state.items.find((item) => item.id === id);
+
+      if (!itemToAdd) {
+        // Handle case where item is not found in the items list
+        console.error("Item not found");
+        return;
+      }
+
       if (itemIndex >= 0) {
+        // Item exists in cart
         state.cart[itemIndex].qnty += count;
       } else {
-        state.cart.push({ ...action.payload, qnty: count });
+        // Item does not exist in cart, add it
+        state.cart.push({ ...itemToAdd, qnty: count });
       }
     },
 
     // removing single item from cart 
-    removeSingleItems: (state, action) => {
+    removeSingleItems: (state, action:  PayloadAction<{ id: number }>) => {
       const itemIndex = state.cart.findIndex(item => item.id === action.payload.id);
       if (itemIndex >= 0 && state.cart[itemIndex].qnty > 1) {
         state.cart[itemIndex].qnty -= 1;
@@ -64,13 +87,13 @@ export const cartSlice = createSlice({
     },
 
     // counting  item count in cart 
-    increaseCount: (state, action) => {
+    increaseCount: (state, action :PayloadAction<{ id: number }>) => {
       const itemIndex = state.cart.findIndex(item => item.id === action.payload.id);
       if (itemIndex >= 0) {
         state.cart[itemIndex].qnty += 1;
       }
     },
-    decreaseCount: (state, action) => {
+    decreaseCount: (state, action:  PayloadAction<{ id: number }>) => {
       const itemIndex = state.cart.findIndex(item => item.id === action.payload.id);
       if (itemIndex >= 0 && state.cart[itemIndex].qnty > 1) {
         state.cart[itemIndex].qnty -= 1;
