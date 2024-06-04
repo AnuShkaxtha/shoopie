@@ -1,9 +1,9 @@
 import { useTheme } from "@/processes/theme/theme-provider";
-import React from "react";
+
 
 function Footer() {
   
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
   return (
     
     <footer className={`py-[10px] shadow-xl  ${theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-500 text-white" }`}>

@@ -13,13 +13,13 @@ interface FirebaseConfig {
 }
 
 const firebaseConfig: FirebaseConfig = {
-    apiKey: process.env.VITE_REACT_APP_FIREBASE_API_KEY as string,
-    authDomain: process.env.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN as string,
-    projectId: process.env.VITE_REACT_APP_FIREBASE_PROJECT_ID as string,
-    storageBucket: process.env.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET as string,
-    messagingSenderId: process.env.VITE_REACT_APP_FIREBASE_MESSAGING_SENDER as string,
-    appId: process.env.VITE_REACT_APP_FIREBASE_ID as string,
-    measurementId: process.env.VITE_REACT_APP_MEASUREMENT_ID as string
+    apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY as string,
+    authDomain: import.meta.env.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN as string,
+    projectId: import.meta.env.VITE_REACT_APP_FIREBASE_PROJECT_ID as string,
+    storageBucket: import.meta.env.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET as string,
+    messagingSenderId: import.meta.env.VITE_REACT_APP_FIREBASE_MESSAGING_SENDER as string,
+    appId: import.meta.env.VITE_REACT_APP_FIREBASE_ID as string,
+    measurementId: import.meta.env.VITE_REACT_APP_MEASUREMENT_ID as string
 };
 
 // Initialize Firebase
