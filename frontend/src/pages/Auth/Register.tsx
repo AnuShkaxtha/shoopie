@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { Navigate, Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Navigate, Link, } from "react-router-dom";
 import { useAuth } from "../../entities/auth/AuthProvider";
 import { doCreateUserWithEmailAndPassword } from "@/entities/firebase/auth";
 
+
 const Register = () => {
-  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false);
+  const [isRegistering, setIsRegistering] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const { userLoggedIn } = useAuth();
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (!isRegistering) {
       setIsRegistering(true);
@@ -27,7 +27,7 @@ const Register = () => {
       try {
         // CREATING USER
         await doCreateUserWithEmailAndPassword(email, password);
-      } catch (error) {
+      } catch (error: any) {
         setErrorMessage(error.message);
         setIsRegistering(false);
       }

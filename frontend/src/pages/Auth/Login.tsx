@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
 import {
@@ -5,7 +6,7 @@ import {
   doSignInWithGoogle,
 } from "../../entities/firebase/auth";
 import { useAuth } from "../../entities/auth/AuthProvider";
-import { useTheme } from "@emotion/react"; 
+import { useTheme } from "@/processes/theme/theme-provider"; 
 import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
@@ -18,7 +19,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   // Email-Password authentication
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: { preventDefault: () => void; }) => {
     //prevents default submission
     e.preventDefault();
     // if user is signing in 
@@ -26,7 +27,7 @@ const Login = () => {
       setIsSigningIn(true);
       try {
         await doSignInWithEmailAndPassword(email, password);
-      } catch (error) {
+      } catch (error:any) {
         setErrorMessage(error.message);
         setIsSigningIn(false);
       }
@@ -34,13 +35,13 @@ const Login = () => {
   };
   
   // Google authentication
-  const onGoogleSignIn = async (e) => {
+  const onGoogleSignIn = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (!isSigningIn) {
       setIsSigningIn(true);
       try {
         await doSignInWithGoogle();
-      } catch (error) {
+      } catch (error:any) {
         setErrorMessage(error.message);
         setIsSigningIn(false);
       }
@@ -48,7 +49,7 @@ const Login = () => {
   };
 
   // checking if user already exist in strapi backend based on user email
-  const checkUserExists = async (userEmail) => {
+  const checkUserExists = async (userEmail: string | number | boolean  ) => {
     try {
       const response = await fetch(
         //replace to  UTF-8 encoding.
@@ -56,14 +57,14 @@ const Login = () => {
       );
       const data = await response.json();
       return data.data.length > 0; // Check if the data array is not empty
-    } catch (error) {
+    } catch (error:any) {
       console.error("Error checking user existence:", error.message);
       return false; // Return false in case of error
     }
   };
 
   // Function to send user details to Strapi backend
-  const sendUserDetailsToBackend = async (userEmail,uid) => {
+  const sendUserDetailsToBackend = async (userEmail: any  ,uid: string) => {
     try {
       // Check if the user already exists in the backend
       const userExists = await checkUserExists(userEmail);
@@ -83,7 +84,7 @@ const Login = () => {
           throw new Error("Failed to store user details in backend.");
         }
       }
-    } catch (error) {
+    } catch (error:any) {
       console.error("Error storing user details in backend:", error.message);
     }
   };
@@ -91,7 +92,7 @@ const Login = () => {
 
   useEffect(() => {
     if (currentUser) {
-      sendUserDetailsToBackend(currentUser.email,currentUser.uid);
+      sendUserDetailsToBackend(currentUser.email, currentUser.uid);
     }
   }, [currentUser]);
   
