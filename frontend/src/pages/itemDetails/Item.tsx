@@ -1,6 +1,6 @@
 import  { FC, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button } from "../../components/ui/button";
+import { Button } from "../../components//ui/button";
 import { Card } from "../../components/ui/card";
 import { Plus, Minus } from "lucide-react";
 import { addToCart} from "@/app/store";
@@ -41,7 +41,7 @@ const Item: FC <ItemProps> = ({ item,  id }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const { currentUser } = useAuth();
-  const { trend, price, name, image } = item.attributes;
+  const {  price, name, image } = item.attributes;
   const imageUrl = image?.data?.attributes?.formats?.medium?.url;
 
   // function to handle add to cart 

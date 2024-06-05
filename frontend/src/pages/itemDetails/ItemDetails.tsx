@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, fetchItems, fetchItemById } from "@/app/store";
+import { addToCart, fetchItems,fetchItemById} from "@/app/store";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Minus, Heart } from "lucide-react";
@@ -8,17 +8,19 @@ import Item from "./Item";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "@/entities/auth/AuthProvider";
 
-const ItemDetails = () => {
+interface ItemDetailsProps {}
+
+const ItemDetails: React.FC<ItemDetailsProps> = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [value, setValue] = useState("description");
-  const [count, setCount] = useState(1);
+  const [value, setValue] = useState<string>("description");
+  const [count, setCount] = useState<number>(1);
   const { itemId } = useParams();
-  const item = useSelector((state) => state.cart.item);
-  const items = useSelector((state) => state.cart.items);
+  const item = useSelector((state: any) => state.cart.item);
+  const items = useSelector((state: any) => state.cart.items);
   const { currentUser } = useAuth();
 
-  const handleChange = (newValue) => {
+  const handleChange = (newValue: string) => {
     setValue(newValue);
   };
 
@@ -42,8 +44,8 @@ const ItemDetails = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchItems());
-    dispatch(fetchItemById(itemId));
+    dispatch(fetchItems() as any);
+    dispatch(fetchItemById(Number(itemId)) as any);
   }, [dispatch, itemId]);
 
   return (
@@ -69,9 +71,9 @@ const ItemDetails = () => {
           <p className="mb-6 text-xl">$ {item?.attributes?.price}</p>
 
           <div>
-            {item?.attributes?.longDescription?.map((paragraph, index) => (
+            {item?.attributes?.longDescription?.map((paragraph: any, index: number) => (
               <p key={index}>
-                {paragraph.children.map((child, idx) => (
+                {paragraph.children.map((child: any, idx: number) => (
                   <span key={idx}>{child.text}</span>
                 ))}
               </p>
@@ -109,9 +111,9 @@ const ItemDetails = () => {
           </TabsList>
           <TabsContent value="description">
             <div>
-              {item?.attributes?.longDescription?.map((paragraph, index) => (
+              {item?.attributes?.longDescription?.map((paragraph: any, index: number) => (
                 <div key={index}>
-                  {paragraph.children.map((child, idx) => (
+                  {paragraph.children.map((child: any, idx: number) => (
                     <span key={idx}>{child.text}</span>
                   ))}
                 </div>
@@ -127,13 +129,15 @@ const ItemDetails = () => {
       <div className="mt-20">
         <p className="mb-4 text-2xl font-bold">Related Products</p>
         <div className="flex flex-wrap gap-10">
-          {items.slice(0, 4).map((relatedItem, index) => (
+          {items.slice(0, 4).map((relatedItem: any, index: number) => (
             <Item
               key={`${relatedItem.attributes.name}-${index}`}
               item={relatedItem}
               id={relatedItem.id}
             />
           ))}
+       
+
         </div>
       </div>
     </div>
