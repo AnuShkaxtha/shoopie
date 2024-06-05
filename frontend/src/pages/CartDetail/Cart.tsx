@@ -14,19 +14,19 @@ import { useAuth } from "@/entities/auth/AuthProvider";
 import { loadCartItemsFromStorage } from "@/app/store/index";
 import { useNavigate } from "react-router-dom";
 
-const Cart = () => {
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [loading, setLoading] = useState(false); // Track loading state for API request
-  const cart = useSelector((state) => state.cart.cart);
+  const cart = useSelector((state: any) => state.cart.cart);
   const [orderSuccess, setOrderSuccess] = useState(false); // Track order success
   // Authentication
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
   console.log(currentUser)
-  
+
   // Load cart items from local storage on component mount
   useEffect(() => {
     if (!currentUser) {
@@ -43,7 +43,7 @@ const Cart = () => {
   useEffect(() => {
     let price = 0;
     let quantity = 0;
-    cart.forEach((item) => {
+    cart.forEach((item: any) => {
       price += item.price * item.qnty;
       quantity += item.qnty;
     });
@@ -57,15 +57,15 @@ const Cart = () => {
   }, [cart, currentUser]);
 
   // Functions to handle items in cart
-  const handleIncrement = (itemId) => {
+  const handleIncrement = (itemId: number) => {
     dispatch(increaseCount({ id: itemId }));
   };
 
-  const handleSingleDecrement = (itemId) => {
+  const handleSingleDecrement = (itemId: number) => {
     dispatch(decreaseCount({ id: itemId }));
   };
 
-  const handleRemove = (itemId) => {
+  const handleRemove = (itemId: number) => {
     dispatch(removeSingleItems({ id: itemId }));
   };
 
@@ -80,17 +80,19 @@ const Cart = () => {
     setOrderSuccess(false);
     try {
       // Extracting product details from the cart
-      const products = cart.map((item) => ({
+      const products = cart.map((item: any) => ({
         productName: item.name,
         productId: item.id,
         quantity: item.qnty,
       }));
       // Prepare the order data
+      // Prepare the order data
       const orderData = {
         products,
-        email: currentUser.email,
+        email: currentUser?.email || '', // Use optional chaining to safely access email property
         price: totalPrice,
       };
+
 
       // Make API request to Strapi endpoint
       const response = await fetch("http://localhost:1337/api/orders", {
@@ -103,7 +105,7 @@ const Cart = () => {
       });
       //const responseData = await response.json();
 
-  
+
       if (response.ok) {
         console.log("Order placed successfully!");
         setOrderSuccess(true);
@@ -112,7 +114,7 @@ const Cart = () => {
       } else {
         console.error("Error placing order:", response.statusText);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error placing order:", error.message);
     } finally {
       setLoading(false);
@@ -144,12 +146,12 @@ const Cart = () => {
               </div>
               <Button onClick={() => navigate("/")}>Continue Shooping </Button>
             </div>
-            
+
           ) : (
             <>
               {/* ITEMS */}
               <div className="space-y-4">
-                {cart.map((item) => {
+                {cart.map((item: any) => {
                   const imageUrl = `http://localhost:1337${item.image.data.attributes.url}`;
                   return (
                     <div key={item.id} className="pb-4 mb-4 border-b">
