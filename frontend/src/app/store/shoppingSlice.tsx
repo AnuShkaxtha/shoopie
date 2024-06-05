@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-interface FilterTrends {
+export interface FilterTrends {
   newArrivals: boolean;
     bestSellers: boolean;
     topRated: boolean;
 }
 
-interface PriceRanges {
+export interface PriceRanges {
   range0_300: boolean;
     range300_600: boolean;
     range600_1000: boolean;

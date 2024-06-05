@@ -1,67 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItems, setItems } from "@/app/store";
+import { fetchItems } from "@/app/store";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Item from "../itemDetails/Item";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import {
-  clearFilters,
-  setSearchInput,
-  toggleTrendFilter,
-  togglePriceFilter,
-} from "@/app/store/shoppingSlice";
-import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { FilterTrends, PriceRanges } from "@/app/store/shoppingSlice";
+import { RootState } from "@/app/store/store";
 import Filter from "./Filters";
 
-const ShoppingList = () => {
+const ShoppingList: React.FC = () => {
   const dispatch = useDispatch();
-  // State from shopping slice
   const {
     items: shoppingItems,
     searchInput,
     filterTrends,
     priceRanges,
     allItem,
-  } = useSelector((state) => state.shopping);
-  // manage current tab value
-  const [value, setValue] = useState("all"); //default:all
-  // manage guide section visibility
-  const [showGuide, setShowGuide] = useState(false);
+  } = useSelector((state: RootState) => state.shopping);
 
-  //getting list of items from redux store
-  const items = useSelector((state) => state.cart.items);
+  const [value, setValue] = useState<string>("all");
+  // const [showGuide, setShowGuide] = useState<boolean>(false);
 
-  // fetching items from strapi api
-  // async function getItems() {
-  //   const items = await fetch(
-  //     "http://localhost:1337/api/items?populate=image",
-  //     {
-  //       method: "GET",
-  //     }
-  //   );
-  //   const itemsJson = await items.json();
-  //   dispatch(setItems(itemsJson.data));
-  // }
+  const items = useSelector((state: RootState) => state.cart.items);
 
   useEffect(() => {
-    dispatch(fetchItems());
+    dispatch(fetchItems() as any);
   }, [dispatch]);
 
-  // function to change tab value
-  const handleChange = (eve, newValue) => {
+  const handleChange = (newValue: string) => {
     setValue(newValue);
   };
 
-  // filtering items based on trends, price and search input
   const filterItemsByTrends = () => {
     let filteredItems = items;
 
     if (!allItem) {
-      // retrive object of filterTrends and filter
       const selectedTrends = Object.keys(filterTrends).filter(
-        (trend) => filterTrends[trend]
+        (trend) => filterTrends[trend as keyof FilterTrends]
       );
 
       if (selectedTrends.length > 0) {
@@ -72,7 +46,7 @@ const ShoppingList = () => {
     }
 
     const selectedPriceRanges = Object.keys(priceRanges).filter(
-      (range) => priceRanges[range]
+      (range) => priceRanges[range as keyof PriceRanges]
     );
 
     if (selectedPriceRanges.length > 0) {
@@ -93,34 +67,22 @@ const ShoppingList = () => {
     );
   };
 
-  // fitered items
   const filteredItems = filterItemsByTrends();
 
-  // check if filter has been applied
   const hasFiltersApplied = () => {
     return (
       searchInput.length > 0 ||
-      // check is any of the object is true
       Object.values(filterTrends).some((value) => value) ||
       Object.values(priceRanges).some((value) => value)
     );
   };
 
   return (
-    <div
-      className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5"
-      id="shop"
-    >
-      {/* Menu Icon */}
-
-      {/* GUIDE SECTION */}
-      <div
-        className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}
-      >
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5" id="shop">
+      <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
         <Filter />
       </div>
 
-      {/* ITEM SECTION */}
       <div className="col-span-1 md:col-span-3 lg:col-span-4">
         <div className="mx-auto w-[89%] md:my-6 lg:my-9 ">
           {hasFiltersApplied() && (
@@ -147,7 +109,6 @@ const ShoppingList = () => {
           <h1 className="mt-8 text-3xl font-extrabold text-center">
             Our Featured Products
           </h1>
-          {/* PRODUCTS */}
           <div>
             <Tabs value={value} onValueChange={handleChange} className="my-6">
               <TabsList className="flex flex-wrap justify-center lg:justify-center h-[5.5rem] lg:h-[2.5rem] md:h-[3.5rem]">

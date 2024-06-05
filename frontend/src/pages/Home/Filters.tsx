@@ -9,26 +9,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import Item from "../itemDetails/Item";
+import { RootState } from "@/app/store/store";
 
-const Filter = () => {
+const Filter: React.FC = () => {
   const dispatch = useDispatch();
   const {
     searchInput,
     filterTrends,
     priceRanges,
-    allItem,
-  } = useSelector((state) => state.shopping);
+    // allItem,
+  } = useSelector((state: RootState) => state.shopping);
 
-  const handleSearchInputChange = (event) => {
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchInput(event.target.value));
   };
 
-  const handleCheckboxChange = (trend) => {
+  const handleCheckboxChange = (trend: keyof typeof filterTrends) => {
     dispatch(toggleTrendFilter(trend));
   };
 
-  const handlePriceRangeChange = (range) => {
+  const handlePriceRangeChange = (range: keyof typeof priceRanges) => {
     dispatch(togglePriceFilter(range));
   };
 
@@ -63,8 +63,8 @@ const Filter = () => {
             <input
               type="checkbox"
               className="mr-2 form-checkbox"
-              checked={filterTrends[trend]}
-              onChange={() => handleCheckboxChange(trend)}
+              checked={filterTrends[trend as keyof typeof filterTrends]}
+              onChange={() => handleCheckboxChange(trend as keyof typeof filterTrends)}
             />
             <span>{trend}</span>
           </label>
@@ -79,8 +79,8 @@ const Filter = () => {
             <input
               type="checkbox"
               className="mr-2 form-checkbox"
-              checked={priceRanges[range]}
-              onChange={() => handlePriceRangeChange(range)}
+              checked={priceRanges[range as keyof typeof priceRanges]}
+              onChange={() => handlePriceRangeChange(range as keyof typeof priceRanges)}
             />
             <span>{range}</span>
           </label>
