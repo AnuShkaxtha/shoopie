@@ -1,5 +1,5 @@
 // Import React and required components
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import ItemDetails from "../pages/itemDetails/ItemDetails";
@@ -25,7 +25,7 @@ const ScrollToTop = () => {
 };
 
 // Define App component
-function App() {
+function App(): JSX.Element {
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -47,5 +47,3 @@ function App() {
 }
 
 export default App;
-
-//div<Item  items.map(item.any())>
