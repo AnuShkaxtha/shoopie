@@ -1,15 +1,32 @@
-import React, { useContext, useState, useEffect, createContext } from "react";
+import React, { useContext, useState, useEffect, createContext, ReactNode } from "react";
 import { auth } from "../firebase/firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { User, onAuthStateChanged } from "firebase/auth";
 
-export const AuthContext = createContext();
-
-export function useAuth() {
-  return useContext(AuthContext);
+interface AuthContextType{
+  userLoggedIn: boolean;
+  isEmailUser: boolean;
+  isGoogleUser: boolean;
+  currentUser: User | null;
+  setCurrentUser:  React.Dispatch<React.SetStateAction<User | null>>;
 }
 
-export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps>=({ children }) =>{
+  const [currentUser, setCurrentUser] = useState<User|null>(null);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [isEmailUser, setIsEmailUser] = useState(false);
   const [isGoogleUser, setIsGoogleUser] = useState(false);
@@ -22,7 +39,7 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  async function initializeUser(user) {
+  async function initializeUser(user: User |null) {
     if (user) {
       setCurrentUser({ ...user });
 

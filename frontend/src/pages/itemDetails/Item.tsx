@@ -1,13 +1,40 @@
-import React, { useState } from "react";
+import  { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button } from "../../components/ui/button";
 import { Card } from "../../components/ui/card";
 import { Plus, Minus } from "lucide-react";
-import { addToCart, removeSingleItems } from "@/app/store";
+import { addToCart} from "@/app/store";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/entities/auth/AuthProvider";
 
-const Item = ({ item,  id }) => {
+interface ImageData {
+  attributes: {
+    formats: {
+      medium: {
+        url: string;
+      };
+    };
+  };
+}
+
+interface ItemAttributes {
+  trend: string;
+  price: number;
+  name: string;
+  image: {
+    data: ImageData | null;
+  };
+}
+
+interface ItemProps {
+  id: number;
+  item: {
+    id: number;
+    attributes: ItemAttributes;
+  };
+}
+
+const Item: FC <ItemProps> = ({ item,  id }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);  //counting cart items
