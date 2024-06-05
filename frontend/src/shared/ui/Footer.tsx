@@ -1,11 +1,9 @@
-import { useTheme } from "@/processes/theme/theme-provider";
-import React from "react";
 
-function Footer() {
-  
-  const { theme, setTheme } = useTheme();
+import { useTheme } from "@/processes/theme/theme-provider";
+
+function Footer(): JSX.Element {
+  const { theme } = useTheme();
   return (
-    
     <footer className={`py-[10px] shadow-xl  ${theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-500 text-white" }`}>
       <div className="w-[90%] m-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-6 mt-6">
         <div className="mr-8">
