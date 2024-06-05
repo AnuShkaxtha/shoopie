@@ -3,9 +3,21 @@ import { useAuth } from '@/entities/auth/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-const OrderList = () => {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+interface Order {
+  id: string;
+  attributes: {
+    createdAt: string;
+    products: {
+      productName: string;
+      quantity: number;
+    }[];
+    price: number;
+  };
+}
+
+const OrderList: React.FC = () => {
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
@@ -55,7 +67,7 @@ const OrderList = () => {
                   <p className="text-lg font-bold ">Order ID: {order.id}</p>
                   <div className='mt-2 space-y-2 ml-9'>
                   {/* create date object and localize string  */}
-                  <p className="text-sm">Ordered Date: {new Date (order.attributes.createdAt).toLocaleString()}</p>
+                  <p className="text-sm">Ordered Date: {new Date(order.attributes.createdAt).toLocaleString()}</p>
                   <p className="text-sm">Total Items: {order.attributes.products.length}</p>
                   <div className="space-y-2 text-right">
                     {order.attributes.products.map((product, index) => (

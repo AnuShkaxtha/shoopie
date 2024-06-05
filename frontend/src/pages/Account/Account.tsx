@@ -7,30 +7,23 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from "react-router-dom";
 import { doSignOut } from "@/entities/firebase/auth";
 
-const Account = () => {
+const Account: React.FC = () => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
-  const [showAccount, setShowAccount] = useState(true);
-  const [userDetails, setUserDetails] = useState(null);
+  const [showAccount, setShowAccount] = useState<boolean>(true);
+  const [userDetails, setUserDetails] = useState<any>(null);
 
   useEffect(() => {
-    // navigate is user is not logged in 
     if (!currentUser) {
       navigate("/login");
-    } 
-    else {
-      // assigning user id 
+    } else {
       const userId = currentUser.uid;
-      // function to fetch current user detail from strapi backend 
       const fetchUserDetails = async () => {
         try {
-          // fetching data based on user id 
           const response = await fetch(
             `http://localhost:1337/api/user-logins?filters[userId][$eq]=${userId}`
           );
-          // storing json body of response as result
           const result = await response.json();
-          // if result exist 
           if (result.data && result.data.length > 0) {
             setUserDetails(result.data[0].attributes);
           } else {
@@ -43,10 +36,9 @@ const Account = () => {
 
       fetchUserDetails();
     }
-  }, [currentUser]); 
+  }, [currentUser, navigate]);
 
   useEffect(() => {
-    // Log userDetails whenever it changes
     console.log(userDetails);
   }, [userDetails]);
 
@@ -86,7 +78,7 @@ const Account = () => {
               <CardContent>
                 {userDetails ? (
                   <div className="space-y-4 md:space-y-10">
-                    <p className="font-bold">Name: <span className="font-normal"> {currentUser.displayName ? currentUser.displayName : currentUser.email.split('@')[0]}</span></p>
+                    <p className="font-bold">Name: <span className="font-normal"> {currentUser?.displayName ? currentUser.displayName : currentUser?.email?.split('@')[0]}</span></p>
                     <p className="font-bold">Email: <span className="font-normal">{userDetails.email}</span></p>
                     <p className="font-bold">User ID: <span className="font-normal">{userDetails.userId}</span></p>
                     <p className="font-bold">Created At: <span className="font-normal">{new Date(userDetails.createdAt).toLocaleString()}</span></p>
