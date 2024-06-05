@@ -3,7 +3,7 @@ import  { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import ItemDetails from "../pages/itemDetails/ItemDetails";
-// import { Navbar } from "../shared/ui/Navbar";
+import { Navbar } from "../shared/ui/Navbar";
 import Footer from "../shared/ui/Footer";
 import "./App.css";
 import Cart from "../pages/CartDetail/Cart";
@@ -29,7 +29,7 @@ function App(): JSX.Element {
   return (
     <AuthProvider>
       <BrowserRouter>
-        {/* <Navbar /> */}
+        <Navbar />
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
