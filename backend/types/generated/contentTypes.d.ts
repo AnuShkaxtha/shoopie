@@ -805,6 +805,11 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'oneToMany',
       'api::item.item'
     >;
+    sub_categories: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::sub-category.sub-category'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -847,6 +852,7 @@ export interface ApiItemItem extends Schema.CollectionType {
       'manyToOne',
       'api::category.category'
     >;
+    filter: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -896,12 +902,18 @@ export interface ApiSubCategorySubCategory extends Schema.CollectionType {
     singularName: 'sub-category';
     pluralName: 'sub-categories';
     displayName: 'sub-category';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     name: Attribute.String;
+    category: Attribute.Relation<
+      'api::sub-category.sub-category',
+      'manyToOne',
+      'api::category.category'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
