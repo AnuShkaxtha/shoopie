@@ -40,6 +40,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { SubNav } from "../SubNav";
 
 export function Navbar(): JSX.Element {
   const { theme, setTheme } = useTheme();
@@ -64,12 +65,13 @@ export function Navbar(): JSX.Element {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${
+
         theme === "dark"
           ? "bg-gray-800 text-white"
           : "bg-white text-gray-700"
       }`}
     >
-      <div className="container flex items-center justify-between mx-auto">
+      <div className="container flex items-center justify-between px-1 mx-auto">
         {/* LOGO */}
         <Link to={"/"}>
           <div className="text-lg font-bold">SHOOPIE</div>
@@ -180,7 +182,7 @@ export function Navbar(): JSX.Element {
           {/* COLOR MODE */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="p-1 lg:p-3 md:p-3">
                 <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                 <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                 <span className="sr-only">Toggle theme</span>
@@ -199,7 +201,7 @@ export function Navbar(): JSX.Element {
           {/* <Sheet className="flex justify-end md:hidden"> */}
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" className="text-gray-700">
+              <Button variant="ghost" className="p-0 text-gray-700 lg:p-3 md:p-3">
                 <Menu />
               </Button>
             </SheetTrigger>
@@ -217,6 +219,9 @@ export function Navbar(): JSX.Element {
             </SheetContent>
           </Sheet>
         </div>
+      </div>
+      <div>
+        <SubNav/>
       </div>
     </nav>
   );
