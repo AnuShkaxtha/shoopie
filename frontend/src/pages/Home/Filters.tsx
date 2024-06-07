@@ -5,6 +5,7 @@ import {
   setSearchInput,
   toggleTrendFilter,
   togglePriceFilter,
+  toggleCategoryFilter,
 } from "@/app/store/shoppingSlice";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -17,6 +18,7 @@ const Filter: React.FC = () => {
     searchInput,
     filterTrends,
     priceRanges,
+    filterCategory,
     // allItem,
   } = useSelector((state: RootState) => state.shopping);
 
@@ -26,6 +28,9 @@ const Filter: React.FC = () => {
 
   const handleCheckboxChange = (trend: keyof typeof filterTrends) => {
     dispatch(toggleTrendFilter(trend));
+  };
+  const handleCategoryChange = (category: keyof typeof filterCategory) => {
+    dispatch(toggleCategoryFilter(category));
   };
 
   const handlePriceRangeChange = (range: keyof typeof priceRanges) => {
@@ -43,6 +48,32 @@ const Filter: React.FC = () => {
           onChange={handleSearchInputChange}
           className="py-1 border border-gray-300 rounded-md"
         />
+      </div>
+      <Separator className="my-4 bg-gray-400" />
+      {/* category */}
+      <div className="text-[14px] mt-3">
+        <p className="pb-2">category</p>
+        {/* Assuming 'all' is a default trend and cannot be unchecked */}
+        <label className="flex items-center pt-1">
+          <input
+            type="checkbox"
+            className="mr-2 form-checkbox"
+            disabled
+            checked
+          />
+          <p>All</p>
+        </label>
+        {Object.keys(filterCategory).map((category) => (
+          <label className="flex items-center pt-1" key={category}>
+            <input
+              type="checkbox"
+              className="mr-2 form-checkbox"
+              checked={filterCategory[category as keyof typeof filterCategory]}
+             onChange={() => handleCategoryChange(category as keyof typeof filterCategory)}
+            />
+            <span>{category}</span>
+          </label>
+        ))}
       </div>
       <Separator className="my-4 bg-gray-400" />
       {/* TREND */}

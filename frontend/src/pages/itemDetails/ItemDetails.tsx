@@ -48,6 +48,8 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
     dispatch(fetchItemById(Number(itemId)) as any);
   }, [dispatch, itemId]);
 
+  console.log(item);
+  
   return (
     <div className="w-[90%] mx-auto my-20 ">
       <div className="grid grid-cols-2 gap-10 ">
@@ -112,6 +114,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
           <TabsContent value="description">
             <div>
               {item?.attributes?.longDescription?.map((paragraph: any, index: number) => (
+                
                 <div key={index}>
                   {paragraph.children.map((child: any, idx: number) => (
                     <span key={idx}>{child.text}</span>

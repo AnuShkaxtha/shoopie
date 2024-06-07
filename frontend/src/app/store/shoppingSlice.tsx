@@ -13,6 +13,14 @@ export interface PriceRanges {
     range1000_4000: boolean;
 }
 
+export interface FilterCategory {
+  womens: boolean;
+    mens: boolean;
+    kids: boolean;
+    beauty: boolean;
+    home:boolean;
+}
+
 // main iterface for initial state
 interface ShoppingState{
   items: any[];
@@ -20,6 +28,7 @@ interface ShoppingState{
   filterTrends:  FilterTrends;
   priceRanges: PriceRanges;
   allItem: boolean;
+  filterCategory: FilterCategory;
 }
 
 const initialState: ShoppingState = {
@@ -38,6 +47,13 @@ const initialState: ShoppingState = {
     range1000_4000: false,
   },
   allItem: false,
+  filterCategory: {
+    womens: false,
+      mens: false,
+      kids:  false,
+      beauty:  false,
+      home: false,
+  }
 };
 
 export const shoppingSlice = createSlice({
@@ -60,6 +76,9 @@ export const shoppingSlice = createSlice({
     togglePriceFilter: (state, action:PayloadAction<keyof PriceRanges>) => {
       state.priceRanges[action.payload] = !state.priceRanges[action.payload];
     },
+    toggleCategoryFilter: (state, action:PayloadAction<keyof FilterCategory>) => {
+      state.filterCategory[action.payload] = !state.filterCategory[action.payload];
+    },
     // action to clear all filter 
     clearFilters: (state) => {
       state.filterTrends = {
@@ -72,6 +91,13 @@ export const shoppingSlice = createSlice({
         range300_600: false,
         range600_1000: false,
         range1000_4000: false,
+      };
+      state.filterCategory= {
+        womens: false,
+          mens: false,
+          kids:  false,
+          beauty:  false,
+          home: false,
       };
       state.searchInput = "";
       state.allItem = false;
@@ -87,6 +113,7 @@ export const {
   setSearchInput,
   toggleTrendFilter,
   togglePriceFilter,
+  toggleCategoryFilter,
   clearFilters,
   toggleAllItem,
 } = shoppingSlice.actions;

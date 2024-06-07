@@ -1,6 +1,5 @@
 import * as React from "react"
- 
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+
 import { cn } from "@/lib/utils"
 import {
     NavigationMenu,
@@ -51,128 +50,13 @@ const components: { title: string; href: string; description: string }[] = [
     },
 ]
 
-
 export const SubNav: React.FC = () => {
     return (
-        // <div className="h-[60px] pt-3">
-        //     <Separator className="w-[100%] bg-black " />
-        //     < NavigationMenu className="w-full mt-2 ">
-        //         <NavigationMenuList className="flex justify-between">
-        //             <NavigationMenuItem>
-        //                 <NavigationMenuTrigger>Women's Clothing</NavigationMenuTrigger>
-        //                 <NavigationMenuContent>
-        //                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-        //                         {components.map((component) => (
-        //                             <ListItem
-        //                                 key={component.title}
-        //                                 title={component.title}
-        //                                 href={component.href}
-        //                             >
-        //                                 {component.description}
-        //                             </ListItem>
-        //                         ))}
-        //                     </ul>
-        //                 </NavigationMenuContent>
-        //             </NavigationMenuItem>
-        //             {/*  */}
-        //             <NavigationMenuItem>
-        //                 <NavigationMenuTrigger>Men's Clothing</NavigationMenuTrigger>
-        //                 <NavigationMenuContent>
-        //                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-        //                         {components.map((component) => (
-        //                             <ListItem
-        //                                 key={component.title}
-        //                                 title={component.title}
-        //                                 href={component.href}
-        //                             >
-        //                                 {component.description}
-        //                             </ListItem>
-        //                         ))}
-        //                     </ul>
-        //                 </NavigationMenuContent>
-        //             </NavigationMenuItem>
-        //             {/*  */}
-        //             <NavigationMenuItem>
-        //                 <NavigationMenuTrigger>Kid's Clothing</NavigationMenuTrigger>
-        //                 <NavigationMenuContent>
-        //                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-        //                         {components.map((component) => (
-        //                             <ListItem
-        //                                 key={component.title}
-        //                                 title={component.title}
-        //                                 href={component.href}
-        //                             >
-        //                                 {component.description}
-        //                             </ListItem>
-        //                         ))}
-        //                     </ul>
-        //                 </NavigationMenuContent>
-        //             </NavigationMenuItem>
-        //             {/*  */}
-        //             <NavigationMenuItem>
-        //                 <NavigationMenuTrigger>Health and Beauty</NavigationMenuTrigger>
-        //                 <NavigationMenuContent>
-        //                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-        //                         {components.map((component) => (
-        //                             <ListItem
-        //                                 key={component.title}
-        //                                 title={component.title}
-        //                                 href={component.href}
-        //                             >
-        //                                 {component.description}
-        //                             </ListItem>
-        //                         ))}
-        //                     </ul>
-        //                 </NavigationMenuContent>
-        //             </NavigationMenuItem>
-        //             {/*  */}
-        //             <NavigationMenuItem>
-        //                 <NavigationMenuTrigger>Home and Decor</NavigationMenuTrigger>
-        //                 <NavigationMenuContent>
-        //                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-        //                         {components.map((component) => (
-        //                             <ListItem
-        //                                 key={component.title}
-        //                                 title={component.title}
-        //                                 href={component.href}
-        //                             >
-        //                                 {component.description}
-        //                             </ListItem>
-        //                         ))}
-        //                     </ul>
-        //                 </NavigationMenuContent>
-        //             </NavigationMenuItem>
-        //         </NavigationMenuList>
-        //     </NavigationMenu>
-        // </div>
+        
+    
         <div className="h-[50px] pt-3 " >
       <Separator className="w-full bg-black" />
-      {/* small screen
-      <ScrollArea className="block w-full whitespace-nowrap md:hidden lg:hidden">
-      <NavigationMenu className="w-full mt-1 ">
-        <NavigationMenuList className="flex ">
-          {["Women's Clothing", "Men's Clothing", "Kid's Clothing", "Health and Beauty", "Home and Decor"].map((category) => (
-            <NavigationMenuItem key={category}>
-              <NavigationMenuTrigger className="text-[12px] lg:text-[12px]">{category}</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-full gap-3 p-4 sm:w-[400px] md:w-[500px] lg:w-[600px] md:grid-cols-2 lg:grid-cols-3">
-                  {components.map((component) => (
-                    <ListItem
-                      key={component.title}
-                      title={component.title}
-                      href={component.href}
-                    >
-                      {component.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          ))}
-        </NavigationMenuList>
-      </NavigationMenu>
-      <ScrollBar orientation="horizontal" />
-      </ScrollArea> */}
+      
       
       {/* large */}
       <NavigationMenu className="w-full mt-1 ">
@@ -181,6 +65,7 @@ export const SubNav: React.FC = () => {
             <NavigationMenuItem key={category}>
               <NavigationMenuTrigger className="text-[12px] lg:text-[12px]">{category}</NavigationMenuTrigger>
               <NavigationMenuContent>
+              
                 <ul className="grid w-full gap-3 p-4 sm:w-[400px] md:w-[500px] lg:w-[600px] md:grid-cols-2 lg:grid-cols-3">
                   {components.map((component) => (
                     <ListItem
