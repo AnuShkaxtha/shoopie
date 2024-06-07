@@ -44,7 +44,7 @@ const Cart: React.FC = () => {
     let price = 0;
     let quantity = 0;
     cart.forEach((item: any) => {
-      price += item.price * item.qnty;
+      price += item.attributes.price * item.qnty;
       quantity += item.qnty;
     });
     setTotalPrice(price);
@@ -81,11 +81,10 @@ const Cart: React.FC = () => {
     try {
       // Extracting product details from the cart
       const products = cart.map((item: any) => ({
-        productName: item.name,
+        productName: item.attributes.name,
         productId: item.id,
         quantity: item.qnty,
       }));
-      // Prepare the order data
       // Prepare the order data
       const orderData = {
         products,
@@ -152,25 +151,28 @@ const Cart: React.FC = () => {
               {/* ITEMS */}
               <div className="space-y-4">
                 {cart.map((item: any) => {
-                  const imageUrl = `http://localhost:1337${item.image.data.attributes.url}`;
+                  const imageUrl = item.attributes.image.data ? `http://localhost:1337${item.attributes.image.data.attributes.formats.medium.url}` : '';
+
                   return (
                     <div key={item.id} className="pb-4 mb-4 border-b">
                       <div className="flex items-center justify-start ml-5">
                         <div>
-                          <img
-                            src={imageUrl}
-                            alt={item.name}
-                            className="w-[150px] mr-4 h-25"
-                          />
+                          {imageUrl && (
+                            <img
+                              src={imageUrl}
+                              alt={item.attributes.name}
+                              className="w-[150px] mr-4 h-25"
+                            />
+                          )}
                         </div>
                         <div className="mb-8 ml-4">
-                          <p className="mb-3 text-lg font-bold">{item.name}</p>
-                          <p className="mb-0.5 text-sm">Price: ${item.price}</p>
+                          <p className="mb-3 text-lg font-bold">{item.attributes.name}</p>
+                          <p className="mb-0.5 text-sm">Price: ${item.attributes.price}</p>
                           <p className="mb-0.5 text-sm">
                             Quantity: {item.qnty}
                           </p>
                           <p className="mb-0.5 text-sm">
-                            Total: ${item.price * item.qnty}
+                            Total: ${item.attributes.price * item.qnty}
                           </p>
                           <div className="flex items-center">
                             <Button
