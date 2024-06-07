@@ -40,6 +40,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { SubNav } from "../SubNav";
 
 export function Navbar(): JSX.Element {
   const { theme, setTheme } = useTheme();
@@ -64,13 +65,10 @@ export function Navbar(): JSX.Element {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${
-<<<<<<< HEAD:frontend/src/shared/ui/Navbar.jsx
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-700"
-=======
+
         theme === "dark"
           ? "bg-gray-800 text-white"
           : "bg-white text-gray-700"
->>>>>>> main:frontend/src/shared/ui/Navbar.tsx
       }`}
     >
       <div className="container flex items-center justify-between px-1 mx-auto">
@@ -84,19 +82,11 @@ export function Navbar(): JSX.Element {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-<<<<<<< HEAD:frontend/src/shared/ui/Navbar.jsx
-                <div className="relative inline-block ">
-                  <Button variant="ghost" className="p-0 lg:p-3 md:p-3">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <User className="w-5 h-5 " />
-=======
                 <div className="relative inline-block">
                   <Button variant="ghost">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <User className="w-5 h-5" />
->>>>>>> main:frontend/src/shared/ui/Navbar.tsx
                       </DropdownMenuTrigger>
                       {userLoggedIn ? (
                         <DropdownMenuContent className="w-56">
@@ -104,14 +94,10 @@ export function Navbar(): JSX.Element {
                           <DropdownMenuSeparator />
                           <DropdownMenuGroup>
                             <DropdownMenuItem>
-<<<<<<< HEAD:frontend/src/shared/ui/Navbar.jsx
-                              <Link to={"/account"} className="flex flex-start">
-=======
                               <Link
                                 to={"/account"}
                                 className="flex flex-start"
                               >
->>>>>>> main:frontend/src/shared/ui/Navbar.tsx
                                 <User className="w-4 h-4 mr-2" />
                                 <span>Profile</span>
                               </Link>
@@ -137,14 +123,10 @@ export function Navbar(): JSX.Element {
                           <DropdownMenuSeparator />
                           <DropdownMenuGroup>
                             <DropdownMenuItem>
-<<<<<<< HEAD:frontend/src/shared/ui/Navbar.jsx
-                              <Link to={"/login"} className="flex flex-start">
-=======
                               <Link
                                 to={"/login"}
                                 className="flex flex-start"
                               >
->>>>>>> main:frontend/src/shared/ui/Navbar.tsx
                                 <LogIn className="w-4 h-4 mr-2" />
                                 <span>Login</span>
                               </Link>
@@ -175,11 +157,7 @@ export function Navbar(): JSX.Element {
               <TooltipTrigger asChild>
                 <div className="relative inline-block ">
                   <Link to={"/cart"}>
-<<<<<<< HEAD:frontend/src/shared/ui/Navbar.jsx
-                    <Button variant="ghost" size="sm" className="p-1 lg:p-3 md:p-3">
-=======
                     <Button variant="ghost" size="sm">
->>>>>>> main:frontend/src/shared/ui/Navbar.tsx
                       <GiShoppingBag
                         className={`h-5 w-5 ${
                           theme === "dark" ? "text-gray-300" : "text-gray-900"
@@ -220,13 +198,8 @@ export function Navbar(): JSX.Element {
               {/* <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
-<<<<<<< HEAD:frontend/src/shared/ui/Navbar.jsx
-          {/* MENU */}
-          <Sheet className="flex justify-end md:hidden">
-=======
           {/* <Sheet className="flex justify-end md:hidden"> */}
           <Sheet>
->>>>>>> main:frontend/src/shared/ui/Navbar.tsx
             <SheetTrigger asChild>
               <Button variant="ghost" className="p-0 text-gray-700 lg:p-3 md:p-3">
                 <Menu />
@@ -236,20 +209,19 @@ export function Navbar(): JSX.Element {
               <SheetHeader>
                 <SheetTitle>Filters</SheetTitle>
               </SheetHeader>
-<<<<<<< HEAD:frontend/src/shared/ui/Navbar.jsx
-              <div className={` px-1 mt-4  `}>
-=======
               <div
                 className={` px-1 mt-4  `}
               >
                
 
->>>>>>> main:frontend/src/shared/ui/Navbar.tsx
                 <Filter />
               </div>
             </SheetContent>
           </Sheet>
         </div>
+      </div>
+      <div>
+        <SubNav/>
       </div>
     </nav>
   );
