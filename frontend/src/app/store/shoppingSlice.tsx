@@ -1,31 +1,32 @@
-import { createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { RootState,AppThunk } from './store';
 
 export interface FilterTrends {
   newArrivals: boolean;
-    bestSellers: boolean;
-    topRated: boolean;
+  bestSellers: boolean;
+  topRated: boolean;
 }
 
 export interface PriceRanges {
   range0_300: boolean;
-    range300_600: boolean;
-    range600_1000: boolean;
-    range1000_4000: boolean;
+  range300_600: boolean;
+  range600_1000: boolean;
+  range1000_4000: boolean;
 }
 
 export interface FilterCategory {
   womens: boolean;
-    mens: boolean;
-    kids: boolean;
-    beauty: boolean;
-    home:boolean;
+  mens: boolean;
+  kids: boolean;
+  beauty: boolean;
+  home: boolean;
 }
 
-// main iterface for initial state
-interface ShoppingState{
+// main interface for initial state
+interface ShoppingState {
   items: any[];
   searchInput: string;
-  filterTrends:  FilterTrends;
+  filterTrends: FilterTrends;
   priceRanges: PriceRanges;
   allItem: boolean;
   filterCategory: FilterCategory;
@@ -33,7 +34,6 @@ interface ShoppingState{
 
 const initialState: ShoppingState = {
   items: [],
-  //initial state of filters
   searchInput: "",
   filterTrends: {
     newArrivals: false,
@@ -49,12 +49,22 @@ const initialState: ShoppingState = {
   allItem: false,
   filterCategory: {
     womens: false,
-      mens: false,
-      kids:  false,
-      beauty:  false,
-      home: false,
-  }
+    mens: false,
+    kids: false,
+    beauty: false,
+    home: false,
+  },
 };
+
+export const fetchItemsByCategory = createAsyncThunk(
+  'shopping/fetchItemsByCategory',
+  async (categoryId: string) => {
+    const response = await fetch(`http://localhost:1337/api/items?filters[category]=${categoryId}&populate=image`, { method: 'GET' });
+    const itemsJson = await response.json();
+    setItems(itemsJson.data);
+    return itemsJson.data  // Adjust based on your API response structure
+  }
+);
 
 export const shoppingSlice = createSlice({
   name: "shopping",
@@ -64,22 +74,21 @@ export const shoppingSlice = createSlice({
     setItems: (state, action: PayloadAction<any[]>) => {
       state.items = action.payload;
     },
-    // to set seach input value 
-    setSearchInput: (state, action:PayloadAction<string>) => {
+    // to set search input value
+    setSearchInput: (state, action: PayloadAction<string>) => {
       state.searchInput = action.payload;
     },
     // to set item based on trend
-    toggleTrendFilter: (state, action:PayloadAction<keyof FilterTrends>) => {
+    toggleTrendFilter: (state, action: PayloadAction<keyof FilterTrends>) => {
       state.filterTrends[action.payload] = !state.filterTrends[action.payload];
     },
-
-    togglePriceFilter: (state, action:PayloadAction<keyof PriceRanges>) => {
+    togglePriceFilter: (state, action: PayloadAction<keyof PriceRanges>) => {
       state.priceRanges[action.payload] = !state.priceRanges[action.payload];
     },
-    toggleCategoryFilter: (state, action:PayloadAction<keyof FilterCategory>) => {
+    toggleCategoryFilter: (state, action: PayloadAction<keyof FilterCategory>) => {
       state.filterCategory[action.payload] = !state.filterCategory[action.payload];
     },
-    // action to clear all filter 
+    // action to clear all filters
     clearFilters: (state) => {
       state.filterTrends = {
         newArrivals: false,
@@ -92,12 +101,12 @@ export const shoppingSlice = createSlice({
         range600_1000: false,
         range1000_4000: false,
       };
-      state.filterCategory= {
+      state.filterCategory = {
         womens: false,
-          mens: false,
-          kids:  false,
-          beauty:  false,
-          home: false,
+        mens: false,
+        kids: false,
+        beauty: false,
+        home: false,
       };
       state.searchInput = "";
       state.allItem = false;
@@ -105,6 +114,11 @@ export const shoppingSlice = createSlice({
     toggleAllItem: (state) => {
       state.allItem = !state.allItem;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchItemsByCategory.fulfilled, (state, action: PayloadAction<any[]>) => {
+      state.items = action.payload;
+    });
   },
 });
 

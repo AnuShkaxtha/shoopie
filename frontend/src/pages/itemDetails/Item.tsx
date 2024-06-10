@@ -47,7 +47,7 @@ const Item: FC <ItemProps> = ({ item,  id }) => {
   const { currentUser } = useAuth();
   const { category, price, name, image } = item.attributes;
   const imageUrl = image?.data?.attributes?.url;
-  console.log(item.attributes)
+  
 // console.log(image?.data?.attributes?.url)
   // function to handle add to cart 
   const handleAddToCart = () => {
