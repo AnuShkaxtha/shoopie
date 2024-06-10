@@ -13,7 +13,11 @@ interface ImageData {
       };
     
 }
-
+interface CategoryData{
+  attributes:{
+    name: string;
+  }
+}
 interface ItemAttributes {
   trend: string;
   price: number;
@@ -21,6 +25,9 @@ interface ItemAttributes {
   image: {
     data: ImageData | null;
   };
+  category:{
+    data: CategoryData ;
+  }
 }
 
 interface ItemProps {
@@ -38,8 +45,9 @@ const Item: FC <ItemProps> = ({ item,  id }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const { currentUser } = useAuth();
-  const {  price, name, image } = item.attributes;
+  const { category, price, name, image } = item.attributes;
   const imageUrl = image?.data?.attributes?.url;
+  console.log(item.attributes)
 // console.log(image?.data?.attributes?.url)
   // function to handle add to cart 
   const handleAddToCart = () => {

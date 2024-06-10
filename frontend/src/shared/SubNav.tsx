@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
@@ -48,31 +48,6 @@ interface ApiResponse {
   };
 }
 
-
-
-// ListItem component
-// const ListItem = React.forwardRef(
-//   ({ className, title, children, ...props }, ref) => {
-//     return (
-//       <li>
-//         <NavigationMenuLink asChild>
-//           <a
-//             ref={ref}
-//             className={`block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${className}`}
-//             {...props}
-//           >
-//             <div className="text-sm font-medium leading-none">{title}</div>
-//             <p className="text-sm leading-snug line-clamp-2 text-muted-foreground">
-//               {children}
-//             </p>
-//           </a>
-//         </NavigationMenuLink>
-//       </li>
-//     );
-//   }
-// );
-// ListItem.displayName = 'ListItem';
-
 // Main component
 export const SubNav: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -91,28 +66,23 @@ export const SubNav: React.FC = () => {
     }
   };
 
-  {
-    categories.map(category => (
-      console.log(category.attributes.name)
-    ))
-  }
-
   return (
     <div>
       <div className="h-[50px] pt-3">
         <Separator className="w-full bg-black" />
-
         <NavigationMenu className="w-full mt-1">
           <NavigationMenuList className="flex">
             {categories.map((category) => (
               <NavigationMenuItem key={category.id}>
-                <NavigationMenuTrigger className="text-[12px] lg:text-[12px]">
-                  {category.attributes.name}
-                </NavigationMenuTrigger>
+                <Link to={`/check?category=${category.id}`}>
+                  <NavigationMenuTrigger className="text-[12px] lg:text-[12px]">
+                    {category.attributes.name}
+                  </NavigationMenuTrigger>
+                </Link>
                 <NavigationMenuContent>
                   {category.attributes.sub_categories.data.length > 0 ? (
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] grid-cols-2 lg:w-[600px] text-[13px]">
-                      {category.attributes.sub_categories.data.map(subCategory => (
+                      {category.attributes.sub_categories.data.map((subCategory) => (
                         <li key={subCategory.id}>{subCategory.attributes.name}</li>
                       ))}
                     </ul>
@@ -120,7 +90,6 @@ export const SubNav: React.FC = () => {
                     <p>No subcategories available</p>
                   )}
                 </NavigationMenuContent>
-
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
@@ -129,4 +98,3 @@ export const SubNav: React.FC = () => {
     </div>
   );
 };
-

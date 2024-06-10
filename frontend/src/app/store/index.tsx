@@ -2,12 +2,10 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 
 interface ImageData {
   attributes: {
-    formats: {
-      medium: {
+    
         url: string;
       };
-    };
-  };
+    
 }
 interface CategoryData{
   attributes:{

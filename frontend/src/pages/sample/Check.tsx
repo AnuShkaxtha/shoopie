@@ -1,82 +1,53 @@
-interface SubCategoryAttributes {
-    name: string;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-  }
-  
-  interface SubCategory {
-    id: number;
-    attributes: SubCategoryAttributes;
-  }
-  
-  interface CategoryAttributes {
-    name: string;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-    sub_categories: {
-      data: SubCategory[];
-    };
-  }
-  
-  interface Category {
-    id: number;
-    attributes: CategoryAttributes;
-  }
-  
-  interface ApiResponse {
-    data: Category[];
-    meta: {
-      pagination: {
-        page: number;
-        pageSize: number;
-        pageCount: number;
-        total: number;
-      };
-    };
-  }
-
-  import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import Item from '../itemDetails/Item';
 
 const Check: React.FC = () => {
-    const [categories, setCategories] = useState<Category[]>([]);
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const category = query.get('category');
+  const [items, setItems] = useState<any[]>([]);
 
-    useEffect(() => {
-      fetchCategories();
-    }, []);
+  useEffect(() => {
+    if (category) {
+      fetchItems(category);
+    }
+  }, [category]);
+
+  const fetchItems = async (categoryId: string) => {
+    try {
+      const response = await fetch(`http://localhost:1337/api/items?filters[category]=${categoryId}&populate=image`, { method: 'GET' });
+      const itemsJson = await response.json();
+      setItems(itemsJson.data);
+    } catch (error) {
+      console.error('Error fetching items:', error);
+    }
+  };
   
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch("http://localhost:1337/api/categories?populate=sub_categories", { method: "GET" });
-        const itemsJson: ApiResponse = await response.json();
-        setCategories(itemsJson.data);
-      } catch (error) {
-        console.error('Error fetching categories:', error);
-      }
-    };
-  
-    return (
-      <div className='mt-[200px]'>
-        <h1>Categories and Subcategories</h1>
-        {categories.map(category => (
-          <div key={category.id}>
-            <h2 className='text-xl font-bold'>{category.attributes.name}</h2>
-            {category.attributes.sub_categories.data.length > 0 ? (
-              <ul>
-                {category.attributes.sub_categories.data.map(subCategory => (
-                  <li key={subCategory.id}>{subCategory.attributes.name}</li>
-                ))}
-              </ul>
-            ) : (
-              <p>No subcategories available</p>
-            )}
+  return (
+    
+    <div className="col-span-1 mt-[160px] md:col-span-3 lg:col-span-4">
+      <div className="mx-auto w-[89%] md:my-6 lg:my-9 ">
+
+        <div className="my-4 text-center">
+          <h2 className="text-xl font-bold"><p>{category}</p></h2>
+
+          <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((item) => (
+              
+              <Item
+                key={`${item.attributes.name}-${item.id}`}
+                item={item}
+                id={item.id}
+              />
+            ))}
           </div>
-        ))}
+
+        </div>
+
       </div>
-    );
-  }
+      </div>
+      );
+};
 
-export default Check;
-
-  
+      export default Check;
