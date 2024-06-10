@@ -83,7 +83,12 @@ export const SubNav: React.FC = () => {
                   {category.attributes.sub_categories.data.length > 0 ? (
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] grid-cols-2 lg:w-[600px] text-[13px]">
                       {category.attributes.sub_categories.data.map((subCategory) => (
+                        <Link to={`/sub-category?subCategory=${subCategory.id}`}>
+
+                       
+                       
                         <li key={subCategory.id}>{subCategory.attributes.name}</li>
+                        </Link>
                       ))}
                     </ul>
                   ) : (

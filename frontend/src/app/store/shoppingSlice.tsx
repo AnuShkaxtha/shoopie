@@ -65,6 +65,17 @@ export const fetchItemsByCategory = createAsyncThunk(
     return itemsJson.data  // Adjust based on your API response structure
   }
 );
+export const fetchItemsBySubCategory = (subCategoryId: string): AppThunk => async (dispatch) => {
+  try {
+    const response = await fetch(`http://localhost:1337/api/items?filters[sub_category]=${subCategoryId}&populate=image`, { method: "GET" });
+    
+    const items = await response.json();
+    
+    dispatch(setItems(items.data));
+  } catch (error) {
+    console.error('Error fetching items by subcategory:', error);
+  }
+};
 
 export const shoppingSlice = createSlice({
   name: "shopping",
