@@ -13,7 +13,7 @@ import Register from "../pages/Auth/Register";
 import Account from "../pages/Account/Account";
 import OrderList from "@/pages/Account/OrderList";
 import Sample from "@/pages/sample/Sample";
-import Category from "@/pages/sample/Category";
+import Category from "@/pages/Category/Category";
 
 const ScrollToTop = () => {
   //  returns current location of object

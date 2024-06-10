@@ -32,7 +32,7 @@ import {
 import { doSignOut } from "@/entities/firebase/auth";
 import { loadCartItemsFromStorage } from "@/app/store";
 import { setCart } from "@/app/store";
-import Filter from "@/pages/Home/Filters";
+import Filter from "@/pages/Home/HomeFilters";
 import {
   Sheet,
   SheetContent,
