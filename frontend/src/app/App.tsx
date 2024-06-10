@@ -12,7 +12,8 @@ import { AuthProvider } from "../entities/auth/AuthProvider";
 import Register from "../pages/Auth/Register";
 import Account from "../pages/Account/Account";
 import OrderList from "@/pages/Account/OrderList";
-import Sample from "@/shared/ui/Sample";
+import Sample from "@/pages/sample/Sample";
+import Check from "@/pages/sample/Check";
 
 const ScrollToTop = () => {
   //  returns current location of object
@@ -41,6 +42,7 @@ function App(): JSX.Element {
           <Route path="/account" element={<Account />} />
           <Route path="/orders" element={<OrderList />} />
           <Route path="/sample" element={<Sample/>} />
+          <Route path="/check" element={<Check/>} />
         </Routes>
         <Footer />
       </BrowserRouter>

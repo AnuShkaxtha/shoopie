@@ -1,115 +1,132 @@
-import * as React from "react"
-
-import { cn } from "@/lib/utils"
+import React, { useEffect, useState } from 'react';
 import {
-    NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu';
+import { Separator } from '@/components/ui/separator';
 
-import { Separator } from "@/components/ui/separator";
-
-const components: { title: string; href: string; description: string }[] = [
-    {
-        title: "Alert Dialog",
-        href: "/docs/primitives/alert-dialog",
-        description:
-            "A modal dialog that interrupts the user with important content and expects a response.",
-    },
-    {
-        title: "Hover Card",
-        href: "/docs/primitives/hover-card",
-        description:
-            "For sighted users to preview content available behind a link.",
-    },
-    {
-        title: "Progress",
-        href: "/docs/primitives/progress",
-        description:
-            "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-    },
-    {
-        title: "Scroll-area",
-        href: "/docs/primitives/scroll-area",
-        description: "Visually or semantically separates content.",
-    },
-    {
-        title: "Tabs",
-        href: "/docs/primitives/tabs",
-        description:
-            "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-    },
-    {
-        title: "Tooltip",
-        href: "/docs/primitives/tooltip",
-        description:
-            "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-    },
-]
-
-export const SubNav: React.FC = () => {
-    return (
-        
-    
-        <div className="h-[50px] pt-3 " >
-      <Separator className="w-full bg-black" />
-      
-      
-      {/* large */}
-      <NavigationMenu className="w-full mt-1 ">
-        <NavigationMenuList className="flex ">
-          {["Women's Clothing", "Men's Clothing", "Kid's Clothing", "Health and Beauty", "Home and Decor"].map((category) => (
-            <NavigationMenuItem key={category}>
-              <NavigationMenuTrigger className="text-[12px] lg:text-[12px]">{category}</NavigationMenuTrigger>
-              <NavigationMenuContent>
-              
-                <ul className="grid w-full gap-3 p-4 sm:w-[400px] md:w-[500px] lg:w-[600px] md:grid-cols-2 lg:grid-cols-3">
-                  {components.map((component) => (
-                    <ListItem
-                      key={component.title}
-                      title={component.title}
-                      href={component.href}
-                    >
-                      {component.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          ))}
-        </NavigationMenuList>
-      </NavigationMenu>
-    </div>
-    );
+interface SubCategoryAttributes {
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
 }
 
-const ListItem = React.forwardRef<
-    React.ElementRef<"a">,
-    React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-    return (
-        <li>
-            <NavigationMenuLink asChild>
-                <a
-                    ref={ref}
-                    className={cn(
-                        "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                        className
-                    )}
-                    {...props}
-                >
-                    <div className="text-sm font-medium leading-none">{title}</div>
-                    <p className="text-sm leading-snug line-clamp-2 text-muted-foreground">
-                        {children}
-                    </p>
-                </a>
-            </NavigationMenuLink>
-        </li>
-    )
-})
-ListItem.displayName = "ListItem"
+interface SubCategory {
+  id: number;
+  attributes: SubCategoryAttributes;
+}
 
+interface CategoryAttributes {
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  sub_categories: {
+    data: SubCategory[];
+  };
+}
+
+interface Category {
+  id: number;
+  attributes: CategoryAttributes;
+}
+
+interface ApiResponse {
+  data: Category[];
+  meta: {
+    pagination: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
+}
+
+
+
+// ListItem component
+// const ListItem = React.forwardRef(
+//   ({ className, title, children, ...props }, ref) => {
+//     return (
+//       <li>
+//         <NavigationMenuLink asChild>
+//           <a
+//             ref={ref}
+//             className={`block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${className}`}
+//             {...props}
+//           >
+//             <div className="text-sm font-medium leading-none">{title}</div>
+//             <p className="text-sm leading-snug line-clamp-2 text-muted-foreground">
+//               {children}
+//             </p>
+//           </a>
+//         </NavigationMenuLink>
+//       </li>
+//     );
+//   }
+// );
+// ListItem.displayName = 'ListItem';
+
+// Main component
+export const SubNav: React.FC = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch("http://localhost:1337/api/categories?populate=sub_categories", { method: "GET" });
+      const itemsJson: ApiResponse = await response.json();
+      setCategories(itemsJson.data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+
+  {
+    categories.map(category => (
+      console.log(category.attributes.name)
+    ))
+  }
+
+  return (
+    <div>
+      <div className="h-[50px] pt-3">
+        <Separator className="w-full bg-black" />
+
+        <NavigationMenu className="w-full mt-1">
+          <NavigationMenuList className="flex">
+            {categories.map((category) => (
+              <NavigationMenuItem key={category.id}>
+                <NavigationMenuTrigger className="text-[12px] lg:text-[12px]">
+                  {category.attributes.name}
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  {category.attributes.sub_categories.data.length > 0 ? (
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] grid-cols-2 lg:w-[600px] text-[13px]">
+                      {category.attributes.sub_categories.data.map(subCategory => (
+                        <li key={subCategory.id}>{subCategory.attributes.name}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No subcategories available</p>
+                  )}
+                </NavigationMenuContent>
+
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+      </div>
+    </div>
+  );
+};
 
