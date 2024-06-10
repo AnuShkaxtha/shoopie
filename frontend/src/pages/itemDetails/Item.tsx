@@ -9,12 +9,9 @@ import { useAuth } from "@/entities/auth/AuthProvider";
 
 interface ImageData {
   attributes: {
-    formats: {
-      medium: {
         url: string;
       };
-    };
-  };
+    
 }
 
 interface ItemAttributes {
@@ -42,8 +39,8 @@ const Item: FC <ItemProps> = ({ item,  id }) => {
 
   const { currentUser } = useAuth();
   const {  price, name, image } = item.attributes;
-  const imageUrl = image?.data?.attributes?.formats?.medium?.url;
-
+  const imageUrl = image?.data?.attributes?.url;
+// console.log(image?.data?.attributes?.url)
   // function to handle add to cart 
   const handleAddToCart = () => {
     if (!currentUser) {
