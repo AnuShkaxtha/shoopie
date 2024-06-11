@@ -45,7 +45,7 @@ function App(): JSX.Element {
           <Route path="/sample" element={<Sample/>} />
           <Route path="/category" element={<Category/>} />
 
-          <Route path="/sub-category" element={<SubCategory/>} />
+          <Route path="/categorys/:categoryId/sub-category" element={<SubCategory/>} />
         </Routes>
         <Footer />
       </BrowserRouter>

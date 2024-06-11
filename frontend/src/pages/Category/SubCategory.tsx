@@ -18,13 +18,40 @@ interface SubCategory {
   attributes: SubCategoryAttributes;
 }
 
+// category
+interface CategoryAttributes {
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  sub_categories: {
+    data: SubCategory[];
+  };
+}
+
+interface Category {
+  id: number;
+  attributes: CategoryAttributes;
+}
+
+interface ApiResponse {
+  data: Category;
+}
 const SubCategory: React.FC = () => {
   const location = useLocation();
+  console.log(location)
+  const pathnameSegments = location.pathname.split('/'); // Split the pathname into segments
+  const categoryId = pathnameSegments[2];
+
+console.log(categoryId);
+
   const dispatch = useDispatch<AppDispatch>();
   const [subCategory, setSubCategory] = useState<SubCategory | null>(null);
+
   const items = useSelector((state: RootState) => state.shopping.items);
 
   const searchParams = new URLSearchParams(location.search);
+
   const subCategoryId = searchParams.get('subCategory');
 
   console.log(subCategoryId) // null 
@@ -32,10 +59,12 @@ const SubCategory: React.FC = () => {
   useEffect(() => {
     if (subCategoryId) {
       fetchSubCategory(subCategoryId);
-      dispatch(fetchItemsBySubCategory(subCategoryId));
+      dispatch(fetchItemsBySubCategory(categoryId,subCategoryId));
     }
-  }, [subCategoryId, dispatch]);
+  }, [categoryId,subCategoryId, dispatch]);
 
+
+  
   const fetchSubCategory = async (id: string) => {
     try {
       const response = await fetch(`http://localhost:1337/api/sub-categories/${id}`, { method: "GET" });
