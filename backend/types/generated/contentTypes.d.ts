@@ -859,6 +859,7 @@ export interface ApiItemItem extends Schema.CollectionType {
       'manyToOne',
       'api::sub-category.sub-category'
     >;
+    brand: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

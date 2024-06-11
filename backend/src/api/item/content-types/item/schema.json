@@ -66,6 +66,9 @@
       "relation": "manyToOne",
       "target": "api::sub-category.sub-category",
       "inversedBy": "items"
+    },
+    "brand": {
+      "type": "string"
     }
   }
 }
