@@ -45,13 +45,13 @@ interface CartState {
 
 // Thunks for asynchronous operations
 export const fetchItems = createAsyncThunk("cart/fetchItems", async () => {
-  const response = await fetch("http://localhost:1337/api/items?populate=*", { method: "GET" });
+  const response = await fetch("http://localhost:1337/api/items?populate=*&pagination[pageSize]=1000", { method: "GET" });
   const itemsJson = await response.json();
   return itemsJson.data;
 });
 
 export const fetchItemById = createAsyncThunk("cart/fetchItemById", async (itemId: number) => {
-  const response = await fetch(`http://localhost:1337/api/items/${itemId}?populate=*`, { method: "GET" });
+  const response = await fetch(`http://localhost:1337/api/items/${itemId}?populate=*&pagination[pageSize]=1000`, { method: "GET" });
   const itemJson = await response.json();
   return itemJson.data;
 });
