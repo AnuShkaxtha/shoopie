@@ -76,7 +76,7 @@ const ShoppingList: React.FC = () => {
       Object.values(priceRanges).some((value) => value)
     );
   };
-
+  console.log(items);
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5" id="shop">
       <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
@@ -121,6 +121,7 @@ const ShoppingList: React.FC = () => {
               <TabsContent value="all">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items.map((item) => (
+                    
                     <Item
                       key={`${item.attributes.name}-${item.id}`}
                       item={item}
