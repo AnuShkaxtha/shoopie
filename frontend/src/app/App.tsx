@@ -44,6 +44,7 @@ function App(): JSX.Element {
           <Route path="/orders" element={<OrderList />} />
           <Route path="/sample" element={<Sample/>} />
           <Route path="/category" element={<Category/>} />
+
           <Route path="/sub-category" element={<SubCategory/>} />
         </Routes>
         <Footer />

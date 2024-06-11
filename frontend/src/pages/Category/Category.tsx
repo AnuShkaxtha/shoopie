@@ -43,7 +43,7 @@ const Category: React.FC = () => {
   const [category, setCategory] = useState<Category | null>(null);
   const items = useSelector((state: RootState) => state.shopping.items);
 
-  console.log(items)
+  //console.log(items)
   const searchParams = new URLSearchParams(location.search);
   const categoryId = searchParams.get('category');
 

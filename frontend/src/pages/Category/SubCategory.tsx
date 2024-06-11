@@ -48,9 +48,9 @@ const SubCategory: React.FC = () => {
   console.log()
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5 mt-[130px]">
-      {/* <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
+      <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
         <Filter />
-      </div>*/}
+      </div>
       <div className="col-span-1 md:col-span-3 lg:col-span-4">
 
         <div className="my-4 text-center">
