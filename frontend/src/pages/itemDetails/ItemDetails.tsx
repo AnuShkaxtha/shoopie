@@ -7,7 +7,7 @@ import { Plus, Minus, Heart } from "lucide-react";
 import Item from "./Item";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "@/entities/auth/AuthProvider";
-
+import { Separator } from "@/components/ui/separator";
 interface ItemDetailsProps { }
 
 const ItemDetails: React.FC<ItemDetailsProps> = () => {
@@ -63,7 +63,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
           )}
         </div>
         <div className="col-span-2 mt-4 mb-10 lg:col-span-1 md:col-span-1">
-          <div className="flex justify-between mb-3 lg:mb-16">
+          <div className="flex justify-between mb-3 lg:mb-9">
             <Link to={"/"}>
               <div>Home / Item</div>
             </Link>
@@ -72,15 +72,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
           <p className="mb-4 text-xl font-bold">{item?.attributes?.name}</p>
           <p className="mb-6 text-xl">$ {item?.attributes?.price}</p>
 
-          {/* <div>
-            {item?.attributes?.shortDescription?.map((paragraph: any, index: number) => (
-              <p key={index}>
-                {paragraph.children.map((child: any, idx: number) => (
-                  <span key={idx}>{child.text}</span>
-                ))}
-              </p>
-            ))}
-          </div> */}
+          <Separator className="mt-2 bg-gray-500 "/>
 
           <div className="flex items-center mt-3 mb-8">
             <div className="flex items-center p-1 mr-4">
@@ -102,10 +94,21 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
             <p>ADD TO WISHLIST</p>
           </div>
           <p>TRENDS: " {item?.attributes?.trend} "</p>
+          <Separator className="mt-2 bg-gray-500 "/>
+          <div className="mt-3">
+            {item?.attributes?.shortDescription?.map((paragraph: any, index: number) => (
+              <p key={index}>
+                {paragraph.children.map((child: any, idx: number) => (
+                  <span key={idx}>{child.text}</span>
+                ))}
+              </p>
+            ))}
+          </div>
         </div>
+        
       </div>
 
-      <div className="mt-1 mb-8">
+      <div className="mt-3 mb-8">
         <Tabs value={value} onValueChange={handleChange}>
           <TabsList>
             <TabsTrigger value="description">Description</TabsTrigger>

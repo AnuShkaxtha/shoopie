@@ -82,7 +82,7 @@ console.log(categoryId);
       </div>
       <div className="col-span-1 md:col-span-3 lg:col-span-4">
 
-        <div className="my-4 text-center">
+        <div className="mx-auto w-[89%] md:my-6 lg:my-9">
           {subCategory ? (
             
             <div>
