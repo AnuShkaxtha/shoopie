@@ -46,7 +46,7 @@ const Item: FC <ItemProps> = ({ item,  id }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const { currentUser } = useAuth();
-  const { brand, price, name, image } = item.attributes;
+  const { category,brand, price, name, image } = item.attributes;
   const imageUrl = image?.data?.attributes?.url;
   
 // console.log(image?.data?.attributes?.url)

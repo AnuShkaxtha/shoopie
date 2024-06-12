@@ -18,7 +18,25 @@ interface SubCategory {
   attributes: SubCategoryAttributes;
 }
 
+// category
+interface CategoryAttributes {
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  sub_categories: {
+    data: SubCategory[];
+  };
+}
 
+interface Category {
+  id: number;
+  attributes: CategoryAttributes;
+}
+
+interface ApiResponse {
+  data: Category;
+}
 const SubCategory: React.FC = () => {
   const location = useLocation();
   console.log(location)

@@ -10,6 +10,7 @@ import Filter from "./HomeFilters";
 const ShoppingList: React.FC = () => {
   const dispatch = useDispatch();
   const {
+    items: shoppingItems,
     searchInput,
     filterTrends,
     priceRanges,

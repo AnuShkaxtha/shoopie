@@ -5,6 +5,7 @@ import {
   setSearchInput,
   toggleTrendFilter,
   togglePriceFilter,
+  toggleCategoryFilter,
 } from "@/app/store/shoppingSlice";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -60,6 +61,7 @@ const HomeFilter: React.FC = () => {
     searchInput,
     filterTrends,
     priceRanges,
+    filterCategory,
   } = useSelector((state: RootState) => state.shopping);
 
   const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +70,10 @@ const HomeFilter: React.FC = () => {
 
   const handleCheckboxChange = (trend: keyof typeof filterTrends) => {
     dispatch(toggleTrendFilter(trend));
+  };
+
+  const handleCategoryChange = (category: keyof typeof filterCategory) => {
+    dispatch(toggleCategoryFilter(category));
   };
 
   const handlePriceRangeChange = (range: keyof typeof priceRanges) => {
