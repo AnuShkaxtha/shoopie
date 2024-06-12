@@ -68,7 +68,7 @@ export const fetchItemsByCategory = createAsyncThunk(
 export const fetchItemsBySubCategory = (categoryId:string,subCategoryId: string): AppThunk => async (dispatch) => {
   try {
     // http://localhost:1337/api/items?filters[sub_category]=2&filters[category]=2
-    const response = await fetch(`http://localhost:1337/api/items?filters[sub_category]=${subCategoryId}&filters[category]=${categoryId}&populate=image&pagination[pageSize]=1000`, { method: "GET" });
+    const response = await fetch(`http://localhost:1337/api/items?filters[sub_categories]=${subCategoryId}&filters[category]=${categoryId}&populate=image&pagination[pageSize]=1000`, { method: "GET" });
     
     const items = await response.json();
     console.log(items)

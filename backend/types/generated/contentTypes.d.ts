@@ -853,13 +853,13 @@ export interface ApiItemItem extends Schema.CollectionType {
       'manyToOne',
       'api::category.category'
     >;
-    filter: Attribute.Enumeration<['womens', 'mens', 'kids']>;
-    sub_category: Attribute.Relation<
+    filter: Attribute.Enumeration<['womens', 'mens', 'boys', 'girls']>;
+    brand: Attribute.String;
+    sub_categories: Attribute.Relation<
       'api::item.item',
-      'manyToOne',
+      'manyToMany',
       'api::sub-category.sub-category'
     >;
-    brand: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -923,7 +923,7 @@ export interface ApiSubCategorySubCategory extends Schema.CollectionType {
     >;
     items: Attribute.Relation<
       'api::sub-category.sub-category',
-      'oneToMany',
+      'manyToMany',
       'api::item.item'
     >;
     createdAt: Attribute.DateTime;

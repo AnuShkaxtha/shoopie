@@ -58,17 +58,18 @@
       "enum": [
         "womens",
         "mens",
-        "kids"
+        "boys",
+        "girls"
       ]
-    },
-    "sub_category": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::sub-category.sub-category",
-      "inversedBy": "items"
     },
     "brand": {
       "type": "string"
+    },
+    "sub_categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::sub-category.sub-category",
+      "inversedBy": "items"
     }
   }
 }
