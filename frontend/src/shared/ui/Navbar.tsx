@@ -203,7 +203,7 @@ export function Navbar(): JSX.Element {
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" className="p-0 text-gray-700 lg:p-3 md:p-3">
-                <Menu />
+                <Menu className={`${theme === "dark" ? "text-white" : "text-black"}`}/>
               </Button>
             </SheetTrigger>
             <SheetContent>
