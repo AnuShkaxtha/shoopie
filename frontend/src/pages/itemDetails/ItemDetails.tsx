@@ -48,7 +48,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
     dispatch(fetchItemById(Number(itemId)) as any);
   }, [dispatch, itemId]);
 
-  console.log(item);
+  console.log(item?.attributes)
 
   return (
     <div className="w-[90%] mx-auto mb-20 mt-40  ">
@@ -64,10 +64,11 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
         </div>
         <div className="col-span-2 mt-4 mb-10 lg:col-span-1 md:col-span-1">
           <div className="flex justify-between mb-3 lg:mb-9">
-            <Link to={"/"}>
-              <div>Home / Item</div>
-            </Link>
+            
+              <div><Link to={"/"}><span>Home</span> </Link>/ <span>{item?.attributes?.category?.data?.attributes?.name}</span></div>
+            
           </div>
+          
           <p className="mb-1 text-2xl font-bold">{item?.attributes?.brand}</p>
           <p className="mb-4 text-xl font-bold">{item?.attributes?.name}</p>
           <p className="mb-6 text-xl">$ {item?.attributes?.price}</p>

@@ -85,8 +85,8 @@ console.log(categoryId);
         <div className="mx-auto w-[89%] md:my-6 lg:my-9">
           {subCategory ? (
             
-            <div>
-              <h1 className='font-bold text-[20px]'>{subCategory?.attributes.name}</h1>
+            <div className='text-center'>
+              <h1 className='font-bold text-[20px] uppercase'>{subCategory?.attributes.name}</h1>
               <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2 lg:grid-cols-3">
                 {items.map((item) => (
                   <Item
