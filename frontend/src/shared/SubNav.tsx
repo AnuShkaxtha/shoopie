@@ -75,7 +75,7 @@ export const SubNav: React.FC = () => {
             {categories.map((category) => (
               <NavigationMenuItem key={category.id}>
                 <Link to={`/category?category=${category.id}`}>
-                  <NavigationMenuTrigger className="text-[12px] lg:text-[12px]">
+                  <NavigationMenuTrigger className="text-[12px] md:text-[14px] lg:text-[16px]">
                     {category.attributes.name}
                   </NavigationMenuTrigger>
                 </Link>

@@ -1,10 +1,9 @@
-
 import { useTheme } from "@/processes/theme/theme-provider";
 
 function Footer(): JSX.Element {
   const { theme } = useTheme();
   return (
-    <footer className={`py-[10px] shadow-xl  ${theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-500 text-white" }`}>
+    <footer className={`py-[10px] shadow-xl w-full ${theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-500 text-white"}`}>
       <div className="w-[90%] m-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-6 mt-6">
         <div className="mr-8">
           <p className="mb-4 font-bold">SHOOPIE</p>
@@ -16,7 +15,7 @@ function Footer(): JSX.Element {
           </div>
         </div>
 
-        <div >
+        <div>
           <p className="mb-4 font-bold">About Us</p>
           <p>Careers</p>
           <p>Our Stores</p>
@@ -34,8 +33,8 @@ function Footer(): JSX.Element {
 
         <div>
           <p className="mb-4 font-bold">Contact Us</p>
-          <p>5Maharajgunj Rd, Kathmandu 44600</p>
-          <p >Email: rigo200@gmail.com</p>
+          <p>5 Maharajgunj Rd, Kathmandu 44600</p>
+          <p>Email: rigo200@gmail.com</p>
           <p>01-5970221</p>
         </div>
       </div>

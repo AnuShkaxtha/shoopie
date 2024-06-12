@@ -1,5 +1,5 @@
 // Import React and required components
-import  { useEffect } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import ItemDetails from "../pages/itemDetails/ItemDetails";
@@ -32,22 +32,25 @@ function App(): JSX.Element {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Navbar />
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/item/:itemId" element={<ItemDetails />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/orders" element={<OrderList />} />
-          <Route path="/sample" element={<Sample/>} />
-          <Route path="/category" element={<Category/>} />
-
-          <Route path="/categorys/:categoryId/sub-category" element={<SubCategory/>} />
-        </Routes>
-        <Footer />
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <ScrollToTop />
+          <div className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/item/:itemId" element={<ItemDetails />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/account" element={<Account />} />
+              <Route path="/orders" element={<OrderList />} />
+              <Route path="/sample" element={<Sample />} />
+              <Route path="/category" element={<Category />} />
+              <Route path="/categorys/:categoryId/sub-category" element={<SubCategory />} />
+            </Routes>
+          </div>
+          <Footer />
+        </div>
       </BrowserRouter>
     </AuthProvider>
   );

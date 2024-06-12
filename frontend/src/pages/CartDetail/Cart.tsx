@@ -121,8 +121,8 @@ const Cart: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center mt-[70px] py-[50px]">
-      <Card className="w-[650px]">
+    <div className="flex justify-center mt-[70px] py-[50px] pt-28">
+      <Card className="w-[650px] lg:w-[950px]">
         <CardHeader>
           <div className="flex justify-between">
             <CardTitle>Cart Calculation ({cart.length})</CardTitle>
@@ -161,17 +161,17 @@ const Cart: React.FC = () => {
                             <img
                               src={imageUrl}
                               alt={item.attributes.name}
-                              className="w-[150px] mr-4 h-25"
+                              className="w-[150px] lg:w-[200px] mr-4 h-25"
                             />
                           )}
                         </div>
                         <div className="mb-8 ml-4">
-                          <p className="mb-3 text-lg font-bold">{item.attributes.name}</p>
-                          <p className="mb-0.5 text-sm">Price: ${item.attributes.price}</p>
-                          <p className="mb-0.5 text-sm">
+                          <p className="mb-3 text-lg font-bold lg:text-xl">{item.attributes.name}</p>
+                          <p className="mb-0.5 text-sm lg:text-lg ">Price: ${item.attributes.price}</p>
+                          <p className="mb-0.5 text-sm lg:text-lg">
                             Quantity: {item.qnty}
                           </p>
-                          <p className="mb-0.5 text-sm">
+                          <p className="mb-0.5 text-sm lg:text-lg">
                             Total: ${item.attributes.price * item.qnty}
                           </p>
                           <div className="flex items-center">
@@ -183,7 +183,7 @@ const Cart: React.FC = () => {
                                   : () => handleSingleDecrement(item.id)
                               }
                             >
-                              <Minus size={18} />
+                              <Minus size={18}  />
                             </Button>
                             <Button
                               variant="ghost"
