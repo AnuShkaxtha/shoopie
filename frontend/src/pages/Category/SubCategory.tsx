@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchItemsBySubCategory } from '@/app/store/shoppingSlice'; // Assuming you have a fetchItemsBySubCategory action
 import { RootState, AppDispatch } from '@/app/store/store';
 import Item from '../itemDetails/Item';
-import Filter from './Filter';
+
 
 interface SubCategoryAttributes {
   name: string;
@@ -77,11 +77,11 @@ console.log(categoryId);
   console.log()
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5 mt-[130px]">
-      <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
+      {/* <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
         <Filter />
-      </div>
-      <div className="col-span-1 md:col-span-3 lg:col-span-4">
-
+      </div> */}
+      {/* <div className="col-span-1 md:col-span-3 lg:col-span-4"> */}
+      <div className="col-span-5">
         <div className="mx-auto w-[89%] md:my-6 lg:my-9">
           {subCategory ? (
             

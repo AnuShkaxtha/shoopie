@@ -1,4 +1,4 @@
-import  {  useEffect } from "react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -32,7 +32,6 @@ import {
 import { doSignOut } from "@/entities/firebase/auth";
 import { loadCartItemsFromStorage } from "@/app/store";
 import { setCart } from "@/app/store";
-import Filter from "@/pages/Home/HomeFilters";
 import {
   Sheet,
   SheetContent,
@@ -41,6 +40,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { SubNav } from "../SubNav";
+import Filter from "@/pages/Home/HomeFilters";
 
 
 export function Navbar(): JSX.Element {
@@ -65,18 +65,35 @@ export function Navbar(): JSX.Element {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${
-
-        theme === "dark"
-          ? "bg-gray-800 text-white"
-          : "bg-white text-gray-700"
-      }`}
+      className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${theme === "dark"
+        ? "bg-gray-800 text-white"
+        : "bg-white text-gray-700"
+        }`}
     >
-      <div className="container flex items-center justify-between px-1 mx-auto">
-        {/* LOGO */}
-        <Link to={"/"}>
-          <div className="text-lg font-bold">SHOOPIE</div>
-        </Link>
+      <div className="container flex items-center justify-between max-w-full px-1 mx-auto">
+        
+      <div className="flex items-center">
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="ghost" className="block p-0 text-gray-700 lg:p-3 md:p-3 md:hidden lg:hidden">
+            <Menu className={`${theme === "dark" ? "text-white" : "text-black"}`} />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left">
+          <SheetHeader>
+            <SheetTitle>Filters</SheetTitle>
+          </SheetHeader>
+          <div className="h-full mt-4">
+            <Filter />
+          </div>
+        </SheetContent>
+      </Sheet>
+      {/* LOGO */}
+      <Link to={"/"} className="ml-3">
+        <div className="text-lg font-bold">SHOOPIE</div>
+      </Link>
+    </div>
+
         {/* NAV ITEMS */}
         <div className="flex items-center space-x-4">
           {/* ACCOUNT */}
@@ -160,9 +177,8 @@ export function Navbar(): JSX.Element {
                   <Link to={"/cart"}>
                     <Button variant="ghost" size="sm">
                       <GiShoppingBag
-                        className={`h-5 w-5 ${
-                          theme === "dark" ? "text-gray-300" : "text-gray-900"
-                        }`}
+                        className={`h-5 w-5 ${theme === "dark" ? "text-gray-300" : "text-gray-900"
+                          }`}
                       />
                       {cart.length > 0 && (
                         <Badge
@@ -199,30 +215,11 @@ export function Navbar(): JSX.Element {
               {/* <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
-          {/* <Sheet className="flex justify-end md:hidden"> */}
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" className="p-0 text-gray-700 lg:p-3 md:p-3">
-                <Menu className={`${theme === "dark" ? "text-white" : "text-black"}`}/>
-              </Button>
-            </SheetTrigger>
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle>Filters</SheetTitle>
-              </SheetHeader>
-              <div
-                className={` px-1 mt-4  `}
-              >
-               
 
-                <Filter />
-              </div>
-            </SheetContent>
-          </Sheet>
         </div>
       </div>
       <div>
-        <SubNav/>
+        <SubNav />
       </div>
     </nav>
   );

@@ -67,7 +67,7 @@ export const SubNav: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='hidden md:block lg:block'>
       <div className="h-[50px] pt-3">
         <Separator className="w-full bg-black" />
         <NavigationMenu className="w-full mt-1">

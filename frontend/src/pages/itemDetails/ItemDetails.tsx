@@ -53,7 +53,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
   return (
     <div className="w-[90%] mx-auto mb-20 mt-40  ">
       <div className="grid grid-cols-2 gap-10 ">
-        <div className="col-span-2 mt-4 lg:mb-10 lg:col-span-1 md:col-span-1">
+        <div className="col-span-2 mt-4 lg:mb-10 lg:col-span-1 md:col-span-1 max-w-[520px]">
           {item && (
             <img
               alt={item?.attributes?.name}
