@@ -794,6 +794,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
     singularName: 'category';
     pluralName: 'categories';
     displayName: 'Category';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -807,7 +808,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
     >;
     sub_categories: Attribute.Relation<
       'api::category.category',
-      'oneToMany',
+      'manyToMany',
       'api::sub-category.sub-category'
     >;
     createdAt: Attribute.DateTime;
@@ -852,7 +853,13 @@ export interface ApiItemItem extends Schema.CollectionType {
       'manyToOne',
       'api::category.category'
     >;
-    filter: Attribute.String;
+    filter: Attribute.Enumeration<['womens', 'mens', 'boys', 'girls']>;
+    brand: Attribute.String;
+    sub_categories: Attribute.Relation<
+      'api::item.item',
+      'manyToMany',
+      'api::sub-category.sub-category'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -909,10 +916,15 @@ export interface ApiSubCategorySubCategory extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String;
-    category: Attribute.Relation<
+    categories: Attribute.Relation<
       'api::sub-category.sub-category',
-      'manyToOne',
+      'manyToMany',
       'api::category.category'
+    >;
+    items: Attribute.Relation<
+      'api::sub-category.sub-category',
+      'manyToMany',
+      'api::item.item'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

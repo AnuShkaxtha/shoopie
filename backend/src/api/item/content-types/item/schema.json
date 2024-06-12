@@ -54,7 +54,22 @@
       "inversedBy": "items"
     },
     "filter": {
+      "type": "enumeration",
+      "enum": [
+        "womens",
+        "mens",
+        "boys",
+        "girls"
+      ]
+    },
+    "brand": {
       "type": "string"
+    },
+    "sub_categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::sub-category.sub-category",
+      "inversedBy": "items"
     }
   }
 }

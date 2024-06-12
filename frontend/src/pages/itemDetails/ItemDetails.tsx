@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, fetchItems,fetchItemById} from "@/app/store";
+import { addToCart, fetchItems, fetchItemById } from "@/app/store";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Minus, Heart } from "lucide-react";
 import Item from "./Item";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "@/entities/auth/AuthProvider";
-
-interface ItemDetailsProps {}
+import { Separator } from "@/components/ui/separator";
+interface ItemDetailsProps { }
 
 const ItemDetails: React.FC<ItemDetailsProps> = () => {
   const navigate = useNavigate();
@@ -48,37 +48,32 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
     dispatch(fetchItemById(Number(itemId)) as any);
   }, [dispatch, itemId]);
 
+  console.log(item?.attributes)
+
   return (
-    <div className="w-[90%] mx-auto my-20 ">
+    <div className="w-[90%] mx-auto mb-20 mt-40  ">
       <div className="grid grid-cols-2 gap-10 ">
-        <div className="col-span-2 mt-4 lg:mb-10 lg:col-span-1 md:col-span-1">
+        <div className="col-span-2 mt-4 lg:mb-10 lg:col-span-1 md:col-span-1 max-w-[520px]">
           {item && (
             <img
               alt={item?.attributes?.name}
-              src={`http://localhost:1337${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+              src={`http://localhost:1337${item?.attributes?.image?.data?.attributes?.url}`}
               className="object-contain w-full h-auto max-h-[520px]"
             />
           )}
         </div>
         <div className="col-span-2 mt-4 mb-10 lg:col-span-1 md:col-span-1">
-          <div className="flex justify-between mb-3 lg:mb-16">
-            <Link to={"/"}>
-              <div>Home / Item</div>
-            </Link>
+          <div className="flex justify-between mb-3 lg:mb-9">
+            
+              <div><Link to={"/"}><span>Home</span> </Link>/ <span>{item?.attributes?.category?.data?.attributes?.name}</span></div>
+            
           </div>
-
-          <p className="mb-4 text-2xl font-bold">{item?.attributes?.name}</p>
+          
+          <p className="mb-1 text-2xl font-bold">{item?.attributes?.brand}</p>
+          <p className="mb-4 text-xl font-bold">{item?.attributes?.name}</p>
           <p className="mb-6 text-xl">$ {item?.attributes?.price}</p>
 
-          <div>
-            {item?.attributes?.longDescription?.map((paragraph: any, index: number) => (
-              <p key={index}>
-                {paragraph.children.map((child: any, idx: number) => (
-                  <span key={idx}>{child.text}</span>
-                ))}
-              </p>
-            ))}
-          </div>
+          <Separator className="mt-2 bg-gray-500 "/>
 
           <div className="flex items-center mt-3 mb-8">
             <div className="flex items-center p-1 mr-4">
@@ -100,24 +95,50 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
             <p>ADD TO WISHLIST</p>
           </div>
           <p>TRENDS: " {item?.attributes?.trend} "</p>
+          <Separator className="mt-2 bg-gray-500 "/>
+          <div className="mt-3">
+            {item?.attributes?.shortDescription?.map((paragraph: any, index: number) => (
+              <p key={index}>
+                {paragraph.children.map((child: any, idx: number) => (
+                  <span key={idx}>{child.text}</span>
+                ))}
+              </p>
+            ))}
+          </div>
         </div>
+        
       </div>
 
-      <div className="my-8">
+      <div className="mt-3 mb-8">
         <Tabs value={value} onValueChange={handleChange}>
           <TabsList>
             <TabsTrigger value="description">Description</TabsTrigger>
             <TabsTrigger value="reviews">Reviews</TabsTrigger>
           </TabsList>
           <TabsContent value="description">
-            <div>
-              {item?.attributes?.longDescription?.map((paragraph: any, index: number) => (
-                <div key={index}>
-                  {paragraph.children.map((child: any, idx: number) => (
-                    <span key={idx}>{child.text}</span>
-                  ))}
-                </div>
-              ))}
+            <div className="pl-2">
+              {item?.attributes?.longDescription?.map((element: any, index: number) => {
+                if (element.type === 'heading') {
+                  return (
+                    <div className="font-bold text-[18px]" key={index}>
+                      {element.children.map((child: any, idx: number) => (
+                        <span key={idx}>{child.text}</span>
+                      ))}
+                    </div>
+                  );
+                } else if (element.type === 'paragraph') {
+                  return (
+                    <div key={index}>
+                      {element.children.map((child: any, idx: number) => (
+                        <span key={idx}>{child.text}</span>
+                      ))}
+                    </div>
+                  );
+                } else {
+                  return null;
+                }
+              })}
+
             </div>
           </TabsContent>
           <TabsContent value="reviews">
@@ -136,7 +157,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
               id={relatedItem.id}
             />
           ))}
-       
+
 
         </div>
       </div>

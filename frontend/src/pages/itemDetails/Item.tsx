@@ -9,21 +9,26 @@ import { useAuth } from "@/entities/auth/AuthProvider";
 
 interface ImageData {
   attributes: {
-    formats: {
-      medium: {
         url: string;
       };
-    };
-  };
+    
 }
-
+interface CategoryData{
+  attributes:{
+    name: string;
+  }
+}
 interface ItemAttributes {
   trend: string;
   price: number;
   name: string;
+  brand: string;
   image: {
     data: ImageData | null;
   };
+  category:{
+    data: CategoryData ;
+  }
 }
 
 interface ItemProps {
@@ -41,9 +46,10 @@ const Item: FC <ItemProps> = ({ item,  id }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const { currentUser } = useAuth();
-  const {  price, name, image } = item.attributes;
-  const imageUrl = image?.data?.attributes?.formats?.medium?.url;
-
+  const { brand, price, name, image } = item.attributes;
+  const imageUrl = image?.data?.attributes?.url;
+  
+// console.log(image?.data?.attributes?.url)
   // function to handle add to cart 
   const handleAddToCart = () => {
     if (!currentUser) {
@@ -105,7 +111,8 @@ const Item: FC <ItemProps> = ({ item,  id }) => {
         )}
       </Card>
 
-      <div className="mt-2">
+      <div className="mt-2 ml-5 text-left">
+        <p className="font-bold">{brand} </p>
         <p>{name}</p>
         <p >Price: $ {price}</p>
       </div>

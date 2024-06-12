@@ -2,16 +2,23 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 
 interface ImageData {
   attributes: {
-    formats: {
-      medium: {
+    
         url: string;
       };
-    };
-  };
+    
+}
+interface CategoryData{
+  attributes:{
+    name: string;
+  }
 }
 
 // Define types for items and cart state
 interface ItemAttributes {
+  category:{
+    data: CategoryData ;
+  }
+  brand:string;
   trend: string;
   price: number;
   name: string;
@@ -39,13 +46,13 @@ interface CartState {
 
 // Thunks for asynchronous operations
 export const fetchItems = createAsyncThunk("cart/fetchItems", async () => {
-  const response = await fetch("http://localhost:1337/api/items?populate=image", { method: "GET" });
+  const response = await fetch("http://localhost:1337/api/items?populate=*&pagination[pageSize]=1000", { method: "GET" });
   const itemsJson = await response.json();
   return itemsJson.data;
 });
 
 export const fetchItemById = createAsyncThunk("cart/fetchItemById", async (itemId: number) => {
-  const response = await fetch(`http://localhost:1337/api/items/${itemId}?populate=image`, { method: "GET" });
+  const response = await fetch(`http://localhost:1337/api/items/${itemId}?populate=*&pagination[pageSize]=1000`, { method: "GET" });
   const itemJson = await response.json();
   return itemJson.data;
 });
@@ -90,11 +97,13 @@ export const cartSlice = createSlice({
     // Adding items to cart 
     addToCart: (state, action: PayloadAction<{ id: number; count: number } & ItemAttributes>) => {
       const { id, count, ...attributes } = action.payload;
+      console.log(attributes)
       const itemIndex = state.cart.findIndex(item => item.id === id);
       // Item exists in cart 
       if (itemIndex >= 0) {
         state.cart[itemIndex].qnty += count;
       } else {
+        
         state.cart.push({ id, attributes, qnty: count });
       }
     },

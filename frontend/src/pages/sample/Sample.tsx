@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItems } from "@/app/store";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Item from "../itemDetails/Item";
-import { FilterTrends, PriceRanges } from "@/app/store/shoppingSlice";
+import Item from "@/pages/itemDetails/Item";
+import { FilterCategory, FilterTrends, PriceRanges } from "@/app/store/shoppingSlice";
 import { RootState } from "@/app/store/store";
-import Filter from "./HomeFilters";
+import Filter from "@/pages/Home/HomeFilters"; 
 
-const ShoppingList: React.FC = () => {
+const Sample: React.FC = () => {
   const dispatch = useDispatch();
   const {
     searchInput,
     filterTrends,
+    filterCategory,
     priceRanges,
     allItem,
   } = useSelector((state: RootState) => state.shopping);
@@ -44,6 +45,17 @@ const ShoppingList: React.FC = () => {
       }
     }
 
+    //category
+    const selectedCategory = Object.keys(filterCategory).filter(
+      (category) => filterCategory[category as keyof FilterCategory]
+    );
+
+    if (selectedCategory.length > 0) {
+      filteredItems = filteredItems.filter((item) =>
+        selectedCategory.includes(item.attributes.category.data?.attributes.name)
+      );
+    }
+//----------
     const selectedPriceRanges = Object.keys(priceRanges).filter(
       (range) => priceRanges[range as keyof PriceRanges]
     );
@@ -72,12 +84,13 @@ const ShoppingList: React.FC = () => {
     return (
       searchInput.length > 0 ||
       Object.values(filterTrends).some((value) => value) ||
-      Object.values(priceRanges).some((value) => value)
+      Object.values(filterCategory).some((value) => value) ||
+      Object.values(priceRanges).some((value) => value) 
     );
   };
-  console.log(items);
+
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5" id="shop">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5 mt-[104px]" id="shop">
       <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
         <Filter />
       </div>
@@ -120,7 +133,6 @@ const ShoppingList: React.FC = () => {
               <TabsContent value="all">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items.map((item) => (
-                    
                     <Item
                       key={`${item.attributes.name}-${item.id}`}
                       item={item}
@@ -176,4 +188,4 @@ const ShoppingList: React.FC = () => {
   );
 };
 
-export default ShoppingList;
+export default Sample;
