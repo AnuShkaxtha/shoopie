@@ -68,11 +68,11 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
               <div>Home / Item</div>
             </Link>
           </div>
-
-          <p className="mb-4 text-2xl font-bold">{item?.attributes?.name}</p>
+          <p className="mb-1 text-2xl font-bold">{item?.attributes?.brand}</p>
+          <p className="mb-4 text-xl font-bold">{item?.attributes?.name}</p>
           <p className="mb-6 text-xl">$ {item?.attributes?.price}</p>
 
-          <div>
+          {/* <div>
             {item?.attributes?.shortDescription?.map((paragraph: any, index: number) => (
               <p key={index}>
                 {paragraph.children.map((child: any, idx: number) => (
@@ -80,7 +80,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
                 ))}
               </p>
             ))}
-          </div>
+          </div> */}
 
           <div className="flex items-center mt-3 mb-8">
             <div className="flex items-center p-1 mr-4">

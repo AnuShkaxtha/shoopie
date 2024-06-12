@@ -22,6 +22,7 @@ interface ItemAttributes {
   trend: string;
   price: number;
   name: string;
+  brand: string;
   image: {
     data: ImageData | null;
   };
@@ -45,7 +46,7 @@ const Item: FC <ItemProps> = ({ item,  id }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const { currentUser } = useAuth();
-  const { category, price, name, image } = item.attributes;
+  const { category,brand, price, name, image } = item.attributes;
   const imageUrl = image?.data?.attributes?.url;
   
 // console.log(image?.data?.attributes?.url)
@@ -110,7 +111,8 @@ const Item: FC <ItemProps> = ({ item,  id }) => {
         )}
       </Card>
 
-      <div className="mt-2">
+      <div className="mt-2 ml-5 text-left">
+        <p className="font-bold">{brand} </p>
         <p>{name}</p>
         <p >Price: $ {price}</p>
       </div>

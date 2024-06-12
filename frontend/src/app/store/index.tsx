@@ -18,6 +18,7 @@ interface ItemAttributes {
   category:{
     data: CategoryData ;
   }
+  brand:string;
   trend: string;
   price: number;
   name: string;
