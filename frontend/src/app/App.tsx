@@ -1,18 +1,18 @@
 // Import React and required components
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Home from "../pages/HomePage";
-import ItemDetails from "../feature/itemDetails/ItemDetails";
+import HomePage from "../pages/HomePage";
 import { Navbar } from "../shared/ui/Navbar";
 import Footer from "../shared/ui/Footer";
 import "./App.css";
 import { AuthProvider } from "@/firebase/AuthProvider";
-import { Account} from "@/feature/Account";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import CartPage from "@/pages/CartPage";
 import CategoryPage from "@/pages/CategoryPage";
 import SubCategoryPage from "@/pages/SubCategoryPage";
+import ItemDetailPage from "@/pages/ItemDetailPage";
+import AccountPage from "@/pages/AccountPage";
 
 const ScrollToTop = () => {
   //  returns current location of object
@@ -35,12 +35,12 @@ function App(): JSX.Element {
           <ScrollToTop />
           <div className="flex-grow">
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/item/:itemId" element={<ItemDetails />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/item/:itemId" element={<ItemDetailPage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
-              <Route path="/account" element={<Account />} />
+              <Route path="/account" element={<AccountPage />} />
               <Route path="/category" element={<CategoryPage />} />
               <Route path="/categorys/:categoryId/sub-category" element={<SubCategoryPage />} />
             </Routes>
