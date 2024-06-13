@@ -7,8 +7,6 @@ import { Navbar } from "../shared/ui/Navbar";
 import Footer from "../shared/ui/Footer";
 import "./App.css";
 import { AuthProvider } from "@/firebase/AuthProvider";
-
-import Sample from "@/pages/sample/Sample";
 import { Account, OrderList } from "@/feature/Account";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
@@ -44,7 +42,6 @@ function App(): JSX.Element {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/account" element={<Account />} />
               <Route path="/orders" element={<OrderList />} />
-              <Route path="/sample" element={<Sample />} />
               <Route path="/category" element={<CategoryPage />} />
               <Route path="/categorys/:categoryId/sub-category" element={<SubCategoryPage />} />
             </Routes>
