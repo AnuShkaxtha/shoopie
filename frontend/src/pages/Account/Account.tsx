@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../../entities/auth/AuthProvider";
+import { useAuth } from "@/firebase/AuthProvider";
 import OrderList from "./OrderList";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from "react-router-dom";
-import { doSignOut } from "@/entities/firebase/auth";
+import { doSignOut } from "@/firebase/auth";
 
 const Account: React.FC = () => {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const Account: React.FC = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 sm:mt-20 pt-14 gap-4 md:mt-12 mt-12 min-h-[630px] h-auto">
-      <div className="shadow-xl  md:col-span-1 md:mt-5 md:text-center md:bg-transparent">
+      <div className="shadow-xl md:col-span-1 md:mt-5 md:text-center md:bg-transparent">
         <div className="p-2 md:mt-9">
           <Button
             variant="ghost"

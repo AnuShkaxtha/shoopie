@@ -8,7 +8,7 @@ import Footer from "../shared/ui/Footer";
 import "./App.css";
 import Cart from "../pages/CartDetail/Cart";
 import Login from "../pages/Auth/Login";
-import { AuthProvider } from "../entities/auth/AuthProvider";
+import { AuthProvider } from "@/firebase/AuthProvider";
 import Register from "../pages/Auth/Register";
 import Account from "../pages/Account/Account";
 import OrderList from "@/pages/Account/OrderList";

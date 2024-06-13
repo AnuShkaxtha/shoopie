@@ -5,7 +5,7 @@ import { Card } from "../../components/ui/card";
 import { Plus, Minus } from "lucide-react";
 import { addToCart} from "@/app/store";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/entities/auth/AuthProvider";
+import { useAuth } from "@/firebase/AuthProvider";
 
 interface ImageData {
   attributes: {

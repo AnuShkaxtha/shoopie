@@ -3,8 +3,8 @@ import { Navigate, Link } from "react-router-dom";
 import {
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,
-} from "../../entities/firebase/auth";
-import { useAuth } from "../../entities/auth/AuthProvider";
+} from "../../firebase/auth";
+import { useAuth } from "@/firebase/AuthProvider";
 import { useTheme } from "@/processes/theme/theme-provider"; 
 import { FcGoogle } from "react-icons/fc";
 

@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from "react";
 import { Navigate, Link} from "react-router-dom";
-import { useAuth } from "../../entities/auth/AuthProvider";
-import { doCreateUserWithEmailAndPassword } from "@/entities/firebase/auth";
+import { useAuth } from "@/firebase/AuthProvider";
+import { doCreateUserWithEmailAndPassword } from "@/firebase/auth";
 
 const Register: React.FC = () => {
 

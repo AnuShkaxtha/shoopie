@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Minus, Heart } from "lucide-react";
 import Item from "./Item";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "@/entities/auth/AuthProvider";
+import { useAuth } from "@/firebase/AuthProvider";
 import { Separator } from "@/components/ui/separator";
 interface ItemDetailsProps { }
 

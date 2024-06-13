@@ -10,7 +10,7 @@ import {
   setCart,
 } from "@/app/store/index";
 import { Plus, Minus, ShoppingCart } from "lucide-react";
-import { useAuth } from "@/entities/auth/AuthProvider";
+import { useAuth } from "@/firebase/AuthProvider";
 import { loadCartItemsFromStorage } from "@/app/store/index";
 import { useNavigate } from "react-router-dom";
 

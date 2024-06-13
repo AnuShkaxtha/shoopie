@@ -22,14 +22,14 @@ import { GiShoppingBag } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import { Badge } from "@/components/ui/badge";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "@/entities/auth/AuthProvider";
+import { useAuth } from "@/firebase/AuthProvider";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { doSignOut } from "@/entities/firebase/auth";
+import { doSignOut } from "@/firebase/auth";
 import { loadCartItemsFromStorage } from "@/app/store";
 import { setCart } from "@/app/store";
 import {
