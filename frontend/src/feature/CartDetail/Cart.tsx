@@ -121,7 +121,7 @@ const Cart: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center mt-[70px] py-[50px] pt-28">
+    <div className="flex justify-center mt-[70px] py-[50px] lg:pt-28 md:pt-28">
       <Card className="w-[650px] lg:w-[950px]">
         <CardHeader>
           <div className="flex justify-between">
