@@ -5,7 +5,7 @@ import {
   setSearchInput,
   toggleTrendFilter,
   togglePriceFilter,
-} from "@/app/store/shoppingSlice";
+} from "@/entities/Product/shoppingSlice";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";

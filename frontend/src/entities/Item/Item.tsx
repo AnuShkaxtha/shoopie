@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Button } from "../../components/ui/button";
 import { Card } from "../../components/ui/card";
 import { Plus, Minus } from "lucide-react";
-import { addToCart} from "@/app/store";
+import { addToCart} from "@/entities/Cart";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/firebase/AuthProvider";
 

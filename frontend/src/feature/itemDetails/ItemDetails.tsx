@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, fetchItems, fetchItemById } from "@/app/store";
+import { addToCart, fetchItems, fetchItemById } from "@/entities/Cart";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Minus, Heart } from "lucide-react";

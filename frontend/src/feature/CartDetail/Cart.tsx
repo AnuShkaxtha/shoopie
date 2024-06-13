@@ -8,10 +8,10 @@ import {
   clearCart,
   removeSingleItems,
   setCart,
-} from "@/app/store/index";
+} from "@/entities/Cart/index";
 import { Plus, Minus, ShoppingCart } from "lucide-react";
 import { useAuth } from "@/firebase/AuthProvider";
-import { loadCartItemsFromStorage } from "@/app/store/index";
+import { loadCartItemsFromStorage } from "@/entities/Cart/index";
 import { useNavigate } from "react-router-dom";
 
 const Cart: React.FC = () => {

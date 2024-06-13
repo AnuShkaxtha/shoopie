@@ -30,8 +30,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { doSignOut } from "@/firebase/auth";
-import { loadCartItemsFromStorage } from "@/app/store";
-import { setCart } from "@/app/store";
+import { loadCartItemsFromStorage } from "@/entities/Cart";
+import { setCart } from "@/entities/Cart";
 import {
   Sheet,
   SheetContent,
@@ -39,7 +39,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { SubNav } from "../SubNav";
+import { SubNav } from "../../entities/Navigation/SubNav";
 import Filter from "@/entities/Filter/HomeFilters";
 
 

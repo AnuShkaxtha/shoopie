@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchItemsBySubCategory } from '@/app/store/shoppingSlice'; // Assuming you have a fetchItemsBySubCategory action
+import { fetchItemsBySubCategory } from '@/entities/Product/shoppingSlice'; // Assuming you have a fetchItemsBySubCategory action
 import { RootState, AppDispatch } from '@/app/store/store';
 import Item from '../../entities/Item/Item';
 

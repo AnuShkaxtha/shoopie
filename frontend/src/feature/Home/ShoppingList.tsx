@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchItems } from "@/app/store";
+import { fetchItems } from "@/entities/Cart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Item from "../../entities/Item/Item";
-import { FilterTrends, PriceRanges } from "@/app/store/shoppingSlice";
+import { FilterTrends, PriceRanges } from "@/entities/Product/shoppingSlice";
 import { RootState } from "@/app/store/store";
 import Filter from "../../entities/Filter/HomeFilters";
 

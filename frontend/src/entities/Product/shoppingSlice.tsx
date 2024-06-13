@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { RootState,AppThunk } from './store';
+import { RootState,AppThunk } from '../../app/store/store';
 
 export interface FilterTrends {
   newArrivals: boolean;
