@@ -1,6 +1,6 @@
 import React from 'react'
-import MainCarousel from './MainCarousel'
-import ShoppingList from './ShoppingList'
+import MainCarousel from '../feature/Home/MainCarousel'
+import ShoppingList from '../feature/Home/ShoppingList'
 
 const Home: React.FC = () => {
   return (

@@ -1,6 +1,6 @@
 import  { FC, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button } from "../../components//ui/button";
+import { Button } from "../../components/ui/button";
 import { Card } from "../../components/ui/card";
 import { Plus, Minus } from "lucide-react";
 import { addToCart} from "@/app/store";

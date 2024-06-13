@@ -40,7 +40,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { SubNav } from "../SubNav";
-import Filter from "@/pages/Home/HomeFilters";
+import Filter from "@/feature/Home/HomeFilters";
 
 
 export function Navbar(): JSX.Element {
