@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
+import { fetchItemsApi, fetchItemByIdApi } from "./api/cartApi";
 
 interface ImageData {
   attributes: {
@@ -32,7 +33,7 @@ interface Item {
   attributes: ItemAttributes;
 }
 
-interface CartItem extends Item {
+export interface CartItem extends Item {
   qnty: number;
 }
 
@@ -46,15 +47,11 @@ interface CartState {
 
 // Thunks for asynchronous operations
 export const fetchItems = createAsyncThunk("cart/fetchItems", async () => {
-  const response = await fetch("http://localhost:1337/api/items?populate=*&pagination[pageSize]=1000", { method: "GET" });
-  const itemsJson = await response.json();
-  return itemsJson.data;
+  return await fetchItemsApi();
 });
 
 export const fetchItemById = createAsyncThunk("cart/fetchItemById", async (itemId: number) => {
-  const response = await fetch(`http://localhost:1337/api/items/${itemId}?populate=*&pagination[pageSize]=1000`, { method: "GET" });
-  const itemJson = await response.json();
-  return itemJson.data;
+  return await fetchItemByIdApi(itemId);
 });
 
 // Storing cart item in local storage 

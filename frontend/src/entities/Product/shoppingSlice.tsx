@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState,AppThunk } from '../../app/store/store';
+import { fetchItemsByCategoryApi, fetchItemsBySubCategoryApi } from './api/productApi';
 
 export interface FilterTrends {
   newArrivals: boolean;
@@ -59,21 +60,14 @@ const initialState: ShoppingState = {
 export const fetchItemsByCategory = createAsyncThunk(
   'shopping/fetchItemsByCategory',
   async (categoryId: string) => {
-    const response = await fetch(`http://localhost:1337/api/items?filters[category]=${categoryId}&populate=image&pagination[pageSize]=1000`, { method: 'GET' });
-    const itemsJson = await response.json();
-    // setItems(itemsJson.data);
-    return itemsJson.data  // Adjust based on your API response structure
+    return await fetchItemsByCategoryApi(categoryId);
   }
 );
-export const fetchItemsBySubCategory = (categoryId:string,subCategoryId: string): AppThunk => async (dispatch) => {
+
+export const fetchItemsBySubCategory = (categoryId: string, subCategoryId: string): AppThunk => async (dispatch) => {
   try {
-    // http://localhost:1337/api/items?filters[sub_category]=2&filters[category]=2
-    const response = await fetch(`http://localhost:1337/api/items?filters[sub_categories]=${subCategoryId}&filters[category]=${categoryId}&populate=image&pagination[pageSize]=1000`, { method: "GET" });
-    
-    const items = await response.json();
-    console.log(items)
-    
-    dispatch(setItems(items.data));
+    const items = await fetchItemsBySubCategoryApi(categoryId, subCategoryId);
+    dispatch(setItems(items));
   } catch (error) {
     console.error('Error fetching items by subcategory:', error);
   }
