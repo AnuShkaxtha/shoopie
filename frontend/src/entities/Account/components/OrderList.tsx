@@ -56,11 +56,11 @@ const OrderList: React.FC = () => {
 
   return (
     <div className='flex justify-start mt-12 text-left'>
-      <Card className="w-[750px] mx-3">
-        <CardHeader>
+      <Card className="w-[750px] lg:mx-3">
+        <CardHeader className='px-1'>
           <CardTitle>Your Orders</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className='p-2 '>
           {orders.length === 0 ? (
             <div>No orders found.</div>
           ) : (
@@ -68,15 +68,15 @@ const OrderList: React.FC = () => {
               {orders.map((order) => (
                 <div key={order.id} className="pb-4 mb-4 border-b">
                   <p className="text-lg font-bold ">Order ID: {order.id}</p>
-                  <div className='mt-2 space-y-2 ml-9'>
+                  <div className='mt-2 space-y-2 '>
                   {/* create date object and localize string  */}
                   <p className="text-sm">Ordered Date: {new Date(order.attributes.createdAt).toLocaleString()}</p>
                   <p className="text-sm">Total Items: {order.attributes.products.length}</p>
-                  <div className="space-y-2 text-right">
+                  <div className="space-y-2 text-left lg:text-right">
                     {order.attributes.products.map((product, index) => (
-                      <div key={index} className="flex justify-between ml-8 w-[300px]">
-                        <p className="text-sm">Product: {product.productName}</p>
-                        <p className="text-sm ml-9">Quantity: {product.quantity}</p>
+                      <div key={index} className="flex justify-between  lg:ml-8 w-[300px]">
+                        <p className="text-sm ">Product: {product.productName}</p>
+                        <p className="ml-8 text-sm">Quantity: {product.quantity}</p>
                       </div>
                     ))}
                     <p className="text-sm">Total Price: ${order.attributes.price}</p>
