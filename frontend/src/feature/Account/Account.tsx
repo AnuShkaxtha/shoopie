@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from "react-router-dom";
 import { doSignOut } from "@/firebase/auth";
+import { fetchUserDetails } from "./api/userDataApi";
 
 const Account: React.FC = () => {
   const navigate = useNavigate();
@@ -19,29 +20,18 @@ const Account: React.FC = () => {
       navigate("/login");
     } else {
       const userId = currentUser.uid;
-      const fetchUserDetails = async () => {
+      const fetchUserData = async () => {
         try {
-          const response = await fetch(
-            `http://localhost:1337/api/user-logins?filters[userId][$eq]=${userId}`
-          );
-          const result = await response.json();
-          if (result.data && result.data.length > 0) {
-            setUserDetails(result.data[0].attributes);
-          } else {
-            console.error("No user data found.");
-          }
-        } catch (error) {
-          console.error("Error fetching user details:", error);
+          const userData = await fetchUserDetails(userId);
+          setUserDetails(userData);
+        } catch (error:any) {
+          console.error(error.message);
         }
       };
 
-      fetchUserDetails();
+      fetchUserData();
     }
   }, [currentUser, navigate]);
-
-  useEffect(() => {
-    console.log(userDetails);
-  }, [userDetails]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 sm:mt-20 pt-14 gap-4 md:mt-12 mt-12 min-h-[630px] h-auto">
@@ -78,8 +68,8 @@ const Account: React.FC = () => {
               </CardHeader>
               <CardContent>
                 {userDetails ? (
-                  <div className="space-y-4 md:space-y-10">
-                    <p className="font-bold">Name: <span className="font-normal"> {currentUser?.displayName ? currentUser.displayName : currentUser?.email?.split('@')[0]}</span></p>
+                  <div className="space-y-4 text-left md:space-y-10">
+                    <p className="mt-4 font-bold">Name: <span className="font-normal"> {currentUser?.displayName ? currentUser.displayName : currentUser?.email?.split('@')[0]}</span></p>
                     <p className="font-bold">Email: <span className="font-normal">{userDetails.email}</span></p>
                     <p className="font-bold">User ID: <span className="font-normal">{userDetails.userId}</span></p>
                     <p className="font-bold">Created At: <span className="font-normal">{new Date(userDetails.createdAt).toLocaleString()}</span></p>

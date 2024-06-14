@@ -1,9 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { RootState,AppThunk } from '../../app/store/store';
+import { AppThunk } from '../../app/store/store';
 import { fetchItemsByCategoryApi, fetchItemsBySubCategoryApi } from './api/productApi';
 import { FilterCategory, FilterTrends, PriceRanges, ShoppingState } from './model/productModel';
-
-
 
 const initialState: ShoppingState = {
   items: [],

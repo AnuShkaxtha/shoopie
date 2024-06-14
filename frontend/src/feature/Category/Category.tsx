@@ -33,14 +33,14 @@ interface Category {
   attributes: CategoryAttributes;
 }
 
-interface ApiResponse {
+export interface ApiResponse {
   data: Category;
 }
 
 const Category: React.FC = () => {
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
-  const [category, setCategory] = useState<Category | null>(null);
+  const [category, setCategory] = useState<Category>();
   const items = useSelector((state: RootState) => state.shopping.items);
 
   //console.log(items)
@@ -54,6 +54,7 @@ const Category: React.FC = () => {
     }
   }, [categoryId, dispatch]);
 
+  //fetching specific category 
   const fetchCategory = async (id: string) => {
     try {
       const response = await fetch(`http://localhost:1337/api/categories/${id}?populate=sub_categories`, { method: "GET" });
