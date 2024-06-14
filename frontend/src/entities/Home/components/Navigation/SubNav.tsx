@@ -8,45 +8,8 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { Separator } from '@/components/ui/separator';
-
-interface SubCategoryAttributes {
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-}
-
-interface SubCategory {
-  id: number;
-  attributes: SubCategoryAttributes;
-}
-
-interface CategoryAttributes {
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  sub_categories: {
-    data: SubCategory[];
-  };
-}
-
-interface Category {
-  id: number;
-  attributes: CategoryAttributes;
-}
-
-interface ApiResponse {
-  data: Category[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
-}
+import { fetchCategoriesApi } from '../../api/categoryApi';
+import { Category } from '../../models/categoryTypes';
 
 // Main component
 export const SubNav: React.FC = () => {
@@ -58,9 +21,8 @@ export const SubNav: React.FC = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://localhost:1337/api/categories?populate=sub_categories", { method: "GET" });
-      const itemsJson: ApiResponse = await response.json();
-      setCategories(itemsJson.data);
+      const data = await fetchCategoriesApi();
+      setCategories(data);
     } catch (error) {
       console.error('Error fetching categories:', error);
     }

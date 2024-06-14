@@ -1,49 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 import { fetchItemsApi, fetchItemByIdApi } from "./api/cartApi";
+import { CartItem, CartState, Item, ItemAttributes } from "./models/CartTypes";
 
-interface ImageData {
-  attributes: {
-    
-        url: string;
-      };
-    
-}
-interface CategoryData{
-  attributes:{
-    name: string;
-  }
-}
-
-// Define types for items and cart state
-interface ItemAttributes {
-  category:{
-    data: CategoryData ;
-  }
-  brand:string;
-  trend: string;
-  price: number;
-  name: string;
-  image: {
-    data: ImageData | null;
-  };
-}
-
-interface Item {
-  id: number;
-  attributes: ItemAttributes;
-}
-
-export interface CartItem extends Item {
-  qnty: number;
-}
-
-interface CartState {
-  cart: CartItem[];
-  items: Item[];
-  item: Item | null;
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null;
-}
 
 // Thunks for asynchronous operations
 export const fetchItems = createAsyncThunk("cart/fetchItems", async () => {

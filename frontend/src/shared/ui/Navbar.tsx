@@ -39,8 +39,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { SubNav } from "../../entities/Navigation/SubNav";
-import Filter from "@/entities/Filter/HomeFilters";
+import { SubNav } from "../../entities/Home/components/Navigation/SubNav";
+import Filter from "@/entities/Home/components/Filter/HomeFilters";
 
 
 export function Navbar(): JSX.Element {

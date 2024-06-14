@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/firebase/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { fetchOrders } from '../api/orderApi';
 
 interface Order {
   id: string;
@@ -28,15 +29,17 @@ const OrderList: React.FC = () => {
       return;
     }
 
-    const fetchOrders = async () => {
+    
+    const fetchUserOrders = async () => {
+      if (!currentUser.email) {
+        console.error('Current user email is null.');
+        setLoading(false);
+        return;
+      }
+
       try {
-        const response = await fetch(`http://localhost:1337/api/orders?filters[email][$eq]=${currentUser.email}`, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        const data = await response.json();
-        setOrders(data.data);
+        const ordersData = await fetchOrders(currentUser.email);
+        setOrders(ordersData);
       } catch (error) {
         console.error('Error fetching orders:', error);
       } finally {
@@ -44,7 +47,7 @@ const OrderList: React.FC = () => {
       }
     };
 
-    fetchOrders();
+    fetchUserOrders();
   }, [currentUser, navigate]);
 
   if (loading) {

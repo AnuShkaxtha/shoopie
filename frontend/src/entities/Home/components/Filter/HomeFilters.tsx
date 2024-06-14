@@ -13,45 +13,9 @@ import { RootState } from "@/app/store/store";
 import { Link } from 'react-router-dom';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { ScrollArea } from '@/components/ui/scroll-area'; // Import ScrollArea from shadcn ui
+import { fetchCategoriesApi } from "../../api/categoryApi";
+import { Category } from "../../models/categoryTypes";
 
-interface SubCategoryAttributes {
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-}
-
-interface SubCategory {
-  id: number;
-  attributes: SubCategoryAttributes;
-}
-
-interface CategoryAttributes {
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  sub_categories: {
-    data: SubCategory[];
-  };
-}
-
-interface Category {
-  id: number;
-  attributes: CategoryAttributes;
-}
-
-interface ApiResponse {
-  data: Category[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
-}
 
 const HomeFilter: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -80,9 +44,8 @@ const HomeFilter: React.FC = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://localhost:1337/api/categories?populate=sub_categories", { method: "GET" });
-      const itemsJson: ApiResponse = await response.json();
-      setCategories(itemsJson.data);
+      const data = await fetchCategoriesApi();
+      setCategories(data);
     } catch (error) {
       console.error('Error fetching categories:', error);
     }

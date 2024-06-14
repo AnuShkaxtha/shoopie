@@ -1,7 +1,7 @@
 //Account.tsx
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/firebase/AuthProvider";
-import OrderList from "../../entities/Account/OrderList";
+import OrderList from "../../entities/Account/components/OrderList";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

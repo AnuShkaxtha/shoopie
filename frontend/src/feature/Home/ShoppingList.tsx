@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Item from "../../entities/Item/Item";
 import { FilterTrends, PriceRanges } from "@/entities/Product/shoppingSlice";
 import { RootState } from "@/app/store/store";
-import Filter from "../../entities/Filter/HomeFilters";
+import Filter from "../../entities/Home/components/Filter/HomeFilters";
 
 const ShoppingList: React.FC = () => {
   const dispatch = useDispatch();
