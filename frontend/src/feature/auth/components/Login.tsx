@@ -3,10 +3,11 @@ import { Navigate, Link } from "react-router-dom";
 import {
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,
-} from "../../firebase/auth";
+} from "../../../firebase/auth";
 import { useAuth } from "@/firebase/AuthProvider";
 import { useTheme } from "@/processes/theme/theme-provider"; 
 import { FcGoogle } from "react-icons/fc";
+import { sendUserDetailsToBackend } from "../api/authApi";
 
 const Login: React.FC = () => {
   const { userLoggedIn } = useAuth();
@@ -46,48 +47,6 @@ const Login: React.FC = () => {
       }
     }
   };
-
-   // checking if user already exist in strapi backend based on user email
-   const checkUserExists = async (userEmail: string): Promise<boolean> => {
-    try {
-      const response = await fetch(
-        //replace to  UTF-8 encoding.
-        `http://localhost:1337/api/user-logins?filters[email][$eq]=${encodeURIComponent(userEmail)}`
-      );
-      const data = await response.json();
-      return data.data.length > 0; // Check if the data array is not empty
-    } catch (error:any) {
-      console.error("Error checking user existence:", error.message);
-      return false; // Return false in case of error
-    }
-  };
-
-  // Function to send user details to Strapi backend
-  const sendUserDetailsToBackend = async (userEmail:string,uid:string) => {
-    try {
-      // Check if the user already exists in the backend
-      const userExists = await checkUserExists(userEmail);
-      if (!userExists) {
-        const loginData = {
-          email: userEmail,
-          userId: uid,
-        };
-        const response = await fetch("http://localhost:1337/api/user-logins", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ data: loginData }), // Send user email to backend
-        });
-        if (!response.ok) {
-          throw new Error("Failed to store user details in backend.");
-        }
-      }
-    } catch (error:any) {
-      console.error("Error storing user details in backend:", error.message);
-    }
-  };
-  
 
   useEffect(() => {
     if (currentUser && currentUser.email && currentUser.uid) {
