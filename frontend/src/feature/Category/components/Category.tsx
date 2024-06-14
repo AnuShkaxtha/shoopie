@@ -3,44 +3,16 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchItemsByCategory } from '@/entities/Product/shoppingSlice';
 import { RootState, AppDispatch } from '@/app/store/store';
-import Item from '../../entities/Item/Item';
+import Item from '../../../entities/Item/Item';
+import { fetchCategoryById } from '../api/specificCategoryApi';
+import { ApiResponse, Category as CategoryInterface} from '../models/categoryModel';
 
 
-interface SubCategoryAttributes {
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-}
-
-interface SubCategory {
-  id: number;
-  attributes: SubCategoryAttributes;
-}
-
-interface CategoryAttributes {
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  sub_categories: {
-    data: SubCategory[];
-  };
-}
-
-interface Category {
-  id: number;
-  attributes: CategoryAttributes;
-}
-
-export interface ApiResponse {
-  data: Category;
-}
 
 const Category: React.FC = () => {
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
-  const [category, setCategory] = useState<Category>();
+  const [category, setCategory] = useState<CategoryInterface>();
   const items = useSelector((state: RootState) => state.shopping.items);
 
   //console.log(items)
@@ -57,9 +29,8 @@ const Category: React.FC = () => {
   //fetching specific category 
   const fetchCategory = async (id: string) => {
     try {
-      const response = await fetch(`http://localhost:1337/api/categories/${id}?populate=sub_categories`, { method: "GET" });
-      const itemJson: ApiResponse = await response.json();
-      setCategory(itemJson.data);
+      const categoryJson: ApiResponse = await fetchCategoryById(id);
+      setCategory(categoryJson.data);
     } catch (error) {
       console.error('Error fetching category:', error);
     }
