@@ -6,38 +6,8 @@ import { Plus, Minus } from "lucide-react";
 import { addToCart} from "@/entities/Cart";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/firebase/AuthProvider";
+import { ItemProps } from "./models/itemModels";
 
-interface ImageData {
-  attributes: {
-        url: string;
-      };
-    
-}
-interface CategoryData{
-  attributes:{
-    name: string;
-  }
-}
-interface ItemAttributes {
-  trend: string;
-  price: number;
-  name: string;
-  brand: string;
-  image: {
-    data: ImageData | null;
-  };
-  category:{
-    data: CategoryData ;
-  }
-}
-
-interface ItemProps {
-  id: number;
-  item: {
-    id: number;
-    attributes: ItemAttributes;
-  };
-}
 
 const Item: FC <ItemProps> = ({ item,  id }) => {
   const navigate = useNavigate();
