@@ -51,7 +51,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
   console.log(item?.attributes)
 
   return (
-    <div className="w-[90%] mx-auto mb-20 mt-40  ">
+    <div className="w-[90%] mx-auto mb-20 mt-20 md:mt-40 lg:mt-40  ">
       <div className="grid grid-cols-2 gap-10 ">
         <div className="col-span-2 mt-4 lg:mb-10 lg:col-span-1 md:col-span-1 max-w-[520px]">
           {item && (

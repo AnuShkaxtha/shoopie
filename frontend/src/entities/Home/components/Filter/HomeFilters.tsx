@@ -16,7 +16,6 @@ import { ScrollArea } from '@/components/ui/scroll-area'; // Import ScrollArea f
 import { fetchCategoriesApi } from "../../api/categoryApi";
 import { Category } from "../../models/categoryTypes";
 
-
 const HomeFilter: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const dispatch = useDispatch();
