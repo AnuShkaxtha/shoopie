@@ -7,14 +7,17 @@ interface AdminAuthState {
   error: string | null;
 }
 
+// Get token from localStorage
+const token = localStorage.getItem('adminToken');
+
 const initialState: AdminAuthState = {
-  isAuthenticated: false,
-  token: null,
+  isAuthenticated: !!token,
+  token: token,
   error: null,
 };
 
 export const loginAdmin = createAsyncThunk<
-  void,
+  string, // return type
   { email: string; password: string },
   { state: RootState }
 >(
@@ -27,15 +30,14 @@ export const loginAdmin = createAsyncThunk<
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
-        
       });
-      console.log(response)
-      
+
       if (!response.ok) {
         throw new Error('Invalid credentials');
       }
 
       const data = await response.json();
+      console.log(data)
       localStorage.setItem('adminToken', data.jwt);
       return data.jwt;
     } catch (error: any) {
@@ -51,6 +53,7 @@ const adminAuthSlice = createSlice({
     loginSuccess(state, action: PayloadAction<string>) {
       state.isAuthenticated = true;
       state.token = action.payload;
+      console.log(state.token)
       state.error = null;
     },
     loginFailure(state, action: PayloadAction<string>) {
@@ -58,12 +61,18 @@ const adminAuthSlice = createSlice({
       state.token = null;
       state.error = action.payload;
     },
+    logout(state) {
+      state.isAuthenticated = false;
+      state.token = null;
+      state.error = null;
+      localStorage.removeItem('adminToken');
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(loginAdmin.fulfilled, (state, action) => {
         state.isAuthenticated = true;
-        state.token = action.payload as unknown as string;
+        state.token = action.payload;
         state.error = null;
       })
       .addCase(loginAdmin.rejected, (state, action) => {
@@ -72,5 +81,5 @@ const adminAuthSlice = createSlice({
   },
 });
 
-export const { loginSuccess, loginFailure } = adminAuthSlice.actions;
+export const { loginSuccess, loginFailure, logout } = adminAuthSlice.actions;
 export default adminAuthSlice.reducer;

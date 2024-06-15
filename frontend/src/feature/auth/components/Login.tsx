@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAdmin } from "@/entities/Admin/adminAuthSlice";
+import { loginAdmin, loginSuccess, logout } from "@/entities/Admin/adminAuthSlice";
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "@/firebase/auth";
 import { useAuth } from "@/firebase/AuthProvider";
 import { useTheme } from "@/processes/theme/theme-provider";
@@ -20,13 +20,20 @@ const Login: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isAdminLogin, setIsAdminLogin] = useState<boolean>(false);
 
+  useEffect(() => {
+    // Check if there's a token in localStorage
+    const token = localStorage.getItem('adminToken');
+    if (token) {
+      dispatch(loginSuccess(token));
+    }
+  }, [dispatch]);
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSigningIn(true);
     if (isAdminLogin) {
       try {
         await dispatch(loginAdmin({ email, password })).unwrap();
-        
       } catch (error: any) {
         setErrorMessage(error);
       } finally {
@@ -142,7 +149,8 @@ const Login: React.FC = () => {
                 }
 `}
               >
-                <FcGoogle size={22} />
+                <
+FcGoogle size={22} />
                 {isSigningIn ? "Signing In..." : "Continue with Google"}
               </button>
             </>

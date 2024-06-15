@@ -41,7 +41,8 @@ import {
 } from "@/components/ui/sheet";
 import { SubNav } from "../../entities/Home/components/Navigation/SubNav";
 import Filter from "@/entities/Home/components/Filter/HomeFilters";
-
+import { RootState } from "@/app/store/store";
+import { logout } from "@/entities/Admin/adminAuthSlice";
 
 export function Navbar(): JSX.Element {
   const { theme, setTheme } = useTheme();
@@ -53,6 +54,7 @@ export function Navbar(): JSX.Element {
 
   // taking state of cart
   const cart = useSelector((state: any) => state.cart.cart);
+  const adminAuth = useSelector((state: RootState) => state.adminAuth);
 
   useEffect(() => {
     if (currentUser) {
@@ -63,6 +65,13 @@ export function Navbar(): JSX.Element {
     }
   }, [dispatch, currentUser, navigate]);
 
+  const handleLogout = () => {
+    doSignOut().then(() => {
+      dispatch(logout());
+      navigate("/");
+    });
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${theme === "dark"
@@ -71,28 +80,27 @@ export function Navbar(): JSX.Element {
         }`}
     >
       <div className="container flex items-center justify-between max-w-full px-1 mx-auto">
-        
-      <div className="flex items-center">
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="ghost" className="block p-0 text-gray-700 lg:p-3 md:p-3 md:hidden lg:hidden">
-            <Menu className={`${theme === "dark" ? "text-white" : "text-black"}`} />
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left">
-          <SheetHeader>
-            <SheetTitle>Filters</SheetTitle>
-          </SheetHeader>
-          <div className="h-full mt-4">
-            <Filter />
-          </div>
-        </SheetContent>
-      </Sheet>
-      {/* LOGO */}
-      <Link to={"/"} className="ml-3">
-        <div className="text-lg font-bold">SHOOPIE</div>
-      </Link>
-    </div>
+        <div className="flex items-center">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" className="block p-0 text-gray-700 lg:p-3 md:p-3 md:hidden lg:hidden">
+                <Menu className={`${theme === "dark" ? "text-white" : "text-black"}`} />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left">
+              <SheetHeader>
+                <SheetTitle>Filters</SheetTitle>
+              </SheetHeader>
+              <div className="h-full mt-4">
+                <Filter />
+              </div>
+            </SheetContent>
+          </Sheet>
+          {/* LOGO */}
+          <Link to={"/"} className="ml-3">
+            <div className="text-lg font-bold">SHOOPIE</div>
+          </Link>
+        </div>
 
         {/* NAV ITEMS */}
         <div className="flex items-center space-x-4">
@@ -106,27 +114,33 @@ export function Navbar(): JSX.Element {
                       <DropdownMenuTrigger asChild>
                         <User className="w-5 h-5" />
                       </DropdownMenuTrigger>
-                      {userLoggedIn ? (
+                      
+                      {userLoggedIn || adminAuth.isAuthenticated ? (
                         <DropdownMenuContent className="w-56">
                           <DropdownMenuLabel>My Account</DropdownMenuLabel>
                           <DropdownMenuSeparator />
                           <DropdownMenuGroup>
                             <DropdownMenuItem>
-                              <Link
-                                to={"/account"}
-                                className="flex flex-start"
-                              >
-                                <User className="w-4 h-4 mr-2" />
-                                <span>Profile</span>
-                              </Link>
+                              {adminAuth.isAuthenticated ? (
+                                <Link
+                                  to={"/admin/dashboard"}
+                                  className="flex flex-start"
+                                >
+                                  <User className="w-4 h-4 mr-2" />
+                                  <span>Dashboard</span>
+                                </Link>
+                              ) : (
+                                <Link
+                                  to={"/account"}
+                                  className="flex flex-start"
+                                >
+                                  <User className="w-4 h-4 mr-2" />
+                                  <span>Profile</span>
+                                </Link>)}
                             </DropdownMenuItem>
                             <DropdownMenuItem>
                               <div
-                                onClick={() => {
-                                  doSignOut().then(() => {
-                                    navigate("/");
-                                  });
-                                }}
+                                onClick={handleLogout}
                                 className="flex flex-start"
                               >
                                 <LogOut className="w-4 h-4 mr-2" />
@@ -215,7 +229,6 @@ export function Navbar(): JSX.Element {
               {/* <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
-
         </div>
       </div>
       <div>
