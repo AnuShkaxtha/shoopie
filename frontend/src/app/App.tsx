@@ -13,6 +13,7 @@ import CategoryPage from "@/pages/CategoryPage";
 import SubCategoryPage from "@/pages/SubCategoryPage";
 import ItemDetailPage from "@/pages/ItemDetailPage";
 import AccountPage from "@/pages/AccountPage";
+import Dashboard from "@/feature/Admin/Dashboard";
 
 const ScrollToTop = () => {
   //  returns current location of object
@@ -42,6 +43,7 @@ function App(): JSX.Element {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/account" element={<AccountPage />} />
               <Route path="/category" element={<CategoryPage />} />
+              <Route path="/admin/dashboard" element={<Dashboard/>} />
               <Route path="/categorys/:categoryId/sub-category" element={<SubCategoryPage />} />
             </Routes>
           </div>
