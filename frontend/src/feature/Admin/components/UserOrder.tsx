@@ -1,12 +1,10 @@
-import React from 'react'
+
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { fetchAllOrders } from '@/feature/Admin/api/orderApi';
 import { useNavigate } from "react-router-dom";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { TableCellsMerge } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
 
 const UserOrder = () => {
   const adminAuth = useSelector((state: RootState) => state.adminAuth);
