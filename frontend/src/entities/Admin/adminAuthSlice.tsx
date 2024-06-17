@@ -1,5 +1,6 @@
 import { RootState } from '@/app/store/store';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { loginAdminApi } from './api/adminApi';
 
 interface AdminAuthState {
   isAuthenticated: boolean;
@@ -24,27 +25,13 @@ export const loginAdmin = createAsyncThunk<
   'adminAuth/loginAdmin',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await fetch('http://localhost:1337/admin/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Invalid credentials');
-      }
-
-      const data = await response.json();
-      console.log(data)
-      localStorage.setItem('adminToken', data.jwt);
-      return data.jwt;
+      return await loginAdminApi(email, password);
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
   }
 );
+
 
 const adminAuthSlice = createSlice({
   name: 'adminAuth',
