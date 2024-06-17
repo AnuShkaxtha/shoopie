@@ -209,6 +209,7 @@ export function Navbar(): JSX.Element {
               <TooltipContent />
             </Tooltip>
           </TooltipProvider>
+          
 
           {/* COLOR MODE */}
           <DropdownMenu>
