@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Button } from '../Button/Button';
-import { Menu, ShoppingCartIcon, User } from 'lucide-react';
+import { Menu, Moon, ShoppingCartIcon, User } from 'lucide-react';
 import './Navbar.css';
 import { Tooltip } from '@/components/ui/tooltip';
 import { DropdownMenu, DropdownMenuContent } from '@/components/ui/dropdown-menu';
@@ -42,7 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({ user, onLogin, onLogout, onCreat
                         </div>
 
                         <div className='icon'><ShoppingCartIcon /></div>
-
+                        <div ><Moon/></div>
                        
                     </>
                 ) : (

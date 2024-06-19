@@ -22,9 +22,7 @@
     
   }
   
-  .storybook-navbar button + button {
-    margin-left: 10px;
-  }
+
   
   .storybook-navbar .welcome {
     color: #333;
@@ -40,7 +38,7 @@
 }
 
 .icon-class .icon{
-    padding-right: 9px;
+    padding-right: 24px;
 }
 
 .storybook-navbar DropdownMenu DropdownMenuTrigger DropdownMenuContent{
