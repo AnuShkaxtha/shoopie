@@ -3,14 +3,12 @@
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
- 
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "echo 'strapi build'",
     "strapi": "strapi"
   },
-  
   "dependencies": {
     "@strapi/plugin-cloud": "4.24.2",
     "@strapi/plugin-i18n": "4.24.2",
@@ -18,6 +16,7 @@
     "@strapi/strapi": "4.24.2",
     "better-sqlite3": "8.6.0",
     "cors": "^2.8.5",
+    "pg": "^8.12.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "5.3.4",
