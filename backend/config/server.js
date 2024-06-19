@@ -1,6 +1,6 @@
 module.exports = ({ env }) => ({
-  host: env('HOST', '0.0.0.0'),
-  port: env.int('PORT', 2120),
+  host: env('HOST', '0.0.0.1'),
+  port: env.int('PORT', 1337),
   app: {
     keys: env.array('APP_KEYS'),
   },
@@ -11,5 +11,5 @@ module.exports = ({ env }) => ({
   // admin: {
   //   url: env('ADMIN_URL', '/admin'), // The path to access the admin panel
   // },
-  // proxy: true, // Enable proxy if you are behind a proxy
+  proxy: true, // Enable proxy if you are behind a proxy
 });
