@@ -76,5 +76,5 @@
     "tailwindcss": "^3.4.3",
     "vite": "^5.2.0"
   },
-  "proxy": "http://0.0.0.0:1337"
+  "proxy": "http://localhost:1337"
 }
