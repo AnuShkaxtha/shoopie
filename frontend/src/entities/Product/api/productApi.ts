@@ -1,5 +1,5 @@
 // api/shoppingApi.ts
-const BASE_URL = "http://localhost:1337/api/items";
+const BASE_URL = "http://0.0.0.0:1337/api/items";
 
 export const fetchItemsByCategoryApi = async (categoryId: string) => {
   const response = await fetch(`${BASE_URL}?filters[category]=${categoryId}&populate=image&pagination[pageSize]=1000`, { method: 'GET' });

@@ -1,5 +1,5 @@
 // export const fetchAllOrders = async (token: string) => {
-//     const response = await fetch('http://localhost:1337/api/orders', {
+//     const response = await fetch('http://0.0.0.0:1337/api/orders', {
 //       method: 'GET',
 //       headers: {
 //         'Content-Type': 'application/json',
@@ -16,7 +16,7 @@
 //   };
   
 export const fetchAllOrders = async () => {
-    const response = await fetch('http://localhost:1337/api/orders', {
+    const response = await fetch('http://0.0.0.0:1337/api/orders', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -1,5 +1,5 @@
 // api/cartApi.ts
-const BASE_URL = "http://localhost:1337/api/items";
+const BASE_URL = "http://0.0.0.0:1337/api/items";
 
 export const fetchItemsApi = async () => {
   const response = await fetch(`${BASE_URL}?populate=*&pagination[pageSize]=1000`, { method: "GET" });
