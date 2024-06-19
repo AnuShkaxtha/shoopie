@@ -7,4 +7,9 @@ module.exports = ({ env }) => ({
   webhooks: {
     populateRelations: env.bool('WEBHOOKS_POPULATE_RELATIONS', false),
   },
+  url: env('PUBLIC_URL', 'http://0.0.0.0:1337'), // Change this to your public URL
+  admin: {
+    url: env('ADMIN_URL', '/admin'), // The path to access the admin panel
+  },
+  proxy: true,
 });
