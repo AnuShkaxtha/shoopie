@@ -51,7 +51,7 @@ const Item: FC <ItemProps> = ({ item,  id }) => {
         {imageUrl && (
           <img
             alt={name}
-            src={`https://strapi-backend-ddn2.onrender.com${imageUrl}`}
+            src={`${imageUrl}`}
             className="cursor-pointer w-[300px] h-[400px]"
             onClick={() => navigate(`/item/${id}`)}
           />

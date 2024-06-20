@@ -57,7 +57,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
           {item && (
             <img
               alt={item?.attributes?.name}
-              src={`https://strapi-backend-ddn2.onrender.com${item?.attributes?.image?.data?.attributes?.url}`}
+              src={`${item?.attributes?.image?.data?.attributes?.url}`}
               className="object-contain w-full h-auto max-h-[520px]"
             />
           )}

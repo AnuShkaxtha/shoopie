@@ -151,7 +151,7 @@ const Cart: React.FC = () => {
               {/* ITEMS */}
               <div className="space-y-4">
                 {cart.map((item: any) => {
-                  const imageUrl = item.attributes.image.data ? `https://strapi-backend-ddn2.onrender.com${item.attributes.image.data.attributes.url}` : '';
+                  const imageUrl = item.attributes.image.data ? `${item.attributes.image.data.attributes.url}` : '';
 
                   return (
                     <div key={item.id} className="pb-4 mb-4 border-b">
