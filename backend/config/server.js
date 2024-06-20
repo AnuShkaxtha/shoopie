@@ -7,9 +7,5 @@ module.exports = ({ env }) => ({
   webhooks: {
     populateRelations: env.bool('WEBHOOKS_POPULATE_RELATIONS', false),
   },
-  url: env('PUBLIC_URL', 'https://strapi-abgj.onrender.com'), // Change this to your public URL
-  admin: {
-    url: env('ADMIN_URL', '/admin'), // The path to access the admin panel
-  },
-  proxy: true, // Enable proxy if you are behind a proxy
+   // Enable proxy if you are behind a proxy
 });
