@@ -34,8 +34,8 @@ const Account: React.FC = () => {
   }, [currentUser, navigate]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-5 sm:mt-20 pt-14 gap-4 md:mt-12 mt-12 min-h-[630px] h-auto">
-      <div className="shadow-xl md:col-span-1 md:mt-5 md:text-center md:bg-transparent">
+    <div className="grid grid-cols-1 gap-4 mt-6 md:grid-cols-5 pt-14 md:mt-12 ">
+      <div className="col-span-1 shadow-xl md:mt-5 md:text-center md:bg-transparent ">
         <div className="p-2 md:mt-9">
           <Button
             variant="ghost"
@@ -58,7 +58,7 @@ const Account: React.FC = () => {
           </Button>
         </div>
       </div>
-      <div className="text-center md:col-span-4 md:text-left mb-9">
+      <div className="col-span-4 text-center md:text-left mb-9">
 
         {showAccount ? (
           <div className="pt-14">
