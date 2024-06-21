@@ -1,0 +1,25 @@
+.storybook-button {
+    /* Your existing button styles */
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: filter 0.3s;
+  }
+  
+  
+.storybook-button:hover {
+  filter: brightness(1.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.storybook-button--primary {
+  background-color: blue;
+  color: white;
+}
+
+.storybook-button--secondary {
+  background-color: gray;
+  color: white;
+}
+  
