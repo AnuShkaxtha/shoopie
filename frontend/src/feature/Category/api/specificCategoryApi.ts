@@ -2,7 +2,7 @@
 
 import { ApiResponse } from "../models/categoryModel";
 
-const API_URL = 'http://0.0.0.0:1337/api';
+const API_URL = 'https://strapi-backend-ddn2.onrender.com/api';
 
 export const fetchCategoryById = async (id: string): Promise<ApiResponse> => {
   try {

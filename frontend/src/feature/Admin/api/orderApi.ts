@@ -16,7 +16,7 @@
 //   };
   
 export const fetchAllOrders = async () => {
-    const response = await fetch('http://0.0.0.0:1337/api/orders', {
+    const response = await fetch('https://strapi-backend-ddn2.onrender.com/api/orders', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 // src/api/categoryApi.ts
 
-const BASE_URL = "http://0.0.0.0:1337/api/categories";
+const BASE_URL = "https://strapi-backend-ddn2.onrender.com/api/categories";
 
 export const fetchCategoriesApi = async () => {
   const response = await fetch(`${BASE_URL}?populate=sub_categories`, { method: "GET" });

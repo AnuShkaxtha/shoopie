@@ -1,5 +1,5 @@
 // api/cartApi.ts
-const BASE_URL = "http://0.0.0.0:1337/api/items";
+const BASE_URL = "https://strapi-backend-ddn2.onrender.com/api/items";
 
 export const fetchItemsApi = async () => {
   const response = await fetch(`${BASE_URL}?populate=*&pagination[pageSize]=1000`, { method: "GET" });
