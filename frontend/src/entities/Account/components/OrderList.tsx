@@ -1,9 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/firebase/AuthProvider';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { fetchOrders } from '../api/orderApi';
-import { Order } from '../models/Order';
+import React, { useEffect, useState } from "react";
+import { useAuth } from "@/firebase/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "@/components/ui/table";
+import { Separator } from "@/components/ui/separator";
+import { fetchOrders } from "../api/orderApi";
+import { Order } from "../models/Order";
 
 const OrderList: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -11,16 +19,14 @@ const OrderList: React.FC = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
-  // Fetching order list from strapi api
   useEffect(() => {
     if (!currentUser) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
-    // fetching orders from user backend 
     const fetchUserOrders = async () => {
       if (!currentUser.email) {
-        console.error('Current user email is null.');
+        console.error("Current user email is null.");
         setLoading(false);
         return;
       }
@@ -28,7 +34,7 @@ const OrderList: React.FC = () => {
         const ordersData = await fetchOrders(currentUser.email);
         setOrders(ordersData);
       } catch (error) {
-        console.error('Error fetching orders:', error);
+        console.error("Error fetching orders:", error);
       } finally {
         setLoading(false);
       }
@@ -42,43 +48,60 @@ const OrderList: React.FC = () => {
   }
 
   return (
-    <div className='flex justify-start mt-12 text-left'>
-      <Card className="lg:w-[auto]  md:w-[550px]  w-[350px] mx-3 ">
-        <CardHeader className='px-1 md:pl-6 lg:px-9'>
-          <CardTitle>Your Orders</CardTitle>
-        </CardHeader>
-        <CardContent className='p-2 md:pl-6 lg:px-6 '>
-          {orders.length === 0 ? (
-            // NO ORDER 
-            <div>No orders found.</div>
-          ) : (
-            // DISPLAYING ORDER 
-            <div className="space-y-4 md:space-y-10">
-              {orders.map((order) => (
-                <div key={order.id} className="pb-4 mb-4 border-b">
-                  <p className="text-lg font-bold ">Order ID: {order.id}</p>
-                  <div className='mt-2 space-y-3 '>
-                  {/* create date object and localize string  */}
-                  <p className="text-sm">Ordered Date: {new Date(order.attributes.createdAt).toLocaleString()}</p>
-                  <p className="text-sm">Total Items: {order.attributes.products.length}</p>
-                  <div className="space-y-3 text-left md:pr-5 ">
-                    {order.attributes.products.map((product, index) => (
-                      <div key={index} className="flex justify-between md:pl-4 lg:ml-8 w-[300px] md:w-auto lg:w-auto">
-                        <p className="text-sm ">Product:{product.productName}</p>
-                        <p className="ml-8 text-sm">Quantity: {product.quantity}</p>
-                      </div>
-                    ))}
-                    <p className="text-sm font-semibold ">Total Price: ${order.attributes.price}</p>
-                  </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+    <div className="px-4 py-6 mt-5">
+      <h1 className="mb-4 text-2xl font-bold">User Orders</h1>
+      {orders.length === 0 ? (
+        <p>No orders found</p>
+      ) : (
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Order ID</TableHead>
+              <TableHead>Order Date</TableHead>
+              <TableHead>Products</TableHead>
+              <TableHead>Quantity</TableHead>
+              <TableHead>Total</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {orders.map((order) => (
+              <TableRow key={order.id}>
+                <TableCell>{order.id}</TableCell>
+                <TableCell>
+                  {new Date(order.attributes.createdAt).toLocaleDateString()}
+                </TableCell>
+
+                <TableCell className="flex flex-col space-y-2">
+                  {order.attributes.products.map((product, index) => (
+                    <div key={index} className="text-left" >
+                      <span>{product.productName}</span>
+                      {index < order.attributes.products.length - 1 && (
+                        <Separator className='mt-4 bg-gray-600' />
+                      )} 
+                    </div>
+                  ))}
+                </TableCell>
+                <TableCell className="space-y-2 ">
+                  {order.attributes.products.map((product, index) => (
+                    <div key={index}  className="mb-5">
+                      <span >Quantity: {product.quantity}</span>
+                      
+                    </div>
+                  ))}
+                </TableCell>
+
+                <TableCell className="font-semibold">${order.attributes.price}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
     </div>
   );
 };
 
 export default OrderList;
+
+{
+  
+}
