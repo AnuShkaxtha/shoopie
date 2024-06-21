@@ -5,6 +5,7 @@ import { RootState } from "@/app/store/store";
 import { fetchAllOrders } from '@/feature/Admin/api/orderApi';
 import { useNavigate } from "react-router-dom";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Separator } from "@/components/ui/separator";
 
 const UserOrder = () => {
   const adminAuth = useSelector((state: RootState) => state.adminAuth);
@@ -54,12 +55,12 @@ const UserOrder = () => {
   }
 
   return (
-    <div>
+    <div className="mt-5">
       <h1 className="mb-4 text-2xl font-bold">User Orders</h1>
       {orders.length === 0 ? (
         <p>No orders found</p>
       ) : (
-        <Table>
+        <Table >
           <TableHeader>
             <TableRow>
               <TableHead>Order ID</TableHead>
@@ -70,21 +71,33 @@ const UserOrder = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {orders.map((order) => (
-              <TableRow key={order.id}>
-                <TableCell>{order.id} </TableCell>
-                <TableCell>{order.attributes.publishedAt.substring(0, 10)}</TableCell>
-                <TableCell>{order.attributes.email}</TableCell>
-                {order.attributes.products.map((product: any) => (
-                  <TableCell className='flex flex-grow'>
-                    {product.productName}
-                  </TableCell>
-                  
-
-                ))}
-                <TableCell>${order.attributes.price}</TableCell>
-
-              </TableRow>
+  {orders.map((order) => (
+    <TableRow key={order.id}>
+      <TableCell>{order.id}</TableCell>
+      <TableCell>{order.attributes.publishedAt.substring(0, 10)}</TableCell>
+      <TableCell>{order.attributes.email}</TableCell>
+      {order.attributes.products.length > 1 ? (
+        order.attributes.products.map((product: any, index:any) => (
+          <TableCell key={index} className='flex flex-grow'>
+            <div>
+              {product.productName}
+              {index < order.attributes.products.length - 1 && (
+                <Separator className="mt-6 bg-gray-600" />
+              )}
+            </div>
+          </TableCell>
+        ))
+      ) : (
+        order.attributes.products.map((product: any, index:any) => (
+          <TableCell key={index} className='flex flex-grow'>
+            <div>
+              {product.productName}
+            </div>
+          </TableCell>
+        ))
+      )}
+      <TableCell>${order.attributes.price}</TableCell>
+    </TableRow>
 
 
             ))}
