@@ -25,9 +25,6 @@ export const loginAdmin = createAsyncThunk<
   'adminAuth/loginAdmin',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-<<<<<<< HEAD
-      return await loginAdminApi(email, password);
-=======
       const response = await fetch('https://strapi-backend-ddn2.onrender.com/admin/login', {
         method: 'POST',
         headers: {
@@ -44,7 +41,6 @@ export const loginAdmin = createAsyncThunk<
       console.log(data)
       localStorage.setItem('adminToken', data.jwt);
       return data.jwt;
->>>>>>> main
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
