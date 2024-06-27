@@ -39,8 +39,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { SubNav } from "../../entities/Home/components/Navigation/SubNav";
-import Filter from "@/entities/Home/components/Filter/HomeFilters";
+import { SubNav } from "./SubNav";
+import Filter from "@/feature/Home/ShoppingList/HomeFilters";
 import { RootState } from "@/app/store/store";
 import { logout } from "@/entities/Admin/adminAuthSlice";
 

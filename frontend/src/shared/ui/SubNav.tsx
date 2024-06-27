@@ -8,8 +8,8 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { Separator } from '@/components/ui/separator';
-import { fetchCategoriesApi } from '../../api/categoryApi';
-import { Category } from '../../models/categoryTypes';
+import { fetchCategoriesApi } from '../../feature/Home/api/categoryApi';
+import { Category } from '../../feature/Home/models/categoryTypes';
 
 // Main component
 export const SubNav: React.FC = () => {

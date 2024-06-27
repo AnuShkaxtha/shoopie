@@ -4,7 +4,7 @@ import { addToCart, fetchItems, fetchItemById } from "@/entities/Cart";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Minus, Heart } from "lucide-react";
-import Item from "../../entities/Item/Item";
+import Item from "../../../entities/Item/Item";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "@/firebase/AuthProvider";
 import { Separator } from "@/components/ui/separator";

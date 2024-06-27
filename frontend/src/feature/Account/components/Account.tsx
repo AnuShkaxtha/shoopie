@@ -1,13 +1,13 @@
 //Account.tsx
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/firebase/AuthProvider";
-import OrderList from "../../entities/Account/components/OrderList";
+import OrderList from "./OrderList";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from "react-router-dom";
 import { doSignOut } from "@/firebase/auth";
-import { fetchUserDetails } from "./api/userDataApi";
+import { fetchUserDetails } from "../api/userDataApi";
 
 const Account: React.FC = () => {
   const navigate = useNavigate();

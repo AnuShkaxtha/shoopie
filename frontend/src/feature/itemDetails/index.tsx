@@ -1,2 +1,2 @@
 
-export {default as ItemDetails} from './ItemDetails';
+export {default as ItemDetails} from './components/ItemDetails';

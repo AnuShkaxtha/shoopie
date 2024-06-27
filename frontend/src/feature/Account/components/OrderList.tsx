@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/firebase/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { fetchOrders } from '../api/orderApi';
+import { fetchOrders } from '../api/userDataApi';
 import { Order } from '../models/Order';
 
 const OrderList: React.FC = () => {
