@@ -1,5 +1,5 @@
 // userDataApi.ts
-
+import { Order } from "@/feature/Account/models/Order";
 const API_URL = "https://strapi-backend-ddn2.onrender.com/api";
 
 export const fetchUserDetails = async (userId: string) => {
@@ -45,4 +45,14 @@ export const updateUserDetails = async (userId: string, userDetails: { name: str
   } catch (error: any) {
     throw new Error("Error updating user details: " + error.message);
   }
+};
+
+export const fetchOrders = async (email: string): Promise<Order[]> => {
+  const response = await fetch(`${API_URL}/orders?filters[email][$eq]=${email}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const data = await response.json();
+  return data.data;
 };

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItems } from "@/entities/Cart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Item from "../../entities/Item/Item";
+import Item from "../../../entities/Item/Item";
 import { FilterTrends, PriceRanges } from "@/entities/Product/model/productModel";
 import { RootState } from "@/app/store/store";
-import Filter from "../../entities/Home/components/Filter/HomeFilters";
+import Filter from "./HomeFilters";
 
 const ShoppingList: React.FC = () => {
   const dispatch = useDispatch();

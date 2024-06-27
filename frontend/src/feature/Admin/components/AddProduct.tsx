@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { addProduct } from '../api/productApi';
-import { fetchCategoriesApi } from '@/entities/Home/api/categoryApi';
+import { fetchCategoriesApi } from '@/feature/Home/api/categoryApi';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface SubCategory {

@@ -10,8 +10,8 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
-import { fetchOrders } from "../api/orderApi";
-import { Order } from "../models/Order";
+import { fetchOrders } from "../api/userDataApi";
+import { Order } from "@/feature/Account/models/Order";
 
 const OrderList: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
