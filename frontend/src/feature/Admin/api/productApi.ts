@@ -18,7 +18,8 @@ export const addProduct = async (productData: any) => {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to add product.");
+      const errorMessage = await response.text();
+      throw new Error(`Failed to add product: ${errorMessage}`);
     }
     if (response.ok) {
       console.log("added");

@@ -36,6 +36,7 @@ const AddProduct: React.FC = () => {
     longDescription: '',
     category: '',
     sub_categories: '',
+    image: null as File | null, // State to hold the image file
   });
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
@@ -65,13 +66,33 @@ const AddProduct: React.FC = () => {
   const handleSubcategoryChange = (value: string) => {
     setProductData({ ...productData, sub_categories: value });
   };
+  const API_URL = "https://strapi-backend-ddn2.onrender.com/api";
 
-  
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setProductData({ ...productData, image: file });
+    }
+  };
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-  
+
     try {
+      const formData = new FormData();
+      formData.append('files', productData.image!); // Add image file to FormData
+      formData.append('ref', 'product'); // Reference to your Strapi model
+      formData.append('field', 'image'); // Field name in your Strapi model
+
+      // Upload image to Strapi using fetch
+      const imageResponse = await fetch(`${API_URL}/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+      const imageData = await imageResponse.json();
+
+      // Prepare product data to be added
       const productToAdd = {
         ...productData,
         shortDescription: [
@@ -85,14 +106,18 @@ const AddProduct: React.FC = () => {
         },
         subcategory: {
           id: productData.sub_categories
-        } // Ensure this matches the Cloudinary URL structure in your Strapi schema
+        },
+        image: {
+          data: {
+            url: imageData[0].url 
+          }
+        }
       };
-  
-      console.log('Product to add:', productToAdd);
-  
+
+      console.log(productToAdd)
       await addProduct(productToAdd);
       setLoading(false);
-  
+
       setProductData({
         name: '',
         price: '',
@@ -101,14 +126,17 @@ const AddProduct: React.FC = () => {
         longDescription: '',
         category: '',
         sub_categories: '',
+        image: null,
       });
-  
+
       navigate('/admin/dashboard');
     } catch (error: any) {
       console.error('Error adding product:', error.message);
       setLoading(false);
     }
   };
+
+
 
   const selectedCategory = categories.find(category => category.id.toString() === productData.category);
 
@@ -187,7 +215,11 @@ const AddProduct: React.FC = () => {
               </Select>
             )}
 
-
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
             <Button type="submit" disabled={loading}>
               {loading ? 'Adding Product...' : 'Add Product'}
             </Button>
