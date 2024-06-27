@@ -9,6 +9,7 @@ export const addProduct = async (productData: any) => {
       }
     };
 
+    console.log(payload)
     const response = await fetch(`${API_URL}/items`, {
       method: 'POST',
       headers: {
