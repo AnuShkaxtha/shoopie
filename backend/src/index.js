@@ -1,5 +1,8 @@
 'use strict';
 
+
+// Other middleware and routes
+
 module.exports = {
   /**
    * An asynchronous register function that runs before

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAdmin, loginSuccess, logout } from "@/entities/Admin/adminAuthSlice";
+import { loginAdmin, loginSuccess } from "@/entities/Admin/adminAuthSlice";
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "@/firebase/auth";
 import { useAuth } from "@/firebase/AuthProvider";
 import { useTheme } from "@/processes/theme/theme-provider";

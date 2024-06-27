@@ -1,0 +1,68 @@
+.storybook-navbar {
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .storybook-navbar .logo{
+    display: flex;
+    align-items: center;
+  }
+  
+  .storybook-navbar h1 {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1;
+    margin: 6px 0 6px 10px;
+    display: inline-block;
+    vertical-align: top;
+    
+  }
+  
+
+  
+  .storybook-navbar .welcome {
+    color: #333;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+  
+.storybook-navbar .icon-class{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.icon-class .icon{
+    padding-right: 24px;
+}
+
+.storybook-navbar DropdownMenu DropdownMenuTrigger DropdownMenuContent{
+    background-color: aqua;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 90px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 12px;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content Button{
+    margin-bottom: 5px;
+  }
