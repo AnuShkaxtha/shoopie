@@ -1,24 +1,23 @@
 import path from "path"
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      '@': path.resolve(__dirname, './src'),
     },
   },
   build: {
     sourcemap: true,
-    chunkSizeWarningLimit: 1000, // Increase chunk size limit to 1000 kB
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
-
         manualChunks: {
-          'vendor': ['react', 'react-dom'], // Example of manual chunking
+          'vendor': ['react', 'react-dom'],
         },
       },
     },
   },
-})
+});

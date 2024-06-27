@@ -15,10 +15,10 @@ const UserOrder = () => {
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     const getOrders = async () => {
-      if (!adminAuth.isAuthenticated) {
-        console.log("You are not authenticated to this page");
-        navigate("/")
-      }
+      // if (!adminAuth.isAuthenticated) {
+      //   console.log("You are not authenticated to this page");
+      //   navigate("/")
+      // }
       if (adminAuth.isAuthenticated) {
         try {
           const ordersData = await fetchAllOrders();
@@ -67,6 +67,7 @@ const UserOrder = () => {
               <TableHead>Order Date</TableHead>
               <TableHead>User</TableHead>
               <TableHead>Products</TableHead>
+              <TableHead>Quantity</TableHead>
               <TableHead>Total</TableHead>
             </TableRow>
           </TableHeader>
@@ -76,26 +77,27 @@ const UserOrder = () => {
       <TableCell>{order.id}</TableCell>
       <TableCell>{order.attributes.publishedAt.substring(0, 10)}</TableCell>
       <TableCell>{order.attributes.email}</TableCell>
-      {order.attributes.products.length > 1 ? (
-        order.attributes.products.map((product: any, index:any) => (
-          <TableCell key={index} className='flex flex-grow'>
-            <div>
-              {product.productName}
-              {index < order.attributes.products.length - 1 && (
-                <Separator className="mt-6 bg-gray-600" />
-              )}
-            </div>
-          </TableCell>
-        ))
-      ) : (
-        order.attributes.products.map((product: any, index:any) => (
-          <TableCell key={index} className='flex flex-grow'>
-            <div>
-              {product.productName}
-            </div>
-          </TableCell>
-        ))
-      )}
+
+      <TableCell className="flex flex-col space-y-2">
+                  {order.attributes.products.map((product:any, index:any) => (
+                    <div key={index} className="text-left" >
+                      <span>{product.productName}</span>
+                      {index < order.attributes.products.length - 1 && (
+                        <Separator className='mt-4 bg-gray-600' />
+                      )} 
+                    </div>
+                  ))}
+                </TableCell>
+                <TableCell className="space-y-2 ">
+                  {order.attributes.products.map((product:any, index:any) => (
+                    <div key={index}  className="mb-7">
+                      <span >Quantity: {product.quantity}</span>
+                      {index < order.attributes.products.length - 1 && (
+                        <Separator className='mt-4 bg-gray-600' />
+                      )} 
+                    </div>
+                  ))}
+                </TableCell>
       <TableCell>${order.attributes.price}</TableCell>
     </TableRow>
 
@@ -103,35 +105,7 @@ const UserOrder = () => {
             ))}
           </TableBody>
         </Table>
-        // <table className="min-w-full bg-white border-collapse">
-        //   <thead>
-        //     <tr>
-        //       <th className="px-0 py-2 text-left border-b-2 border-gray-200">Order ID</th>
-        //       <th className="px-0 py-2 text-left border-b-2 border-gray-200">Order Date</th>
-        //       <th className="px-2 py-2 text-left border-b-2 border-gray-200">User</th>
-        //       <th className="px-4 py-2 text-left border-b-2 border-gray-200">Products</th>
-        //       <th className="px-1 py-2 text-left border-b-2 border-gray-200">Total</th>
-        //       {/* <th className="px-4 py-2 text-left border-b-2 border-gray-200">Status</th> */}
-        //     </tr>
-        //   </thead>
-        //   <tbody>
-
-        //     {orders.map((order) => (
-        //       <tr key={order.id}>
-        //         <td className="px-0 py-2 border-b border-gray-200">{order.id}</td>
-        //         <td className="px-2 py-2 border-b border-gray-200">{order.attributes.publishedAt.substring(0, 10)}</td>
-        //         <td className="px-2 py-2 border-b border-gray-200">{order.attributes.email}</td>
-        //         {order.attributes.products.map((product: any)=>(
-
-        //           <td className="flex flex-grow px-2 py-2 border-b border-gray-200">{product.productName}</td>
-        //         ))}
-
-        //         <td className="px-1 py-2 border-b border-gray-200">${order.attributes.price}</td>
-        //         {/* <td className="px-4 py-2 border-b border-gray-200">{order.status}</td> */}
-        //       </tr>
-        //     ))}
-        //   </tbody>
-        // </table>
+       
       )}
     </div>
   )
