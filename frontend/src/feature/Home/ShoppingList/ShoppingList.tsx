@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItems } from "@/entities/Cart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Item from "../../entities/Item/Item";
+import Item from "../../../entities/Item/Item";
 import { FilterTrends, PriceRanges } from "@/entities/Product/model/productModel";
 import { RootState } from "@/app/store/store";
-import Filter from "../../entities/Home/components/Filter/HomeFilters";
+import Filter from "./HomeFilters";
 
 const ShoppingList: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,8 +17,6 @@ const ShoppingList: React.FC = () => {
   } = useSelector((state: RootState) => state.shopping);
 
   const [value, setValue] = useState<string>("all");
-  // const [showGuide, setShowGuide] = useState<boolean>(false);
-
   const items = useSelector((state: RootState) => state.cart.items);
 
   useEffect(() => {
@@ -75,7 +73,29 @@ const ShoppingList: React.FC = () => {
       Object.values(priceRanges).some((value) => value)
     );
   };
-  console.log(items);
+
+  const renderFilteredItems = (filterValue: string) => {
+    let displayedItems = items;
+
+    if (filterValue !== "all") {
+      displayedItems = displayedItems.filter(
+        (item) => item.attributes.trend === filterValue
+      );
+    }
+
+    return (
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {displayedItems.map((item) => (
+          <Item
+            key={`${item.attributes.name}-${item.id}`}
+            item={item}
+            id={item.id}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5" id="shop">
       <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
@@ -93,7 +113,7 @@ const ShoppingList: React.FC = () => {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {filterItemsByTrends().map((item) => (
+                  {filteredItems.map((item) => (
                     <Item
                       key={`${item.attributes.name}-${item.id}`}
                       item={item}
@@ -118,55 +138,16 @@ const ShoppingList: React.FC = () => {
               </TabsList>
 
               <TabsContent value="all">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {items.map((item) => (
-                    
-                    <Item
-                      key={`${item.attributes.name}-${item.id}`}
-                      item={item}
-                      id={item.id}
-                    />
-                  ))}
-                </div>
+                {renderFilteredItems("all")}
               </TabsContent>
               <TabsContent value="newArrivals">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {items
-                    .filter((item) => item.attributes.trend === "newArrivals")
-                    .map((item) => (
-                      <Item
-                        key={`${item.attributes.name}-${item.id}`}
-                        item={item}
-                        id={item.id}
-                      />
-                    ))}
-                </div>
+                {renderFilteredItems("newArrivals")}
               </TabsContent>
               <TabsContent value="bestSellers">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {items
-                    .filter((item) => item.attributes.trend === "bestSellers")
-                    .map((item) => (
-                      <Item
-                        key={`${item.attributes.name}-${item.id}`}
-                        item={item}
-                        id={item.id}
-                      />
-                    ))}
-                </div>
+                {renderFilteredItems("bestSellers")}
               </TabsContent>
               <TabsContent value="topRated">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {items
-                    .filter((item) => item.attributes.trend === "topRated")
-                    .map((item) => (
-                      <Item
-                        key={`${item.attributes.name}-${item.id}`}
-                        item={item}
-                        id={item.id}
-                      />
-                    ))}
-                </div>
+                {renderFilteredItems("topRated")}
               </TabsContent>
             </Tabs>
           </div>

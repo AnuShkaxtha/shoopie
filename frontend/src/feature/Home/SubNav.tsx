@@ -8,8 +8,8 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { Separator } from '@/components/ui/separator';
-import { fetchCategoriesApi } from '../../api/categoryApi';
-import { Category } from '../../models/categoryTypes';
+import { fetchCategoriesApi } from '@/feature/Home/api/categoryApi';
+import { Category } from './models/categoryTypes';
 
 // Main component
 export const SubNav: React.FC = () => {
@@ -43,7 +43,7 @@ export const SubNav: React.FC = () => {
                 </Link>
                 <NavigationMenuContent>
                   {category.attributes.sub_categories.data.length > 0 ? (
-                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] grid-cols-2 lg:w-[600px] text-[13px]">
+                     <ul className="grid w-[400px] gap-3 p-4 grid-cols-2  text-[13px]">
                      {category.attributes.sub_categories.data.map((subCategory) => (
                        <li key={subCategory.id} className="block p-3 space-y-1 leading-none no-underline transition-colors rounded-md outline-none select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                          <Link to={`/categorys/${category.id}/sub-category?subCategory=${subCategory.id}`}>

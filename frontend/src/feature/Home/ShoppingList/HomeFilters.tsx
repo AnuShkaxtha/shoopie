@@ -13,8 +13,8 @@ import { RootState } from "@/app/store/store";
 import { Link } from 'react-router-dom';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { ScrollArea } from '@/components/ui/scroll-area'; // Import ScrollArea from shadcn ui
-import { fetchCategoriesApi } from "../../api/categoryApi";
-import { Category } from "../../models/categoryTypes";
+import { fetchCategoriesApi } from "../api/categoryApi";
+import { Category } from "@/feature/Home/models/categoryTypes";
 
 const HomeFilter: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
