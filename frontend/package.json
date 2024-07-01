@@ -27,6 +27,8 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@reduxjs/toolkit": "^2.2.5",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "@shadcn/ui": "^0.0.4",
     "@tanstack/react-table": "^8.17.3",
     "axios": "^1.7.0",
