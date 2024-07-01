@@ -13,7 +13,7 @@ import { Link } from "react-scroll";
 
 // Fetching images from assets and storing them as object
 const heroTextureImports = import.meta.glob(
-  "../../assets/*.{png,jpg,jpeg,svg}",
+  "../../../assets/*.{png,jpg,jpeg,svg}",
   { eager: true } // images are imported immediately
 );
 

@@ -8,7 +8,8 @@ import Item from "../../entities/Item/Item";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "@/firebase/AuthProvider";
 import { Separator } from "@/components/ui/separator";
-interface ItemDetailsProps { }
+
+interface ItemDetailsProps {}
 
 const ItemDetails: React.FC<ItemDetailsProps> = () => {
   const navigate = useNavigate();
@@ -48,6 +49,26 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
     dispatch(fetchItemById(Number(itemId)) as any);
   }, [dispatch, itemId]);
 
+  const renderRelatedProducts = () => {
+    if (!item || !item.attributes.category?.data?.attributes?.name) {
+      return null;
+    }
+
+    const relatedCategory = item.attributes.category.data.attributes.name;
+    const relatedProducts = items.filter(
+      (relatedItem: any) =>
+        relatedItem.attributes.category?.data?.attributes?.name === relatedCategory &&
+        relatedItem.id !== item.id // Exclude the current item
+    );
+
+    return relatedProducts.slice(0, 4).map((relatedItem: any, index: number) => (
+      <Item
+        key={`${relatedItem.attributes.name}-${index}`}
+        item={relatedItem}
+        id={relatedItem.id}
+      />
+    ));
+  };
   console.log(item?.attributes)
 
   return (
@@ -149,16 +170,8 @@ const ItemDetails: React.FC<ItemDetailsProps> = () => {
 
       <div className="mt-20">
         <p className="mb-4 text-2xl font-bold">Related Products</p>
-        <div className="flex flex-wrap gap-10">
-          {items.slice(0, 4).map((relatedItem: any, index: number) => (
-            <Item
-              key={`${relatedItem.attributes.name}-${index}`}
-              item={relatedItem}
-              id={relatedItem.id}
-            />
-          ))}
-
-
+        <div className="flex flex-wrap gap-2">
+          {renderRelatedProducts()}
         </div>
       </div>
     </div>
