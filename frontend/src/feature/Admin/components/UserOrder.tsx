@@ -67,43 +67,45 @@ const UserOrder = () => {
               <TableHead>Products</TableHead>
               <TableHead>Quantity</TableHead>
               <TableHead>Total</TableHead>
+              <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-  {orders.map((order) => (
-    <TableRow key={order.id}>
-      <TableCell>{order.id}</TableCell>
-      <TableCell>{order.attributes.publishedAt.substring(0, 10)}</TableCell>
-      <TableCell>{order.attributes.email}</TableCell>
+            {orders.map((order) => (
+              <TableRow key={order.id}>
+                <TableCell>{order.id}</TableCell>
+                <TableCell>{order.attributes.publishedAt.substring(0, 10)}</TableCell>
+                <TableCell>{order.attributes.email}</TableCell>
 
-      <TableCell className="flex flex-col space-y-2">
-                  {order.attributes.products.map((product:any, index:any) => (
+                <TableCell className="flex flex-col space-y-2">
+                  {order.attributes.products.map((product: any, index: any) => (
                     <div key={index} className="text-left" >
                       <span>{product.productName}</span>
                       {index < order.attributes.products.length - 1 && (
                         <Separator className='mt-4 bg-gray-600' />
-                      )} 
+                      )}
                     </div>
                   ))}
                 </TableCell>
                 <TableCell className="space-y-2 ">
-                  {order.attributes.products.map((product:any, index:any) => (
-                    <div key={index}  className="mb-7">
+                  {order.attributes.products.map((product: any, index: any) => (
+                    <div key={index} className="mb-7">
                       <span >Quantity: {product.quantity}</span>
                       {index < order.attributes.products.length - 1 && (
                         <Separator className='mt-4 bg-gray-600' />
-                      )} 
+                      )}
                     </div>
                   ))}
                 </TableCell>
-      <TableCell>${order.attributes.price}</TableCell>
-    </TableRow>
+                <TableCell>${order.attributes.price}</TableCell>
+                <TableCell>{order.attributes.status}</TableCell>
+              </TableRow>
 
 
             ))}
           </TableBody>
         </Table>
-       
+
       )}
     </div>
   )

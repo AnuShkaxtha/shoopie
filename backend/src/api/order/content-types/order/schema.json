@@ -20,6 +20,14 @@
     },
     "price": {
       "type": "integer"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Pending",
+        "In Progress",
+        "Delivered"
+      ]
     }
   }
 }
