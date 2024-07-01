@@ -3,14 +3,12 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { fetchAllOrders } from '@/feature/Admin/api/orderApi';
-import { useNavigate } from "react-router-dom";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Separator } from "@/components/ui/separator";
 
 const UserOrder = () => {
   const adminAuth = useSelector((state: RootState) => state.adminAuth);
   const [orders, setOrders] = useState<any[]>([]);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
@@ -63,7 +61,7 @@ const UserOrder = () => {
         <Table >
           <TableHeader>
             <TableRow>
-              <TableHead>Order ID</TableHead>
+              <TableHead>ID</TableHead>
               <TableHead>Order Date</TableHead>
               <TableHead>User</TableHead>
               <TableHead>Products</TableHead>

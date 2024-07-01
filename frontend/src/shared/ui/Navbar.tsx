@@ -10,14 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/processes/theme/theme-provider";
-import {
-  Menu,
-  Moon,
-  Sun,
-  User,
-  LogOut,
-  LogIn,
-} from "lucide-react";
+import { Menu, Moon, Sun, User, LogOut, LogIn } from "lucide-react";
 import { GiShoppingBag } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import { Badge } from "@/components/ui/badge";
@@ -43,7 +36,7 @@ import { SubNav } from "@/feature/Home/SubNav";
 import Filter from "@/feature/Home/ShoppingList/HomeFilters";
 import { RootState } from "@/app/store/store";
 import { logout } from "@/entities/Admin/adminAuthSlice";
-
+import { If } from "react-if";
 export function Navbar(): JSX.Element {
   const { theme, setTheme } = useTheme();
   const dispatch = useDispatch();
@@ -74,17 +67,21 @@ export function Navbar(): JSX.Element {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${theme === "dark"
-        ? "bg-gray-800 text-white"
-        : "bg-white text-gray-700"
-        }`}
+      className={`fixed top-0 left-0 right-0 p-4 shadow-md z-50 ${
+        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-700"
+      }`}
     >
       <div className="container flex items-center justify-between max-w-full px-1 mx-auto">
         <div className="flex items-center">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" className="block p-0 text-gray-700 lg:p-3 md:p-3 md:hidden lg:hidden">
-                <Menu className={`${theme === "dark" ? "text-white" : "text-black"}`} />
+              <Button
+                variant="ghost"
+                className="block p-0 text-gray-700 lg:p-3 md:p-3 md:hidden lg:hidden"
+              >
+                <Menu
+                  className={`${theme === "dark" ? "text-white" : "text-black"}`}
+                />
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
@@ -114,7 +111,7 @@ export function Navbar(): JSX.Element {
                       <DropdownMenuTrigger asChild>
                         <User className="w-5 h-5" />
                       </DropdownMenuTrigger>
-                      
+
                       {userLoggedIn || adminAuth.isAuthenticated ? (
                         <DropdownMenuContent className="w-56">
                           <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -136,7 +133,8 @@ export function Navbar(): JSX.Element {
                                 >
                                   <User className="w-4 h-4 mr-2" />
                                   <span>Profile</span>
-                                </Link>)}
+                                </Link>
+                              )}
                             </DropdownMenuItem>
                             <DropdownMenuItem>
                               <div
@@ -155,10 +153,7 @@ export function Navbar(): JSX.Element {
                           <DropdownMenuSeparator />
                           <DropdownMenuGroup>
                             <DropdownMenuItem>
-                              <Link
-                                to={"/login"}
-                                className="flex flex-start"
-                              >
+                              <Link to={"/login"} className="flex flex-start">
                                 <LogIn className="w-4 h-4 mr-2" />
                                 <span>Login</span>
                               </Link>
@@ -184,32 +179,34 @@ export function Navbar(): JSX.Element {
           </TooltipProvider>
 
           {/* CART */}
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className="relative inline-block ">
-                  <Link to={"/cart"}>
-                    <Button variant="ghost" size="sm">
-                      <GiShoppingBag
-                        className={`h-5 w-5 ${theme === "dark" ? "text-gray-300" : "text-gray-900"
+          <If condition={!adminAuth.isAuthenticated}>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="relative inline-block ">
+                    <Link to={"/cart"}>
+                      <Button variant="ghost" size="sm">
+                        <GiShoppingBag
+                          className={`h-5 w-5 ${
+                            theme === "dark" ? "text-gray-300" : "text-gray-900"
                           }`}
-                      />
-                      {cart.length > 0 && (
-                        <Badge
-                          variant="default" // Changed 'filled' to 'default'
-                          className="absolute flex items-center justify-center w-4 h-4 text-xs -top-2 -right-2"
-                        >
-                          {cart.length}
-                        </Badge>
-                      )}
-                    </Button>
-                  </Link>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent />
-            </Tooltip>
-          </TooltipProvider>
-          
+                        />
+                        {cart.length > 0 && (
+                          <Badge
+                            variant="default" // Changed 'filled' to 'default'
+                            className="absolute flex items-center justify-center w-4 h-4 text-xs -top-2 -right-2"
+                          >
+                            {cart.length}
+                          </Badge>
+                        )}
+                      </Button>
+                    </Link>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent />
+              </Tooltip>
+            </TooltipProvider>
+          </If>
 
           {/* COLOR MODE */}
           <DropdownMenu>
