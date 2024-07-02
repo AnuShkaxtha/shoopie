@@ -46,7 +46,9 @@ const OrderList: React.FC = () => {
   if (loading) {
     return <div>Loading orders...</div>;
   }
-
+  {orders.map((order,index) => (
+    console.log(order)
+  ))}
   return (
     <div className="px-4 py-6 mt-5">
       <h1 className="mb-4 text-2xl font-bold">User Orders</h1>
@@ -61,12 +63,13 @@ const OrderList: React.FC = () => {
               <TableHead>Products</TableHead>
               <TableHead>Quantity</TableHead>
               <TableHead>Total</TableHead>
+              <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {orders.map((order) => (
+            {orders.map((order,index) => (
               <TableRow key={order.id}>
-                <TableCell>{order.id}</TableCell>
+                <TableCell>{index+1}</TableCell>
                 <TableCell>
                   {new Date(order.attributes.createdAt).toLocaleDateString()}
                 </TableCell>
@@ -91,6 +94,7 @@ const OrderList: React.FC = () => {
                 </TableCell>
 
                 <TableCell className="font-semibold">${order.attributes.price}</TableCell>
+                <TableCell className="font-semibold">{order.attributes.status}</TableCell>
               </TableRow>
             ))}
           </TableBody>

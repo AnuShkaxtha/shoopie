@@ -24,11 +24,12 @@
     "status": {
       "type": "enumeration",
       "enum": [
-        "Pending",
-        "In Progress",
+        "Order Placed",
+        "Shipped",
         "Delivered",
         "Canceled"
-      ]
+      ],
+      "default": "Order Placed"
     }
   }
 }

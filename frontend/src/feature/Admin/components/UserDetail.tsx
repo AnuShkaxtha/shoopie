@@ -46,7 +46,7 @@ const UserDetail = () => {
 
   return (
     <div className="mt-5">
-      <h1 className="mb-4 text-2xl font-bold">User Management</h1>
+      <h1 className="mb-4 text-2xl font-bold">User Detail</h1>
       {users.length === 0 ? (
         <p>No users found</p>
       ) : (

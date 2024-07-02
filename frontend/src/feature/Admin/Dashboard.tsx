@@ -2,17 +2,24 @@ import { Button } from "@/components/ui/button";
 import UserOrder from "./components/UserOrder";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { useNavigate } from "react-router-dom";
 import AddProduct from "./components/AddProduct";
 import UserDetail from "./components/UserDetail";
+import { logout } from "@/entities/Admin/adminAuthSlice";
 
 const Dashboard: React.FC = () => {
   const adminAuth = useSelector((state: RootState) => state.adminAuth);
   const [showUser, setShowUser] = useState<boolean>(false);
   const [showDashboard, setShowDashboard] = useState<boolean>(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+      dispatch(logout());
+      navigate("/");
+  }
 
   useEffect(() => {
     if (!adminAuth.isAuthenticated) {
@@ -60,7 +67,9 @@ const Dashboard: React.FC = () => {
             Product Management
           </Button>
           <Separator className="my-2 bg-gray-400" />
-          <Button className="mt-2 w-full md:w-[100px]">
+          <Button className="mt-2 w-full md:w-[100px]"
+          onClick={handleLogout}
+          >
             Logout
           </Button>
         </div>

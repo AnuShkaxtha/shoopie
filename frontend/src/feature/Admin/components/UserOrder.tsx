@@ -89,7 +89,7 @@ const UserOrder = () => {
                 <TableCell>{order.attributes.publishedAt.substring(0, 10)}</TableCell>
                 <TableCell>{order.attributes.email}</TableCell>
 
-                <TableCell className="flex flex-col space-y-2">
+                <TableCell className="flex flex-col space-y-2 min-w-[220px]">
                   {order.attributes.products.map((product: any, index: any) => (
                     <div key={index} className="text-left">
                       <span>{product.productName}</span>
@@ -100,13 +100,13 @@ const UserOrder = () => {
                   ))}
                 </TableCell>
 
-                <TableCell className="space-y-2">
+                <TableCell className="space-y-2 min-w-[120px] ">
                   {order.attributes.products.map((product: any, index: any) => (
-                    <div key={index} className="mb-7">
-                      <span className="hidden lg:block">Quantity: {product.quantity}</span>
-                      <span className="block lg:hidden">{product.quantity}</span>
+                    <div key={index} className="mb-3">
+                      <span className="">Quantity: {product.quantity}</span>
+                      {/* <span className="block lg:hidden">{product.quantity}</span> */}
                       {index < order.attributes.products.length - 1 && (
-                        <Separator className='mt-4 bg-gray-600' />
+                        <Separator className='bg-gray-600 mt-9 mb-7 lg:mt-4 lg:mb-3 md:mt-9 md:mb-6' />
                       )}
                     </div>
                   ))}
@@ -115,7 +115,6 @@ const UserOrder = () => {
                 <TableCell>${order.attributes.price}</TableCell>
 
                 <TableCell>
-                  {/* Combined status display and dropdown for status change */}
                   <div className="flex items-center">
                     
                     <select
@@ -127,11 +126,13 @@ const UserOrder = () => {
                         ${order.attributes.status === 'Delivered' ? 'bg-green-500 text-white' : ''}
                         ${order.attributes.status === 'Pending' ? 'bg-orange-500 text-white' : ''}
                         ${order.attributes.status === 'In Progress' ? 'bg-gray-500 text-white' : ''}
+                        ${order.attributes.status === 'Canceled' ? 'bg-red-500 text-white line-through' : ''}
                       `}
                     >
                       <option value="Pending">Pending</option>
                       <option value="In Progress">In Progress</option>
                       <option value="Delivered">Delivered</option>
+                      <option value="Canceled">Canceled</option>
                     </select>
                   </div>
                 </TableCell>

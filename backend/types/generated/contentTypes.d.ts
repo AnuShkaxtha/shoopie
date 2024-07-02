@@ -886,8 +886,9 @@ export interface ApiOrderOrder extends Schema.CollectionType {
     email: Attribute.Email;
     price: Attribute.Integer;
     status: Attribute.Enumeration<
-      ['Pending', 'In Progress', 'Delivered', 'Canceled']
-    >;
+      ['Order Placed', 'Shipped', 'Delivered', 'Canceled']
+    > &
+      Attribute.DefaultTo<'Order Placed'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

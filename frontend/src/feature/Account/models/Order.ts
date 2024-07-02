@@ -8,5 +8,6 @@ export interface Order {
         quantity: number;
       }[];
       price: number;
+      status: string;
     };
   }   
