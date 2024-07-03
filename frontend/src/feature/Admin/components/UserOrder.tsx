@@ -4,6 +4,7 @@ import { RootState } from "@/app/store/store";
 import { fetchAllOrders, updateOrderStatus } from '@/feature/Admin/api/orderApi';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 const UserOrder = () => {
   const adminAuth = useSelector((state: RootState) => state.adminAuth);
@@ -53,7 +54,9 @@ const UserOrder = () => {
   };
 
   if (loading) {
-    return <div className="text-center mt-[220px]">Loading...</div>;
+    return <div className="text-center  mt-[220px]">
+      
+      Loading...</div>;
   }
 
   if (error) {
@@ -66,7 +69,7 @@ const UserOrder = () => {
 
   return (
     <div className="mt-5">
-      <h1 className="mb-4 text-2xl font-bold">User Orders</h1>
+      <h1 className="mb-4 text-2xl font-bold">Orders Information</h1>
       {orders.length === 0 ? (
         <p>No orders found</p>
       ) : (
@@ -124,13 +127,13 @@ const UserOrder = () => {
                       className={`
                         block px-2 py-1 rounded-lg  flex 
                         ${order.attributes.status === 'Delivered' ? 'bg-green-500 text-white' : ''}
-                        ${order.attributes.status === 'Pending' ? 'bg-orange-500 text-white' : ''}
-                        ${order.attributes.status === 'In Progress' ? 'bg-gray-500 text-white' : ''}
+                        ${order.attributes.status === 'Order Placed' ? 'bg-blue-500 text-white' : ''}
+                        ${order.attributes.status === 'Shipped' ? 'bg-orange-400 text-white' : ''}
                         ${order.attributes.status === 'Canceled' ? 'bg-red-500 text-white line-through' : ''}
                       `}
                     >
-                      <option value="Pending">Pending</option>
-                      <option value="In Progress">In Progress</option>
+                       <option value="Order Placed">Order Placed</option>
+                      <option value="Shipped">Shipped</option>
                       <option value="Delivered">Delivered</option>
                       <option value="Canceled">Canceled</option>
                     </select>

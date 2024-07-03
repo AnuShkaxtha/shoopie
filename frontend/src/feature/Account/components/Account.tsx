@@ -5,9 +5,19 @@ import OrderList from "./OrderList";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { doSignOut } from "@/firebase/auth";
 import { fetchUserDetails, updateUserDetails } from "../api/userDataApi";
+import {
+  DropdownMenu,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Ellipsis, LogOut, Menu, User } from "lucide-react";
 
 const Account: React.FC = () => {
   const navigate = useNavigate();
@@ -65,8 +75,54 @@ const Account: React.FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-4 mt-6 md:grid-cols-5 pt-14 md:mt-12 ">
-      <div className="col-span-1 shadow-xl md:mt-5 md:text-center md:bg-transparent ">
+    <div className="grid grid-cols-5 gap-4 mt-6 pt-14 md:mt-12 ">
+      <div className="relative block col-start-5 col-end-5 mr-5 lg:hidden md:hidden">
+        <Button variant="ghost" >
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Ellipsis className="w-5 h-5" />
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent className="mr-3 w-22">
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <Button
+                    variant="ghost"
+                    onClick={() => setShowAccount(true)}
+                    
+                  >
+                    My Account
+                  </Button>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <Button
+                    variant="ghost"
+                    onClick={() => setShowAccount(false)}
+                  >
+                    Order Detail
+                  </Button>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <Button
+                    className="mt-2 w-full md:w-[100px]"
+                    onClick={() => {
+                      doSignOut().then(() => {
+                        navigate("/login");
+                      });
+                    }}
+                  >
+                    Logout
+                  </Button>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+
+          </DropdownMenu>
+        </Button>
+      </div>
+      <div className="hidden w-full col-span-1 shadow-xl md:mt-5 md:text-center md:block lg:block">
         <div className="p-2 md:mt-9">
           <Button
             variant="ghost"
@@ -96,10 +152,10 @@ const Account: React.FC = () => {
           </Button>
         </div>
       </div>
-      <div className="col-span-4 text-center md:text-left mb-9">
+      <div className="col-span-5 text-center md:col-span-4 lg:col-span-4 md:text-left mb-9">
         {showAccount ? (
-          <div className="pt-14">
-            <Card className="mx-3 md:w-[650px]">
+          <div className="lg:pt-14 md:pt-14">
+            <Card className="mx-3">
               <CardHeader>
                 <CardTitle>My Account</CardTitle>
               </CardHeader>
