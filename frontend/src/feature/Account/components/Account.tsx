@@ -27,6 +27,7 @@ const Account: React.FC = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [formData, setFormData] = useState<any>({ name: "", email: "" });
 
+  // fetching user data 
   useEffect(() => {
     if (!currentUser) {
       navigate("/login");
@@ -49,6 +50,8 @@ const Account: React.FC = () => {
     }
   }, [currentUser, navigate]);
 
+
+  // fuction to change data
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData: any) => ({
@@ -57,6 +60,7 @@ const Account: React.FC = () => {
     }));
   };
 
+  // fuction to handle submission of form 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (currentUser) {
@@ -76,6 +80,7 @@ const Account: React.FC = () => {
 
   return (
     <div className="grid grid-cols-5 gap-4 mt-6 pt-14 md:mt-12 ">
+      {/* SMALL SCREEN */}
       <div className="relative block col-start-5 col-end-5 mr-5 lg:hidden md:hidden">
         <Button variant="ghost" >
           <DropdownMenu>
@@ -122,6 +127,7 @@ const Account: React.FC = () => {
           </DropdownMenu>
         </Button>
       </div>
+      {/* LARGE SCREEN */}
       <div className="hidden w-full col-span-1 shadow-xl md:mt-5 md:text-center md:block lg:block">
         <div className="p-2 md:mt-9">
           <Button

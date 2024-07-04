@@ -845,7 +845,7 @@ export interface ApiItemItem extends Schema.CollectionType {
     shortDescription: Attribute.Blocks;
     longDescription: Attribute.Blocks;
     price: Attribute.Decimal;
-    image: Attribute.Media;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     trend: Attribute.Enumeration<['newArrivals', 'bestSellers', 'topRated']>;
     qnty: Attribute.Integer & Attribute.DefaultTo<0>;
     category: Attribute.Relation<

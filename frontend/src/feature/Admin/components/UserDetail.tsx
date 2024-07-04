@@ -60,7 +60,7 @@ const UserDetail = () => {
               <TableHead>Updated Date</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody className="text-left">
             {users.map((user, index) => (
               <TableRow key={user.id}>
                 <TableCell>{index + 1}</TableCell>

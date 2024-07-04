@@ -152,6 +152,7 @@ const OrderList: React.FC = () => {
                       ) : (
                         <Button disabled variant={"destructive"}>Cancle Order</Button>
                       )}
+                      
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
@@ -169,6 +170,12 @@ const OrderList: React.FC = () => {
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
+                  {order.attributes.status === "Delivered" ? (
+                        <Button  variant={"secondary"} className="mt-2">
+                        Give review
+                      </Button>
+                      ) : ""}
+                 
                 </TableCell>
               </TableRow>
             ))}
@@ -181,5 +188,3 @@ const OrderList: React.FC = () => {
 
 export default OrderList;
 
-{
-}

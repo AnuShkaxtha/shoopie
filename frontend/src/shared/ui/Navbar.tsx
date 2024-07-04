@@ -174,7 +174,12 @@ export function Navbar(): JSX.Element {
                   </Button>
                 </div>
               </TooltipTrigger>
-              <TooltipContent />
+              {adminAuth.isAuthenticated ? (
+                 <TooltipContent>Dashboard</TooltipContent>
+              ):(
+                 <TooltipContent>Account</TooltipContent>
+              )}
+             
             </Tooltip>
           </TooltipProvider>
 
@@ -203,7 +208,7 @@ export function Navbar(): JSX.Element {
                     </Link>
                   </div>
                 </TooltipTrigger>
-                <TooltipContent />
+                <TooltipContent>Cart</TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </If>

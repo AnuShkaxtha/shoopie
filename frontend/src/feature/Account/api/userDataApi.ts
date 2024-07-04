@@ -1,11 +1,12 @@
-// userDataApi.ts
 import { Order } from "@/feature/Account/models/Order";
 const API_URL = "https://strapi-backend-ddn2.onrender.com/api";
 
+// function to fetch user information using userID
 export const fetchUserDetails = async (userId: string) => {
   try {
     const response = await fetch(`${API_URL}/user-logins?filters[userId][$eq]=${userId}`);
     const result = await response.json();
+    // checking if user exist
     if (result.data && result.data.length > 0) {
       return result.data[0].attributes;
     } else {
@@ -16,6 +17,7 @@ export const fetchUserDetails = async (userId: string) => {
   }
 };
 
+// function to update user information 
 export const updateUserDetails = async (userId: string, userDetails: { name: string; email: string }) => {
   try {
     // Fetch the user entry ID to update
@@ -47,6 +49,7 @@ export const updateUserDetails = async (userId: string, userDetails: { name: str
   }
 };
 
+// function to fetch user orders
 export const fetchOrders = async (email: string): Promise<Order[]> => {
   const response = await fetch(`${API_URL}/orders?filters[email][$eq]=${email}`, {
     headers: {
