@@ -167,11 +167,11 @@ const Cart: React.FC = () => {
                         </div>
                         <div className="mb-8 ml-4">
                           <p className="mb-3 text-lg font-bold lg:text-xl">{item.attributes.name}</p>
-                          <p className="mb-0.5 text-sm lg:text-lg ">Price: ${item.attributes.price}</p>
-                          <p className="mb-0.5 text-sm lg:text-lg">
+                          <p className="mb-0.5 text-sm lg:text-lg ml-3">Price: ${item.attributes.price}</p>
+                          <p className="mb-0.5 text-sm lg:text-lg ml-3">
                             Quantity: {item.qnty}
                           </p>
-                          <p className="mb-0.5 text-sm lg:text-lg">
+                          <p className="mb-0.5 text-sm lg:text-lg  ml-3">
                             Total: ${item.attributes.price * item.qnty}
                           </p>
                           <div className="flex items-center">

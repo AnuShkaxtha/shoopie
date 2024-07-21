@@ -4,7 +4,7 @@ import { useAuth } from "@/firebase/AuthProvider";
 import OrderList from "./OrderList";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate, Link } from "react-router-dom";
 import { doSignOut } from "@/firebase/auth";
 import { fetchUserDetails, updateUserDetails } from "../api/userDataApi";
@@ -27,7 +27,7 @@ const Account: React.FC = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [formData, setFormData] = useState<any>({ name: "", email: "" });
 
-  // fetching user data 
+  // fetching user data
   useEffect(() => {
     if (!currentUser) {
       navigate("/login");
@@ -50,7 +50,6 @@ const Account: React.FC = () => {
     }
   }, [currentUser, navigate]);
 
-
   // fuction to change data
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -60,7 +59,7 @@ const Account: React.FC = () => {
     }));
   };
 
-  // fuction to handle submission of form 
+  // fuction to handle submission of form
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (currentUser) {
@@ -81,37 +80,30 @@ const Account: React.FC = () => {
   return (
     <div className="grid grid-cols-5 gap-4 mt-6 pt-14 md:mt-12 ">
       {/* SMALL SCREEN */}
-      <div className="relative block col-start-5 col-end-5 mr-5 lg:hidden md:hidden">
-        <Button variant="ghost" >
+      <div className="relative flex justify-end col-span-5 mr-5 lg:hidden md:hidden">
+        <Button variant="ghost">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Ellipsis className="w-5 h-5" />
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="mr-3 w-22">
+            <DropdownMenuContent className="mr-3 ">
               <DropdownMenuGroup>
                 <DropdownMenuItem>
-                  <Button
-                    variant="ghost"
-                    onClick={() => setShowAccount(true)}
-                    
-                  >
+                  <Button variant="ghost" onClick={() => setShowAccount(true)}>
                     My Account
                   </Button>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Button
-                    variant="ghost"
-                    onClick={() => setShowAccount(false)}
-                  >
+                  <Button variant="ghost" onClick={() => setShowAccount(false)}>
                     Order Detail
                   </Button>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                
                   <Button
-                    className="mt-2 w-full md:w-[100px]"
+                    className="mt-2 w-full md:w-[100px] mb-1"
                     onClick={() => {
                       doSignOut().then(() => {
                         navigate("/login");
@@ -120,10 +112,8 @@ const Account: React.FC = () => {
                   >
                     Logout
                   </Button>
-                </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>
-
           </DropdownMenu>
         </Button>
       </div>
@@ -195,29 +185,48 @@ const Account: React.FC = () => {
                           />
                         </div>
                         <div className="flex justify-end space-x-4">
-                          <Button type="button" onClick={() => setEditMode(false)}>
+                          <Button
+                            type="button"
+                            onClick={() => setEditMode(false)}
+                          >
                             Cancel
                           </Button>
-                          <Button type="submit">
-                            Save
-                          </Button>
+                          <Button type="submit">Save</Button>
                         </div>
                       </form>
                     ) : (
                       <div className="space-y-6">
                         <p className="mt-4 font-bold">
-                          Name: <span className="font-normal"> {currentUser?.displayName ? currentUser.displayName : currentUser?.email?.split('@')[0]}</span>
+                          Name:{" "}
+                          <span className="font-normal">
+                            {" "}
+                            {currentUser?.displayName
+                              ? currentUser.displayName
+                              : currentUser?.email?.split("@")[0]}
+                          </span>
                         </p>
                         <p className="font-bold">
-                          Email: <span className="font-normal">{userDetails.email}</span>
+                          Email:{" "}
+                          <span className="font-normal">
+                            {userDetails.email}
+                          </span>
                         </p>
                         <p className="font-bold">
-                          User ID: <span className="font-normal">{userDetails.userId}</span>
+                          User ID:{" "}
+                          <span className="font-normal">
+                            {userDetails.userId}
+                          </span>
                         </p>
                         <p className="font-bold">
-                          Created At: <span className="font-normal">{new Date(userDetails.createdAt).toLocaleString()}</span>
+                          Created At:{" "}
+                          <span className="font-normal">
+                            {new Date(userDetails.createdAt).toLocaleString()}
+                          </span>
                         </p>
-                        <Button onClick={() => setEditMode(true)} className="mt-4">
+                        <Button
+                          onClick={() => setEditMode(true)}
+                          className="mt-4"
+                        >
                           Edit
                         </Button>
                       </div>

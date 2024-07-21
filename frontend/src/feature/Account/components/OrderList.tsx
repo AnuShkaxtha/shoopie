@@ -78,7 +78,7 @@ const OrderList: React.FC = () => {
     orders.map((order, index) => console.log(order));
   }
   return (
-    <div className="px-4 py-6 mt-5">
+    <div className="px-4 py-2 lg:py-6 lg:mt-5 md:mt-5">
       <h1 className="mb-4 text-2xl font-bold">User Orders</h1>
       {orders.length === 0 ? (
         <p>No orders found</p>
@@ -165,8 +165,8 @@ const OrderList: React.FC = () => {
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction  onClick={() => handleCancelOrder(order.id)}>Continue</AlertDialogAction>
+                        <AlertDialogCancel>No</AlertDialogCancel>
+                        <AlertDialogAction  onClick={() => handleCancelOrder(order.id)}>Yes</AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>

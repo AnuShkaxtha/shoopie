@@ -44,7 +44,7 @@ console.log(categoryId);
     fetchSubCategoryData();
   }, [categoryId, subCategoryId, dispatch]);
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5 lg:mt-[130px] mt-[100px]">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5 lg:mt-[130px] mt-[100px] md:mt-[130px]">
       {/* <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
         <Filter />
       </div> */}

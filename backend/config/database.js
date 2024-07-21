@@ -7,11 +7,11 @@ module.exports = ({ env }) => {
     postgres: {
       connection: {
         connectionString: env('DATABASE_URL'),
-        host: env('DATABASE_HOST', 'dpg-cppqut88fa8c739km45g-a.oregon-postgres.render.com'),
+        host: env('DATABASE_HOST', 'dpg-cqeed1ggph6c73an8hq0-a.oregon-postgres.render.com'),
         port: env.int('DATABASE_PORT', 5432),
-        database: env('DATABASE_NAME', 'shoopie'),
-        user: env('DATABASE_USERNAME', 'shoopie_user'),
-        password: env('DATABASE_PASSWORD', 'H3qcEmWtY9BAOjvnLeXBYuaLIWIYBZLH'),
+        database: env('DATABASE_NAME', 'shopie'),
+        user: env('DATABASE_USERNAME', 'shopie_user'),
+        password: env('DATABASE_PASSWORD', 'd6vO17oQpE94LDZAUi1Lemc1fFUow1Rw'),
         ssl: env.bool('DATABASE_SSL', true),
         schema: env('DATABASE_SCHEMA', 'public'),
       },
