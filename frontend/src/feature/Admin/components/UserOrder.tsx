@@ -94,7 +94,7 @@ const UserOrder = () => {
 
                 <TableCell className="flex flex-col space-y-2 min-w-[220px]">
                   {order.attributes.products.map((product: any, index: any) => (
-                    <div key={index} className="text-left">
+                    <div key={index} className="pt-3 text-left">
                       <span>{product.productName}</span>
                       {index < order.attributes.products.length - 1 && (
                         <Separator className='mt-4 bg-gray-600' />
@@ -105,7 +105,7 @@ const UserOrder = () => {
 
                 <TableCell className="space-y-2 min-w-[120px] ">
                   {order.attributes.products.map((product: any, index: any) => (
-                    <div key={index} className="mb-3">
+                    <div key={index} className="pt-2 mb-3">
                       <span className="">Quantity: {product.quantity}</span>
                       {/* <span className="block lg:hidden">{product.quantity}</span> */}
                       {index < order.attributes.products.length - 1 && (

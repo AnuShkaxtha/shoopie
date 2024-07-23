@@ -36,6 +36,8 @@ const AddProduct: React.FC = () => {
     longDescription: '',
     category: '',
     sub_categories: '',
+    image: '',
+    imageId: null
   });
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
@@ -65,6 +67,40 @@ const AddProduct: React.FC = () => {
   const handleSubcategoryChange = (value: string) => {
     setProductData({ ...productData, sub_categories: value });
   };
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      try {
+        const formData = new FormData();
+        formData.append('files', file);
+
+        // Upload image to Strapi using fetch
+        const imageResponse = await fetch('https://strapi-backend-ddn2.onrender.com/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!imageResponse.ok) {
+          const errorText = await imageResponse.text();
+          throw new Error(errorText);
+        }
+
+        const imageData = await imageResponse.json();
+
+        console.log(imageData);
+
+        const imageUrl = imageData[0].url;
+        const { id: imageId, ...imageAttributes } = imageData[0];
+        console.log(imageAttributes)
+
+        setProductData({ ...productData,  imageId, image:imageAttributes });
+        console.log('Image uploaded:', imageUrl);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+    }
+  };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,7 +123,9 @@ const AddProduct: React.FC = () => {
         subcategory: {
           id: productData.sub_categories
         },
-        
+        image: {  
+          id: productData.imageId
+        },
       };
 
       console.log(productToAdd)
@@ -102,6 +140,8 @@ const AddProduct: React.FC = () => {
         longDescription: '',
         category: '',
         sub_categories: '',
+        image: '',
+    imageId: null
        
       });
 
@@ -191,7 +231,12 @@ const AddProduct: React.FC = () => {
               </Select>
             )}
 
-          
+<Input
+              type="file"
+              onChange={handleImageUpload}
+              accept="image/*"
+              required
+            />
             <Button type="submit" disabled={loading}>
               {loading ? 'Adding Product...' : 'Add Product'}
             </Button>
