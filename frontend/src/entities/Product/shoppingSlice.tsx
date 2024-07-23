@@ -12,10 +12,11 @@ const initialState: ShoppingState = {
     topRated: false,
   },
   priceRanges: {
-    range0_300: false,
-    range300_600: false,
-    range600_1000: false,
-    range1000_4000: false,
+    $0_500: false,
+    $500_1000: false,
+    $1000_2500: false,
+    $2500_4000: false,
+    $4000_more: false,
   },
   allItem: false,
   filterCategory: {
@@ -73,10 +74,11 @@ export const shoppingSlice = createSlice({
         topRated: false,
       };
       state.priceRanges = {
-        range0_300: false,
-        range300_600: false,
-        range600_1000: false,
-        range1000_4000: false,
+        $0_500: false,
+        $500_1000: false,
+        $1000_2500: false,
+        $2500_4000: false,
+        $4000_more: false,
       };
       state.filterCategory = {
         womens: false,

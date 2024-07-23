@@ -6,6 +6,8 @@ import { RootState, AppDispatch } from '@/app/store/store';
 import Item from '@/entities/Item/Item';
 import { SubCategory as SubCategoryInterface } from '../models/categoryModel';
 import { fetchSubCategoryById } from '../api/specificCategoryApi';
+import { filterItems } from '@/feature/Filtering/components/filterFun';
+import Filter from '@/feature/Filtering/components/HomeFilters';
 
 
 
@@ -26,9 +28,10 @@ console.log(categoryId);
   const searchParams = new URLSearchParams(location.search);
 
   const subCategoryId = searchParams.get('subCategory');
-
+  const { searchInput, filterTrends, priceRanges, allItem, } = useSelector((state: RootState) => state.shopping);
   console.log(subCategoryId) // null 
-
+  const filteredItems = filterItems(items, filterTrends, priceRanges, searchInput, allItem);
+  
   useEffect(() => {
     const fetchSubCategoryData = async () => {
       if (subCategoryId) {
@@ -45,18 +48,23 @@ console.log(categoryId);
   }, [categoryId, subCategoryId, dispatch]);
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5 lg:mt-[130px] mt-[100px] md:mt-[130px]">
-      {/* <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
+      <div className={`col-span-1 px-2 ml-2 md:mt-6 lg:mt-10 lg:ml-6 hidden md:block`}>
         <Filter />
-      </div> */}
-      {/* <div className="col-span-1 md:col-span-3 lg:col-span-4"> */}
-      <div className="col-span-5">
+      </div>
+      <div className="col-span-1 md:col-span-3 lg:col-span-4">
+      {/* <div className="col-span-5"> */}
         <div className="mx-auto w-[89%] md:my-6 lg:my-9">
           {subCategory ? (
             
             <div className='text-center'>
               <h1 className='font-bold text-[20px] uppercase'>{subCategory?.attributes.name}</h1>
-              <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2 lg:grid-cols-3">
-                {items.map((item) => (
+              {filteredItems.length === 0 ? (
+                <div className="mt-5 mb-20 text-center">
+                  <p className="mt-2 text-gray-500">No items found.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredItems.map((item) => (
                   <Item
                     key={`${item.attributes.name}-${item.id}`}
                     item={item}
@@ -64,6 +72,8 @@ console.log(categoryId);
                   />
                 ))}
               </div>
+              )}
+              
             </div>
           ) : (
             <p>Loading...</p>

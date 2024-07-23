@@ -5,7 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Item from "../../../entities/Item/Item";
 import { FilterTrends, PriceRanges } from "@/entities/Product/model/productModel";
 import { RootState } from "@/app/store/store";
-import Filter from "./HomeFilters";
+import Filter from "../../Filtering/components/HomeFilters";
+import { filterItems } from "@/feature/Filtering/components/filterFun";
 
 const ShoppingList: React.FC = () => {
   const dispatch = useDispatch(); //Hook to dispatch actions.
@@ -22,43 +23,9 @@ const ShoppingList: React.FC = () => {
   };
 
   // function to filtering items 
-  const filterItemsByTrends = () => {
-    let filteredItems = items;
-    // filter by trens
-    if (!allItem) {
-      const selectedTrends = Object.keys(filterTrends).filter(
-        (trend) => filterTrends[trend as keyof FilterTrends]
-      );
-      if (selectedTrends.length > 0) {
-        filteredItems = filteredItems.filter((item) =>
-          selectedTrends.includes(item.attributes.trend)
-        );
-      }
-    }
-    // filter by price
-    const selectedPriceRanges = Object.keys(priceRanges).filter(
-      (range) => priceRanges[range as keyof PriceRanges]
-    );
-    if (selectedPriceRanges.length > 0) {
-      filteredItems = filteredItems.filter((item) => {
-        const price = item.attributes.price;
-        return selectedPriceRanges.some((range) => {
-          if (range === "0-500") return price >= 0 && price <= 500;
-          if (range === "500-1000") return price > 500 && price <= 1000;
-          if (range === "1000-2500") return price > 1000 && price <= 2500;
-          if (range === "2500-4000") return price > 2500 && price <= 4000;
-          if(range===">4000") return price > 4000;
-          return false;
-        });
-      });
-    }
-    // filter by searching 
-    return filteredItems.filter((item) =>
-      item.attributes.name.toLowerCase().includes(searchInput.toLowerCase())
-    );
-  };
+  
 
-  const filteredItems = filterItemsByTrends();
+  const filteredItems = filterItems(items, filterTrends, priceRanges, searchInput, allItem);
 
   const hasFiltersApplied = () => {
     return (

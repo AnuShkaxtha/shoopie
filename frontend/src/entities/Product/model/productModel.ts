@@ -7,10 +7,11 @@ export interface FilterTrends {
   }
   
   export interface PriceRanges {
-    range0_300: boolean;
-    range300_600: boolean;
-    range600_1000: boolean;
-    range1000_4000: boolean;
+    $0_500: boolean;
+    $500_1000: boolean;
+    $1000_2500: boolean;
+    $2500_4000: boolean;
+    $4000_more: boolean;
   }
   
   export interface FilterCategory {

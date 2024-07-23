@@ -33,7 +33,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { SubNav } from "@/feature/Home/SubNav";
-import Filter from "@/feature/Home/ShoppingList/HomeFilters";
+import Filter from "@/feature/Filtering/components/HomeFilters";
 import { RootState } from "@/app/store/store";
 import { logout } from "@/entities/Admin/adminAuthSlice";
 import { If } from "react-if";
