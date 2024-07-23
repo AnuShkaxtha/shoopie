@@ -8,57 +8,51 @@ import { RootState } from "@/app/store/store";
 import Filter from "./HomeFilters";
 
 const ShoppingList: React.FC = () => {
-  const dispatch = useDispatch();
-  const {
-    searchInput,
-    filterTrends,
-    priceRanges,
-    allItem,
-  } = useSelector((state: RootState) => state.shopping);
-
-  const [value, setValue] = useState<string>("all");
-  const items = useSelector((state: RootState) => state.cart.items);
-
+  const dispatch = useDispatch(); //Hook to dispatch actions.
+  const { searchInput, filterTrends, priceRanges, allItem, } = useSelector((state: RootState) => state.shopping); //Hook to select parts of the state from the Redux store.
+  const [value, setValue] = useState<string>("all"); //manage the current tab selection. efault set to all
+  const items = useSelector((state: RootState) => state.cart.items); // takes state of cart items 
+   // fetch items when component mounts
   useEffect(() => {
     dispatch(fetchItems() as any);
   }, [dispatch]);
-
+  // function to change tab value    
   const handleChange = (newValue: string) => {
     setValue(newValue);
   };
 
+  // function to filtering items 
   const filterItemsByTrends = () => {
     let filteredItems = items;
-
+    // filter by trens
     if (!allItem) {
       const selectedTrends = Object.keys(filterTrends).filter(
         (trend) => filterTrends[trend as keyof FilterTrends]
       );
-
       if (selectedTrends.length > 0) {
         filteredItems = filteredItems.filter((item) =>
           selectedTrends.includes(item.attributes.trend)
         );
       }
     }
-
+    // filter by price
     const selectedPriceRanges = Object.keys(priceRanges).filter(
       (range) => priceRanges[range as keyof PriceRanges]
     );
-
     if (selectedPriceRanges.length > 0) {
       filteredItems = filteredItems.filter((item) => {
         const price = item.attributes.price;
         return selectedPriceRanges.some((range) => {
-          if (range === "range0_300") return price >= 0 && price <= 300;
-          if (range === "range300_600") return price > 300 && price <= 600;
-          if (range === "range600_1000") return price > 600 && price <= 1000;
-          if (range === "range1000_4000") return price > 1000 && price <= 4000;
+          if (range === "0-500") return price >= 0 && price <= 500;
+          if (range === "500-1000") return price > 500 && price <= 1000;
+          if (range === "1000-2500") return price > 1000 && price <= 2500;
+          if (range === "2500-4000") return price > 2500 && price <= 4000;
+          if(range===">4000") return price > 4000;
           return false;
         });
       });
     }
-
+    // filter by searching 
     return filteredItems.filter((item) =>
       item.attributes.name.toLowerCase().includes(searchInput.toLowerCase())
     );

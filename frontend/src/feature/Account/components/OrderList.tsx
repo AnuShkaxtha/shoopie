@@ -10,7 +10,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
-import { fetchOrders} from "../api/userDataApi";
+import { fetchOrders } from "../api/userDataApi";
 import { Order } from "@/feature/Account/models/Order";
 import { Button } from "@/components/ui/button";
 import {
@@ -70,7 +70,7 @@ const OrderList: React.FC = () => {
       console.error("Error cancelling order:", error);
     }
   };
-  
+
   if (loading) {
     return <div>Loading orders...</div>;
   }
@@ -79,7 +79,7 @@ const OrderList: React.FC = () => {
   }
   return (
     <div className="px-4 py-2 lg:py-6 lg:mt-5 md:mt-5">
-      <h1 className="mb-4 text-2xl font-bold">User Orders</h1>
+      <h1 className="mb-4 text-2xl font-bold">My Orders</h1>
       {orders.length === 0 ? (
         <p>No orders found</p>
       ) : (
@@ -105,7 +105,7 @@ const OrderList: React.FC = () => {
 
                 <TableCell className="flex flex-col space-y-2 min-w-[200px]">
                   {order.attributes.products.map((product, index) => (
-                    <div key={index} className="text-left">
+                    <div key={index} className="text-left lg:mt-3">
                       <span>{product.productName}</span>
                       {index < order.attributes.products.length - 1 && (
                         <Separator className="mt-4 bg-gray-600" />
@@ -113,9 +113,9 @@ const OrderList: React.FC = () => {
                     </div>
                   ))}
                 </TableCell>
-                <TableCell className="space-y-2 ">
+                <TableCell className="space-y-2">
                   {order.attributes.products.map((product, index) => (
-                    <div key={index} className="mb-5">
+                    <div key={index} className="mb-5 lg:mt-2">
                       <span>Quantity: {product.quantity}</span>
                       {index < order.attributes.products.length - 1 && (
                         <Separator className="mt-4 bg-gray-600" />
@@ -146,13 +146,13 @@ const OrderList: React.FC = () => {
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       {order.attributes.status === "Order Placed" ? (
-                        <Button  variant={"destructive"}>
+                        <Button variant={"destructive"}>
                           Cancle Order
                         </Button>
                       ) : (
                         <Button disabled variant={"destructive"}>Cancle Order</Button>
                       )}
-                      
+
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
@@ -166,16 +166,16 @@ const OrderList: React.FC = () => {
                       </AlertDialogHeader>
                       <AlertDialogFooter>
                         <AlertDialogCancel>No</AlertDialogCancel>
-                        <AlertDialogAction  onClick={() => handleCancelOrder(order.id)}>Yes</AlertDialogAction>
+                        <AlertDialogAction onClick={() => handleCancelOrder(order.id)}>Yes</AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
                   {order.attributes.status === "Delivered" ? (
-                        <Button  variant={"secondary"} className="mt-2">
-                        Give review
-                      </Button>
-                      ) : ""}
-                 
+                    <Button variant={"secondary"} className="mt-2">
+                      Give review
+                    </Button>
+                  ) : ""}
+
                 </TableCell>
               </TableRow>
             ))}
