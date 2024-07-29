@@ -1,4 +1,3 @@
-// src/features/shopping/shoppingModels.ts
 
 export interface FilterTrends {
     newArrivals: boolean;

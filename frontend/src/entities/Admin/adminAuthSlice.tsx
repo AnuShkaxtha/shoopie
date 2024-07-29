@@ -16,15 +16,12 @@ const initialState: AdminAuthState = {
   error: null,
 };
 
-export const loginAdmin = createAsyncThunk<
-  string, // return type
-  { email: string; password: string },
-  { state: RootState }
->(
+export const loginAdmin = createAsyncThunk< string, { email: string; password: string }, { state: RootState }>(
   'adminAuth/loginAdmin',
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await fetch('https://strapi-backend-ddn2.onrender.com/admin/login', {
+        // send post request to login 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +35,7 @@ export const loginAdmin = createAsyncThunk<
 
       const data = await response.json();
       console.log(data)
-      localStorage.setItem('adminToken', data.jwt);
+      localStorage.setItem('adminToken', data.jwt); // store jwt token in local storage
       return data.jwt;
     } catch (error: any) {
       return rejectWithValue(error.message);

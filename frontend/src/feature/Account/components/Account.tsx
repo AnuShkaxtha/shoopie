@@ -5,27 +5,24 @@ import OrderList from "./OrderList";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { doSignOut } from "@/firebase/auth";
-import { fetchUserDetails, updateUserDetails } from "../api/userDataApi";
+import { fetchUserDetails} from "../api/userDataApi";
 import {
   DropdownMenu,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Ellipsis, LogOut, Menu, User } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 
 const Account: React.FC = () => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
   const [showAccount, setShowAccount] = useState<boolean>(true);
   const [userDetails, setUserDetails] = useState<any>(null);
-  const [editMode, setEditMode] = useState<boolean>(false);
-  const [formData, setFormData] = useState<any>({ name: "", email: "" });
 
   // fetching user data
   useEffect(() => {
@@ -37,10 +34,6 @@ const Account: React.FC = () => {
         try {
           const userData = await fetchUserDetails(userId);
           setUserDetails(userData);
-          setFormData({
-            name: userData.name || "",
-            email: userData.email || "",
-          });
         } catch (error: any) {
           console.error(error.message);
         }
@@ -49,33 +42,6 @@ const Account: React.FC = () => {
       fetchUserData();
     }
   }, [currentUser, navigate]);
-
-  // fuction to change data
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData: any) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  // fuction to handle submission of form
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (currentUser) {
-      try {
-        await updateUserDetails(currentUser.uid, formData);
-        setUserDetails((prevDetails: any) => ({
-          ...prevDetails,
-          name: formData.name,
-          email: formData.email,
-        }));
-        setEditMode(false);
-      } catch (error: any) {
-        console.error(error.message);
-      }
-    }
-  };
 
   return (
     <div className="grid grid-cols-5 gap-4 mt-6 pt-14 md:mt-12 ">
@@ -158,79 +124,35 @@ const Account: React.FC = () => {
               <CardContent>
                 {userDetails ? (
                   <div className="space-y-4 text-left md:space-y-10">
-                    {editMode ? (
-                      <form onSubmit={handleFormSubmit}>
-                        <div className="mb-4">
-                          <label className="block mb-2 text-sm font-bold">
-                            Name:
-                          </label>
-                          <input
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            className="w-full px-3 py-2 border rounded"
-                          />
-                        </div>
-                        <div className="mb-4">
-                          <label className="block mb-2 text-sm font-bold">
-                            Email:
-                          </label>
-                          <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            className="w-full px-3 py-2 border rounded"
-                          />
-                        </div>
-                        <div className="flex justify-end space-x-4">
-                          <Button
-                            type="button"
-                            onClick={() => setEditMode(false)}
-                          >
-                            Cancel
-                          </Button>
-                          <Button type="submit">Save</Button>
-                        </div>
-                      </form>
-                    ) : (
+                    
                       <div className="space-y-6">
                         <p className="mt-4 font-bold">
-                          Name:{" "}
+                          Name:
                           <span className="font-normal">
-                            {" "}
                             {currentUser?.displayName
                               ? currentUser.displayName
                               : currentUser?.email?.split("@")[0]}
                           </span>
                         </p>
                         <p className="font-bold">
-                          Email:{" "}
                           <span className="font-normal">
                             {userDetails.email}
                           </span>
                         </p>
                         <p className="font-bold">
-                          User ID:{" "}
+                          User ID:
                           <span className="font-normal">
                             {userDetails.userId}
                           </span>
                         </p>
                         <p className="font-bold">
-                          Created At:{" "}
+                          Created At:
                           <span className="font-normal">
                             {new Date(userDetails.createdAt).toLocaleString()}
                           </span>
                         </p>
-                        <Button
-                          onClick={() => setEditMode(true)}
-                          className="mt-4"
-                        >
-                          Edit
-                        </Button>
                       </div>
-                    )}
+                    
                   </div>
                 ) : (
                   <p>Loading...</p>

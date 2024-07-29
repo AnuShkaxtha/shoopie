@@ -18,11 +18,9 @@ import Dashboard from "@/feature/Admin/Dashboard";
 const ScrollToTop = () => {
   //  returns current location of object
   const { pathname } = useLocation();
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
   return null;
 };
 

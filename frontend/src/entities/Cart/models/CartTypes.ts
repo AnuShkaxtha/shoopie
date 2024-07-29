@@ -1,6 +1,5 @@
 export interface ImageData {
     attributes: {
-
         url: string;
     };
 
@@ -11,7 +10,6 @@ export interface CategoryData {
     }
 }
 
-// Define types for items and cart state
 export interface ItemAttributes {
     category: {
         data: CategoryData;

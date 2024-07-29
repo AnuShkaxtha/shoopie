@@ -8,10 +8,7 @@ function Footer(): JSX.Element {
         <div className="mr-8">
           <p className="mb-4 font-bold">SHOOPIE</p>
           <div className="text-justify">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+          Discover a world of style and savings! Shop the latest trends and timeless classics at unbeatable prices. From fashion to home essentials, find everything you need to enhance your lifestyle. Shop now and experience seamless online shopping with fast delivery and exceptional customer service.
           </div>
         </div>
 

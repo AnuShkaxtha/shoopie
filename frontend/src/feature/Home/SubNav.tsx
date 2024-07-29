@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { Separator } from '@/components/ui/separator';
 import { fetchCategoriesApi } from '@/feature/Home/api/categoryApi';
@@ -14,11 +9,11 @@ import { Category } from './models/categoryTypes';
 // Main component
 export const SubNav: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
-
   useEffect(() => {
     fetchCategories();
   }, []);
 
+  // function to fetch categories
   const fetchCategories = async () => {
     try {
       const data = await fetchCategoriesApi();
@@ -42,6 +37,7 @@ export const SubNav: React.FC = () => {
                   </NavigationMenuTrigger>
                 </Link>
                 <NavigationMenuContent>
+                  {/* SUBCATEGORY */}
                   {category.attributes.sub_categories.data.length > 0 ? (
                      <ul className="grid w-[400px] gap-3 p-4 grid-cols-2  text-[13px]">
                      {category.attributes.sub_categories.data.map((subCategory) => (

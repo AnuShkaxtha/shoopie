@@ -3,16 +3,17 @@ import { fetchItemsApi, fetchItemByIdApi } from "./api/cartApi";
 import { CartItem, CartState, Item, ItemAttributes } from "./models/CartTypes";
 
 
-// Thunks for asynchronous operations
+// asynchronous fetches all items using fetchItemsApi
 export const fetchItems = createAsyncThunk("cart/fetchItems", async () => {
   return await fetchItemsApi();
 });
 
+// fetches single item using ID
 export const fetchItemById = createAsyncThunk("cart/fetchItemById", async (itemId: number) => {
   return await fetchItemByIdApi(itemId);
 });
 
-// Storing cart item in local storage 
+// Loads cart item in local storage for specific user 
 export const loadCartItemsFromStorage = (userId: string): CartItem[] => {
   try {
     const savedCart = localStorage.getItem(`cart_${userId}`);
@@ -23,7 +24,7 @@ export const loadCartItemsFromStorage = (userId: string): CartItem[] => {
   } catch (error) {
     console.error('Error loading cart items from local storage:', error);
   }
-  return [];
+  return [];  // returns empty array as default 
 };
 
 // Initial state with empty cart and items arrays
@@ -53,12 +54,11 @@ export const cartSlice = createSlice({
     addToCart: (state, action: PayloadAction<{ id: number; count: number } & ItemAttributes>) => {
       const { id, count, ...attributes } = action.payload;
       console.log(attributes)
+       // Incresing qunatity if Item exists in cart 
       const itemIndex = state.cart.findIndex(item => item.id === id);
-      // Item exists in cart 
       if (itemIndex >= 0) {
         state.cart[itemIndex].qnty += count;
       } else {
-        
         state.cart.push({ id, attributes, qnty: count });
       }
     },
@@ -95,7 +95,7 @@ export const cartSlice = createSlice({
     },
     
   },
-  extraReducers: (builder) => {
+  extraReducers: (builder) => { // Handles asynchronous actions (thunks)
     builder
       .addCase(fetchItems.pending, (state) => {
         state.status = 'loading';

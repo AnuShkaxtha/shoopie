@@ -7,7 +7,7 @@ export const fetchItemsByCategoryApi = async (categoryId: string) => {
     throw new Error("Failed to fetch items by category");
   }
   const itemsJson = await response.json();
-  return itemsJson.data; // Adjust based on your API response structure
+  return itemsJson.data; 
 };
 
 export const fetchItemsBySubCategoryApi = async (categoryId: string, subCategoryId: string) => {
