@@ -7,6 +7,7 @@ import { addToCart} from "@/entities/Cart";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/firebase/AuthProvider";
 import { ItemProps } from "./models/itemModels";
+import { Badge } from "@/components/ui/badge";
 
 const Item: FC <ItemProps> = ({ item,  id }) => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Item: FC <ItemProps> = ({ item,  id }) => {
   const [count, setCount] = useState(1);  //counting cart items
   const [isHovered, setIsHovered] = useState(false);
   const { currentUser } = useAuth();
-  const { brand, price, name, image } = item.attributes;
+  const { brand, price, name, image,trend } = item.attributes;
   const imageUrl = image?.data?.attributes?.url;
 
   // function to handle add to cart 
@@ -38,14 +39,23 @@ const Item: FC <ItemProps> = ({ item,  id }) => {
     }
   };
 
+
   return (
     <div>
+      
       <Card onMouseOver={() => setIsHovered(true)}
         onMouseOut={() => setIsHovered(false)}
         className="relative flex justify-center align-center">
+          <div>
+          {trend=="newArrivals"&&(
+            <Badge className="absolute text-xs font-bold text-white bg-blue-500 -top-1 -left-2">new</Badge>
+          )}
+          </div>
         {imageUrl && (
+          
           <img alt={name} src={`${imageUrl}`} className="cursor-pointer w-[300px] h-[400px]"
             onClick={() => navigate(`/item/${id}`)}/>
+            
         )}
 
         {isHovered && (
